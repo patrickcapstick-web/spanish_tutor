@@ -76,7 +76,7 @@ for (const text of texts) {
     failed++;
     console.error(`FAIL ${text} -> ${e.message}`);
     if (failed <= 3) console.log(`::error title=ElevenLabs request failed::${e.message.replace(/[\r\n]+/g, ' ')}`);
-    if (/quota|401|unauthor/i.test(e.message)) {
+    if (/quota|401|unauthor|invalid_api_key|authentication_error/i.test(e.message)) {
       console.error('Stopping: the key was rejected or the ElevenLabs quota is used up.');
       break;
     }
