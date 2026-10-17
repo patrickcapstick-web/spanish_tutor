@@ -1,0 +1,12 @@
+{
+  "name": "sin-pensar",
+  "private": true,
+  "type": "module",
+  "description": "FSI-style Spanish drills with ElevenLabs audio and speech checking",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "audio": "node scripts/generate-audio.mjs"
+  }
+}

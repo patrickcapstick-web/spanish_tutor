@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sin Pensar</title>
+<meta name="description" content="FSI-style Spanish drills: memorise a dialogue, drill the patterns, review on a spaced schedule.">
+<meta name="theme-color" content="#3B2FB5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sin Pensar">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Figtree:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+/* Layout: one narrow drill sheet, like a single page of a typewritten language-lab manual. Yellow highlighter marks the cue. */
+:root{
+  --bg:#F2F1F7; --sheet:#FCFBFF; --ink:#1E1A4A; --muted:#66628A; --line:#D6D3E6;
+  --mark:#F2C230; --mark-ink:#1E1A4A; --accent:#3B2FB5; --on-accent:#FFFFFF;
+  --good:#1F7A4D; --slow:#96600A; --miss:#B3303C;
+  --f-es:"Literata",Georgia,"Times New Roman",serif;
+  --f-ui:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-tw:"Courier Prime","Courier New",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root{
+  --bg:#131127; --sheet:#1C1938; --ink:#ECEAFB; --muted:#A29EC6; --line:#35315C;
+  --accent:#9990FF; --on-accent:#131127;
+  --good:#5FCB95; --slow:#E8B04A; --miss:#F07A85; color-scheme:dark } }
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.5;
+  padding-inline:16px;padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:620px;margin-inline:auto;display:flex;flex-direction:column;gap:20px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+p{margin:0}
+[hidden]{display:none!important}
+
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px}
+.name{font-family:var(--f-es);font-weight:600;font-size:1.6rem;letter-spacing:-.01em}
+.tag{font-family:var(--f-tw);font-size:.8rem;color:var(--muted);margin-left:8px;text-transform:uppercase;letter-spacing:.06em}
+nav{display:flex;gap:4px}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:6px 10px;font-weight:600;color:var(--muted)}
+nav button[aria-current="page"]{color:var(--ink);border-bottom-color:var(--mark)}
+
+#view{display:flex;flex-direction:column;gap:16px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:24px 20px;display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--f-es);font-weight:600;font-size:1.9rem;line-height:1.15;margin:0;text-wrap:balance}
+.lbl,.how,.meta,.who{font-family:var(--f-tw);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.meta{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.es{font-family:var(--f-es);font-size:1.7rem;line-height:1.25;text-wrap:balance}
+.enq{font-size:1.45rem;font-weight:600;line-height:1.3;text-wrap:balance}
+.en{color:var(--muted)}
+.cue span{font-family:var(--f-tw);font-weight:700;font-size:1.25rem;background:var(--mark);color:var(--mark-ink);padding:2px 10px}
+.cue::before{content:"swap in  ";font-family:var(--f-tw);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:pre}
+.hint,.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.err{color:var(--miss);font-size:.95rem}
+
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{background:var(--accent);color:var(--on-accent);border:2px solid var(--accent);border-radius:4px;padding:11px 18px;font-weight:700;min-height:46px}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.wide{width:100%}
+.btn.link{background:none;border:0;color:var(--muted);text-decoration:underline;padding:8px 4px;font-weight:500;min-height:0}
+.btn.inline{padding:0 2px}
+.btn:disabled{opacity:.6;cursor:default}
+.mic{min-height:72px;font-size:1.1rem}
+.mic.rec{background:var(--miss);border-color:var(--miss);color:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.75}}
+@media (prefers-reduced-motion: reduce){.mic.rec{animation:none}.bar i{transition:none}}
+.play{background:none;border:1px solid var(--line);border-radius:50%;width:34px;height:34px;font-size:.8rem;vertical-align:middle;color:var(--accent);flex:none}
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grades button{background:transparent;border:2px solid;border-radius:4px;padding:10px 4px;font-weight:700;min-height:54px;display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.grades small{font-weight:400;font-size:.75rem;color:var(--muted)}
+.g-miss{border-color:var(--miss);color:var(--miss)}
+.g-slow{border-color:var(--slow);color:var(--slow)}
+.g-good{border-color:var(--good);color:var(--good)}
+.verdict{font-weight:700}
+.v-ok{color:var(--good)} .v-accent{color:var(--slow)} .v-no{color:var(--miss)}
+.answer{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+
+form{display:flex;flex-direction:column;gap:10px}
+input[type=text],input[type=password]{font-size:1.15rem;padding:10px 12px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+input[type=text]{font-family:var(--f-es);font-size:1.25rem}
+.pass .row input{flex:1 1 180px;width:auto}
+.keys{display:flex;flex-wrap:wrap;gap:6px}
+.keys button{background:var(--bg);border:1px solid var(--line);border-radius:4px;min-width:38px;height:38px;font-family:var(--f-es);font-size:1.05rem}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{border-top:3px solid var(--line);padding-top:8px}
+.stats b{display:block;font-family:var(--f-es);font-size:1.8rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-size:.85rem;color:var(--muted)}
+.opts{display:flex;flex-wrap:wrap;gap:14px 24px}
+.opt{display:flex;flex-direction:column;gap:6px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 14px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+details{border:1px solid var(--line);border-radius:4px;background:var(--sheet)}
+summary{padding:14px 16px;font-weight:700;cursor:pointer;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px}
+summary small{font-family:var(--f-tw);font-weight:400;color:var(--muted);font-variant-numeric:tabular-nums}
+.dbody{padding:4px 16px 18px;display:flex;flex-direction:column;gap:14px}
+.dbody ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:8px;max-width:60ch}
+.dlg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.dlg li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start}
+.dlg .l-es{font-family:var(--f-es);font-size:1.12rem;line-height:1.3}
+.dlg .l-en{font-size:.9rem;color:var(--muted)}
+.dlg .who{font-size:.72rem}
+.note{font-size:.95rem;border-left:3px solid var(--mark);padding-left:12px;max-width:60ch}
+.note code{font-family:var(--f-tw);font-weight:700;font-size:1rem}
+footer{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div><span class="name">Sin Pensar</span><span class="tag">Spanish drills</span></div>
+    <nav aria-label="Sections">
+      <button id="tab-today" data-tab="today">Today</button>
+      <button id="tab-course" data-tab="course">Course</button>
+    </nav>
+  </header>
+  <main id="view"><section class="sheet"><p class="muted">Loading the course…</p></section></main>
+  <footer><span>Progress is saved on this device.</span><span id="audio-note"></span></footer>
+</div>
+<script src="/app.js" defer></script>
+</body>
+</html>

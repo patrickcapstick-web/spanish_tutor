@@ -1,0 +1,1849 @@
+{
+ "version": 1,
+ "variety": "es-ES",
+ "units": [
+  {
+   "id": "u1",
+   "title": "Saludos",
+   "en": "Greetings",
+   "noteHtml": "<code>¿Cómo estás?</code> is for one person you know. <code>¿Cómo está usted?</code> is formal. <code>¿Cómo estáis?</code> is for a group of friends and is used every day in Spain.",
+   "dialogue": [
+    {
+     "speaker": "Ana",
+     "es": "Hola, buenos días.",
+     "en": "Hello, good morning."
+    },
+    {
+     "speaker": "Leo",
+     "es": "Buenos días. ¿Cómo estás?",
+     "en": "Good morning. How are you?"
+    },
+    {
+     "speaker": "Ana",
+     "es": "Muy bien, gracias. ¿Y tú?",
+     "en": "Very well, thanks. And you?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Bien también. ¿Cómo te llamas?",
+     "en": "Fine too. What is your name?"
+    },
+    {
+     "speaker": "Ana",
+     "es": "Me llamo Ana. ¿Y tú?",
+     "en": "My name is Ana. And you?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Me llamo Leo. Mucho gusto.",
+     "en": "My name is Leo. Nice to meet you."
+    },
+    {
+     "speaker": "Ana",
+     "es": "Encantada. Hasta luego.",
+     "en": "Pleased to meet you. See you later."
+    },
+    {
+     "speaker": "Leo",
+     "es": "Adiós, hasta luego.",
+     "en": "Goodbye, see you later."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Buenos días.",
+       "cue": "tardes",
+       "answers": [
+        "Buenas tardes."
+       ]
+      },
+      {
+       "base": "Buenos días.",
+       "cue": "noches",
+       "answers": [
+        "Buenas noches."
+       ]
+      },
+      {
+       "base": "Hasta luego.",
+       "cue": "mañana",
+       "answers": [
+        "Hasta mañana."
+       ]
+      },
+      {
+       "base": "Hasta luego.",
+       "cue": "pronto",
+       "answers": [
+        "Hasta pronto."
+       ]
+      },
+      {
+       "base": "Me llamo Ana.",
+       "cue": "Leo",
+       "answers": [
+        "Me llamo Leo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "¿Cómo estás?",
+       "cue": "usted",
+       "answers": [
+        "¿Cómo está usted?",
+        "¿Cómo está?"
+       ]
+      },
+      {
+       "base": "¿Cómo estás?",
+       "cue": "vosotros",
+       "answers": [
+        "¿Cómo estáis?",
+        "¿Cómo estáis vosotros?"
+       ]
+      },
+      {
+       "base": "¿Cómo estás?",
+       "cue": "ustedes",
+       "answers": [
+        "¿Cómo están ustedes?",
+        "¿Cómo están?"
+       ]
+      },
+      {
+       "base": "¿Cómo te llamas?",
+       "cue": "usted",
+       "answers": [
+        "¿Cómo se llama usted?",
+        "¿Cómo se llama?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "Good afternoon. How are you?",
+       "answers": [
+        "Buenas tardes. ¿Cómo estás?"
+       ]
+      },
+      {
+       "en": "Very well, and you?",
+       "answers": [
+        "Muy bien, ¿y tú?"
+       ]
+      },
+      {
+       "en": "Good night, see you tomorrow.",
+       "answers": [
+        "Buenas noches, hasta mañana."
+       ]
+      },
+      {
+       "en": "Hello, my name is Leo.",
+       "answers": [
+        "Hola, me llamo Leo."
+       ]
+      },
+      {
+       "en": "Thanks, see you soon.",
+       "answers": [
+        "Gracias, hasta pronto."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u2",
+   "title": "¿De dónde eres?",
+   "en": "Where are you from?",
+   "noteHtml": "The verb <code>ser</code> says who you are and where you are from: <code>soy, eres, es, somos, sois, son</code>. Spanish usually drops the pronoun because the verb ending already says who.",
+   "dialogue": [
+    {
+     "speaker": "Ana",
+     "es": "¿De dónde eres, Leo?",
+     "en": "Where are you from, Leo?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Soy de Estados Unidos. ¿Y tú?",
+     "en": "I am from the United States. And you?"
+    },
+    {
+     "speaker": "Ana",
+     "es": "Soy de Madrid. ¿Eres estudiante?",
+     "en": "I am from Madrid. Are you a student?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "No, soy ingeniero.",
+     "en": "No, I am an engineer."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¿Y tus amigos? ¿Son de aquí?",
+     "en": "And your friends? Are they from here?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "No, son de Inglaterra.",
+     "en": "No, they are from England."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¿Sois turistas?",
+     "en": "Are you all tourists?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Sí, somos turistas.",
+     "en": "Yes, we are tourists."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Soy de Madrid.",
+       "cue": "tú",
+       "answers": [
+        "Eres de Madrid."
+       ]
+      },
+      {
+       "base": "Soy de Madrid.",
+       "cue": "ella",
+       "answers": [
+        "Es de Madrid."
+       ]
+      },
+      {
+       "base": "Soy de Madrid.",
+       "cue": "nosotros",
+       "answers": [
+        "Somos de Madrid."
+       ]
+      },
+      {
+       "base": "Soy de Madrid.",
+       "cue": "vosotros",
+       "answers": [
+        "Sois de Madrid."
+       ]
+      },
+      {
+       "base": "Soy de Madrid.",
+       "cue": "ellos",
+       "answers": [
+        "Son de Madrid."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Soy de Madrid.",
+       "cue": "Inglaterra",
+       "answers": [
+        "Soy de Inglaterra."
+       ]
+      },
+      {
+       "base": "Soy estudiante.",
+       "cue": "turista",
+       "answers": [
+        "Soy turista."
+       ]
+      },
+      {
+       "base": "Somos turistas.",
+       "cue": "estudiantes",
+       "answers": [
+        "Somos estudiantes."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it negative.",
+     "items": [
+      {
+       "base": "Soy estudiante.",
+       "cue": null,
+       "answers": [
+        "No soy estudiante."
+       ]
+      },
+      {
+       "base": "Es de aquí.",
+       "cue": null,
+       "answers": [
+        "No es de aquí."
+       ]
+      },
+      {
+       "base": "Somos turistas.",
+       "cue": null,
+       "answers": [
+        "No somos turistas."
+       ]
+      },
+      {
+       "base": "Son de Inglaterra.",
+       "cue": null,
+       "answers": [
+        "No son de Inglaterra."
+       ]
+      },
+      {
+       "base": "Sois de Madrid.",
+       "cue": null,
+       "answers": [
+        "No sois de Madrid."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "She is from England.",
+       "answers": [
+        "Es de Inglaterra.",
+        "Ella es de Inglaterra."
+       ]
+      },
+      {
+       "en": "Are you from here? (one friend)",
+       "answers": [
+        "¿Eres de aquí?",
+        "¿Tú eres de aquí?"
+       ]
+      },
+      {
+       "en": "We are not students.",
+       "answers": [
+        "No somos estudiantes.",
+        "Nosotros no somos estudiantes."
+       ]
+      },
+      {
+       "en": "Where are you all from?",
+       "answers": [
+        "¿De dónde sois?",
+        "¿De dónde sois vosotros?"
+       ]
+      },
+      {
+       "en": "Your friends are tourists.",
+       "answers": [
+        "Tus amigos son turistas."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u3",
+   "title": "En el bar",
+   "en": "At the bar",
+   "noteHtml": "<code>querer</code> (to want): <code>quiero, quieres, quiere, queremos, queréis, quieren</code>. Use <code>un</code> with masculine nouns and <code>una</code> with feminine ones. A <code>caña</code> is a small draught beer.",
+   "dialogue": [
+    {
+     "speaker": "Camarero",
+     "es": "Hola, ¿qué te pongo?",
+     "en": "Hi, what can I get you?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Quiero un café con leche, por favor.",
+     "en": "I want a coffee with milk, please."
+    },
+    {
+     "speaker": "Camarero",
+     "es": "¿Algo más?",
+     "en": "Anything else?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Sí, una tostada con tomate.",
+     "en": "Yes, a toast with tomato."
+    },
+    {
+     "speaker": "Camarero",
+     "es": "Muy bien, ahora mismo.",
+     "en": "Very good, right away."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿Cuánto es?",
+     "en": "How much is it?"
+    },
+    {
+     "speaker": "Camarero",
+     "es": "Son tres euros con cincuenta.",
+     "en": "It is three euros fifty."
+    },
+    {
+     "speaker": "Leo",
+     "es": "Aquí tienes. Gracias.",
+     "en": "Here you go. Thanks."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Quiero un café.",
+       "cue": "una cerveza",
+       "answers": [
+        "Quiero una cerveza."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "un zumo de naranja",
+       "answers": [
+        "Quiero un zumo de naranja."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "una caña",
+       "answers": [
+        "Quiero una caña."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "un bocadillo de jamón",
+       "answers": [
+        "Quiero un bocadillo de jamón."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "una botella de agua",
+       "answers": [
+        "Quiero una botella de agua."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Quiero un café.",
+       "cue": "tú",
+       "answers": [
+        "Quieres un café."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "ella",
+       "answers": [
+        "Quiere un café."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "nosotros",
+       "answers": [
+        "Queremos un café."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "vosotros",
+       "answers": [
+        "Queréis un café."
+       ]
+      },
+      {
+       "base": "Quiero un café.",
+       "cue": "ellos",
+       "answers": [
+        "Quieren un café."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Add the right article: un or una.",
+     "items": [
+      {
+       "base": "café",
+       "cue": null,
+       "answers": [
+        "un café"
+       ]
+      },
+      {
+       "base": "cerveza",
+       "cue": null,
+       "answers": [
+        "una cerveza"
+       ]
+      },
+      {
+       "base": "tostada",
+       "cue": null,
+       "answers": [
+        "una tostada"
+       ]
+      },
+      {
+       "base": "bocadillo",
+       "cue": null,
+       "answers": [
+        "un bocadillo"
+       ]
+      },
+      {
+       "base": "zumo",
+       "cue": null,
+       "answers": [
+        "un zumo"
+       ]
+      },
+      {
+       "base": "caña",
+       "cue": null,
+       "answers": [
+        "una caña"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "We want two beers, please.",
+       "answers": [
+        "Queremos dos cervezas, por favor."
+       ]
+      },
+      {
+       "en": "A coffee and a toast.",
+       "answers": [
+        "Un café y una tostada."
+       ]
+      },
+      {
+       "en": "Do you want anything else?",
+       "answers": [
+        "¿Quieres algo más?"
+       ]
+      },
+      {
+       "en": "It is two euros.",
+       "answers": [
+        "Son dos euros."
+       ]
+      },
+      {
+       "en": "I do not want milk, thanks.",
+       "answers": [
+        "No quiero leche, gracias."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u4",
+   "title": "¿Dónde está?",
+   "en": "Where is it?",
+   "noteHtml": "The verb <code>estar</code> says where something is: <code>estoy, estás, está, estamos, estáis, están</code>. <code>Hay</code> means \"there is\" or \"there are\".",
+   "dialogue": [
+    {
+     "speaker": "Leo",
+     "es": "Perdona, ¿dónde está la estación de metro?",
+     "en": "Excuse me, where is the metro station?"
+    },
+    {
+     "speaker": "Ana",
+     "es": "Está cerca. Todo recto y a la derecha.",
+     "en": "It is nearby. Straight ahead and to the right."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿Está lejos de aquí?",
+     "en": "Is it far from here?"
+    },
+    {
+     "speaker": "Ana",
+     "es": "No, está a cinco minutos.",
+     "en": "No, it is five minutes away."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿Hay una farmacia por aquí?",
+     "en": "Is there a pharmacy around here?"
+    },
+    {
+     "speaker": "Ana",
+     "es": "Sí, hay una a la izquierda, al lado del banco.",
+     "en": "Yes, there is one on the left, next to the bank."
+    },
+    {
+     "speaker": "Leo",
+     "es": "Muchas gracias.",
+     "en": "Thank you very much."
+    },
+    {
+     "speaker": "Ana",
+     "es": "De nada.",
+     "en": "You are welcome."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "¿Dónde está la estación?",
+       "cue": "el baño",
+       "answers": [
+        "¿Dónde está el baño?"
+       ]
+      },
+      {
+       "base": "¿Dónde está la estación?",
+       "cue": "la farmacia",
+       "answers": [
+        "¿Dónde está la farmacia?"
+       ]
+      },
+      {
+       "base": "¿Dónde está la estación?",
+       "cue": "el hotel",
+       "answers": [
+        "¿Dónde está el hotel?"
+       ]
+      },
+      {
+       "base": "¿Dónde está la estación?",
+       "cue": "el banco",
+       "answers": [
+        "¿Dónde está el banco?"
+       ]
+      },
+      {
+       "base": "¿Dónde está la estación?",
+       "cue": "los servicios",
+       "answers": [
+        "¿Dónde están los servicios?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Estoy en Madrid.",
+       "cue": "tú",
+       "answers": [
+        "Estás en Madrid."
+       ]
+      },
+      {
+       "base": "Estoy en Madrid.",
+       "cue": "ella",
+       "answers": [
+        "Está en Madrid."
+       ]
+      },
+      {
+       "base": "Estoy en Madrid.",
+       "cue": "nosotros",
+       "answers": [
+        "Estamos en Madrid."
+       ]
+      },
+      {
+       "base": "Estoy en Madrid.",
+       "cue": "vosotros",
+       "answers": [
+        "Estáis en Madrid."
+       ]
+      },
+      {
+       "base": "Estoy en Madrid.",
+       "cue": "ellos",
+       "answers": [
+        "Están en Madrid."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Está a la derecha.",
+       "cue": "izquierda",
+       "answers": [
+        "Está a la izquierda."
+       ]
+      },
+      {
+       "base": "Está a la derecha.",
+       "cue": "cerca",
+       "answers": [
+        "Está cerca."
+       ]
+      },
+      {
+       "base": "Está a la derecha.",
+       "cue": "lejos",
+       "answers": [
+        "Está lejos."
+       ]
+      },
+      {
+       "base": "Está a la derecha.",
+       "cue": "al lado del hotel",
+       "answers": [
+        "Está al lado del hotel."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "The hotel is far from here.",
+       "answers": [
+        "El hotel está lejos de aquí."
+       ]
+      },
+      {
+       "en": "Is there a bank around here?",
+       "answers": [
+        "¿Hay un banco por aquí?"
+       ]
+      },
+      {
+       "en": "The pharmacy is on the right.",
+       "answers": [
+        "La farmacia está a la derecha."
+       ]
+      },
+      {
+       "en": "We are in Madrid.",
+       "answers": [
+        "Estamos en Madrid.",
+        "Nosotros estamos en Madrid."
+       ]
+      },
+      {
+       "en": "Excuse me, where are you all?",
+       "answers": [
+        "Perdona, ¿dónde estáis?",
+        "Perdonad, ¿dónde estáis?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u5",
+   "title": "En el restaurante",
+   "en": "At a restaurant",
+   "noteHtml": "<code>tener</code> (to have): <code>tengo, tienes, tiene, tenemos, tenéis, tienen</code>. The <code>menú del día</code> is a fixed-price lunch with a <code>primero</code> (first course), a <code>segundo</code> (main) and a drink. Ask for the bill with <code>La cuenta, por favor</code>.",
+   "dialogue": [
+    {
+     "speaker": "Camarera",
+     "es": "Buenas noches. ¿Cuántos sois?",
+     "en": "Good evening. How many of you are there?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Somos dos. ¿Hay mesa?",
+     "en": "There are two of us. Is there a table?"
+    },
+    {
+     "speaker": "Camarera",
+     "es": "Sí, por aquí. Aquí tenéis la carta.",
+     "en": "Yes, this way. Here is the menu."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿Qué nos recomiendas?",
+     "en": "What do you recommend?"
+    },
+    {
+     "speaker": "Camarera",
+     "es": "El menú del día está muy bien.",
+     "en": "The set menu of the day is very good."
+    },
+    {
+     "speaker": "Leo",
+     "es": "Vale. De primero, la sopa, y de segundo, el pollo.",
+     "en": "OK. The soup to start, and the chicken for the main course."
+    },
+    {
+     "speaker": "Camarera",
+     "es": "¿Y para beber?",
+     "en": "And to drink?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Agua sin gas, por favor.",
+     "en": "Still water, please."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "De primero, la sopa.",
+       "cue": "la ensalada",
+       "answers": [
+        "De primero, la ensalada."
+       ]
+      },
+      {
+       "base": "De primero, la sopa.",
+       "cue": "las croquetas",
+       "answers": [
+        "De primero, las croquetas."
+       ]
+      },
+      {
+       "base": "De segundo, el pollo.",
+       "cue": "el pescado",
+       "answers": [
+        "De segundo, el pescado."
+       ]
+      },
+      {
+       "base": "De segundo, el pollo.",
+       "cue": "la carne",
+       "answers": [
+        "De segundo, la carne."
+       ]
+      },
+      {
+       "base": "Agua sin gas, por favor.",
+       "cue": "con gas",
+       "answers": [
+        "Agua con gas, por favor."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Tengo una reserva.",
+       "cue": "tú",
+       "answers": [
+        "Tienes una reserva."
+       ]
+      },
+      {
+       "base": "Tengo una reserva.",
+       "cue": "ella",
+       "answers": [
+        "Tiene una reserva."
+       ]
+      },
+      {
+       "base": "Tengo una reserva.",
+       "cue": "nosotros",
+       "answers": [
+        "Tenemos una reserva."
+       ]
+      },
+      {
+       "base": "Tengo una reserva.",
+       "cue": "vosotros",
+       "answers": [
+        "Tenéis una reserva."
+       ]
+      },
+      {
+       "base": "Tengo una reserva.",
+       "cue": "ellos",
+       "answers": [
+        "Tienen una reserva."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it plural.",
+     "items": [
+      {
+       "base": "la sopa",
+       "cue": null,
+       "answers": [
+        "las sopas"
+       ]
+      },
+      {
+       "base": "el pescado",
+       "cue": null,
+       "answers": [
+        "los pescados"
+       ]
+      },
+      {
+       "base": "la cerveza",
+       "cue": null,
+       "answers": [
+        "las cervezas"
+       ]
+      },
+      {
+       "base": "el café",
+       "cue": null,
+       "answers": [
+        "los cafés"
+       ]
+      },
+      {
+       "base": "la mesa",
+       "cue": null,
+       "answers": [
+        "las mesas"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "The bill, please.",
+       "answers": [
+        "La cuenta, por favor."
+       ]
+      },
+      {
+       "en": "We have a reservation.",
+       "answers": [
+        "Tenemos una reserva.",
+        "Tenemos reserva."
+       ]
+      },
+      {
+       "en": "A table for two, please.",
+       "answers": [
+        "Una mesa para dos, por favor."
+       ]
+      },
+      {
+       "en": "I do not want dessert.",
+       "answers": [
+        "No quiero postre.",
+        "No quiero el postre."
+       ]
+      },
+      {
+       "en": "Is the fish good?",
+       "answers": [
+        "¿Está bueno el pescado?",
+        "¿El pescado está bueno?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u6",
+   "title": "El transporte",
+   "en": "Getting around",
+   "noteHtml": "<code>ir</code> (to go): <code>voy, vas, va, vamos, vais, van</code>. <code>a</code> + <code>el</code> joins into <code>al</code>: <code>voy al centro</code>. Times use <code>a la una</code>, <code>a las dos</code>, <code>y cuarto</code> (quarter past) and <code>y media</code> (half past).",
+   "dialogue": [
+    {
+     "speaker": "Leo",
+     "es": "Hola, quiero un billete para Toledo.",
+     "en": "Hello, I want a ticket to Toledo."
+    },
+    {
+     "speaker": "Empleada",
+     "es": "¿De ida o de ida y vuelta?",
+     "en": "One way or return?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "De ida y vuelta, por favor.",
+     "en": "Return, please."
+    },
+    {
+     "speaker": "Empleada",
+     "es": "Muy bien. Son veinte euros.",
+     "en": "Very good. That is twenty euros."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿A qué hora sale el tren?",
+     "en": "What time does the train leave?"
+    },
+    {
+     "speaker": "Empleada",
+     "es": "Sale a las diez y media.",
+     "en": "It leaves at half past ten."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿De qué andén?",
+     "en": "From which platform?"
+    },
+    {
+     "speaker": "Empleada",
+     "es": "Del andén cinco. Buen viaje.",
+     "en": "From platform five. Have a good trip."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Voy a Toledo.",
+       "cue": "tú",
+       "answers": [
+        "Vas a Toledo."
+       ]
+      },
+      {
+       "base": "Voy a Toledo.",
+       "cue": "ella",
+       "answers": [
+        "Va a Toledo."
+       ]
+      },
+      {
+       "base": "Voy a Toledo.",
+       "cue": "nosotros",
+       "answers": [
+        "Vamos a Toledo."
+       ]
+      },
+      {
+       "base": "Voy a Toledo.",
+       "cue": "vosotros",
+       "answers": [
+        "Vais a Toledo."
+       ]
+      },
+      {
+       "base": "Voy a Toledo.",
+       "cue": "ellos",
+       "answers": [
+        "Van a Toledo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Sale a las diez.",
+       "cue": "las once",
+       "answers": [
+        "Sale a las once."
+       ]
+      },
+      {
+       "base": "Sale a las diez.",
+       "cue": "la una",
+       "answers": [
+        "Sale a la una."
+       ]
+      },
+      {
+       "base": "Sale a las diez.",
+       "cue": "las diez y media",
+       "answers": [
+        "Sale a las diez y media."
+       ]
+      },
+      {
+       "base": "Sale a las diez.",
+       "cue": "las tres y cuarto",
+       "answers": [
+        "Sale a las tres y cuarto."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the place. Remember that a + el becomes al.",
+     "items": [
+      {
+       "base": "Voy a Madrid.",
+       "cue": "el aeropuerto",
+       "answers": [
+        "Voy al aeropuerto."
+       ]
+      },
+      {
+       "base": "Voy a Madrid.",
+       "cue": "la estación",
+       "answers": [
+        "Voy a la estación."
+       ]
+      },
+      {
+       "base": "Voy a Madrid.",
+       "cue": "el centro",
+       "answers": [
+        "Voy al centro."
+       ]
+      },
+      {
+       "base": "Voy a Madrid.",
+       "cue": "la playa",
+       "answers": [
+        "Voy a la playa."
+       ]
+      },
+      {
+       "base": "Voy a Madrid.",
+       "cue": "el hotel",
+       "answers": [
+        "Voy al hotel."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "A one-way ticket to Sevilla, please.",
+       "answers": [
+        "Un billete de ida para Sevilla, por favor.",
+        "Un billete de ida a Sevilla, por favor."
+       ]
+      },
+      {
+       "en": "What time does the bus leave?",
+       "answers": [
+        "¿A qué hora sale el autobús?"
+       ]
+      },
+      {
+       "en": "We are going to the airport.",
+       "answers": [
+        "Vamos al aeropuerto.",
+        "Nosotros vamos al aeropuerto."
+       ]
+      },
+      {
+       "en": "The train leaves at one.",
+       "answers": [
+        "El tren sale a la una."
+       ]
+      },
+      {
+       "en": "Where are you going? (one friend)",
+       "answers": [
+        "¿Adónde vas?",
+        "¿A dónde vas?",
+        "¿Dónde vas?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u7",
+   "title": "De compras",
+   "en": "Shopping",
+   "noteHtml": "<code>este</code> and <code>esta</code> mean \"this\" or \"this one\". Most colours agree with the noun: <code>un jersey negro</code>, <code>una camiseta negra</code>. <code>azul</code> and <code>verde</code> stay the same. Ask <code>¿Cuánto cuesta?</code> for one thing and <code>¿Cuánto cuestan?</code> for several. <code>caro</code> means expensive, and <code>me lo llevo</code> or <code>me la llevo</code> means \"I will take it\".",
+   "dialogue": [
+    {
+     "speaker": "Dependienta",
+     "es": "Hola, ¿te puedo ayudar?",
+     "en": "Hi, can I help you?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Sí, busco una camiseta.",
+     "en": "Yes, I am looking for a T-shirt."
+    },
+    {
+     "speaker": "Dependienta",
+     "es": "¿De qué talla?",
+     "en": "What size?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Mediana. ¿La tenéis en azul?",
+     "en": "Medium. Do you have it in blue?"
+    },
+    {
+     "speaker": "Dependienta",
+     "es": "Sí, esta es azul.",
+     "en": "Yes, this one is blue."
+    },
+    {
+     "speaker": "Leo",
+     "es": "¿Cuánto cuesta?",
+     "en": "How much does it cost?"
+    },
+    {
+     "speaker": "Dependienta",
+     "es": "Cuesta quince euros.",
+     "en": "It costs fifteen euros."
+    },
+    {
+     "speaker": "Leo",
+     "es": "Perfecto, me la llevo.",
+     "en": "Perfect, I will take it."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Busco una camiseta.",
+       "cue": "un jersey",
+       "answers": [
+        "Busco un jersey."
+       ]
+      },
+      {
+       "base": "Busco una camiseta.",
+       "cue": "unos zapatos",
+       "answers": [
+        "Busco unos zapatos."
+       ]
+      },
+      {
+       "base": "Busco una camiseta.",
+       "cue": "una chaqueta",
+       "answers": [
+        "Busco una chaqueta."
+       ]
+      },
+      {
+       "base": "Busco una camiseta.",
+       "cue": "un regalo",
+       "answers": [
+        "Busco un regalo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new item and make the colour agree.",
+     "items": [
+      {
+       "base": "Quiero la camiseta negra.",
+       "cue": "el jersey",
+       "answers": [
+        "Quiero el jersey negro."
+       ]
+      },
+      {
+       "base": "Quiero la camiseta negra.",
+       "cue": "la chaqueta",
+       "answers": [
+        "Quiero la chaqueta negra."
+       ]
+      },
+      {
+       "base": "Quiero la camiseta negra.",
+       "cue": "los zapatos",
+       "answers": [
+        "Quiero los zapatos negros."
+       ]
+      },
+      {
+       "base": "Quiero la camiseta negra.",
+       "cue": "las camisetas",
+       "answers": [
+        "Quiero las camisetas negras."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Ask the price. Use cuesta for one thing and cuestan for several.",
+     "items": [
+      {
+       "base": "la camiseta",
+       "cue": null,
+       "answers": [
+        "¿Cuánto cuesta la camiseta?"
+       ]
+      },
+      {
+       "base": "los zapatos",
+       "cue": null,
+       "answers": [
+        "¿Cuánto cuestan los zapatos?"
+       ]
+      },
+      {
+       "base": "el jersey",
+       "cue": null,
+       "answers": [
+        "¿Cuánto cuesta el jersey?"
+       ]
+      },
+      {
+       "base": "las gafas",
+       "cue": null,
+       "answers": [
+        "¿Cuánto cuestan las gafas?"
+       ]
+      },
+      {
+       "base": "esta chaqueta",
+       "cue": null,
+       "answers": [
+        "¿Cuánto cuesta esta chaqueta?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "Do you have it in black? (a T-shirt)",
+       "answers": [
+        "¿La tenéis en negro?",
+        "¿La tienes en negro?",
+        "¿La tienen en negro?"
+       ]
+      },
+      {
+       "en": "This one is very expensive. (a T-shirt)",
+       "answers": [
+        "Esta es muy cara."
+       ]
+      },
+      {
+       "en": "I will take it. (a jumper)",
+       "answers": [
+        "Me lo llevo."
+       ]
+      },
+      {
+       "en": "I am just looking, thanks.",
+       "answers": [
+        "Solo estoy mirando, gracias.",
+        "Sólo estoy mirando, gracias.",
+        "Solo miro, gracias."
+       ]
+      },
+      {
+       "en": "Can I pay by card?",
+       "answers": [
+        "¿Puedo pagar con tarjeta?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u8",
+   "title": "Charlando",
+   "en": "Small talk",
+   "noteHtml": "<code>me gusta</code> + one thing, <code>me gustan</code> + several. <code>te gusta</code> asks a friend and <code>os gusta</code> asks a group. Regular -ar verbs like <code>hablar</code>: <code>hablo, hablas, habla, hablamos, habláis, hablan</code>.",
+   "dialogue": [
+    {
+     "speaker": "Ana",
+     "es": "¿Qué haces este fin de semana?",
+     "en": "What are you doing this weekend?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Voy al Retiro con unos amigos.",
+     "en": "I am going to the Retiro with some friends."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¡Qué bien! ¿Te gusta Madrid?",
+     "en": "How nice! Do you like Madrid?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Sí, me gusta mucho.",
+     "en": "Yes, I like it a lot."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¿Y la comida?",
+     "en": "And the food?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Me encanta. Me gustan mucho las tapas.",
+     "en": "I love it. I really like tapas."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¿Hablas español en el trabajo?",
+     "en": "Do you speak Spanish at work?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Un poco. Casi siempre hablo inglés.",
+     "en": "A little. I almost always speak English."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new thing. Use gusta for one thing and gustan for several.",
+     "items": [
+      {
+       "base": "Me gusta Madrid.",
+       "cue": "las tapas",
+       "answers": [
+        "Me gustan las tapas."
+       ]
+      },
+      {
+       "base": "Me gusta Madrid.",
+       "cue": "el café",
+       "answers": [
+        "Me gusta el café."
+       ]
+      },
+      {
+       "base": "Me gusta Madrid.",
+       "cue": "los museos",
+       "answers": [
+        "Me gustan los museos."
+       ]
+      },
+      {
+       "base": "Me gusta Madrid.",
+       "cue": "la música",
+       "answers": [
+        "Me gusta la música."
+       ]
+      },
+      {
+       "base": "Me gusta Madrid.",
+       "cue": "el fútbol",
+       "answers": [
+        "Me gusta el fútbol."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Hablo español.",
+       "cue": "tú",
+       "answers": [
+        "Hablas español."
+       ]
+      },
+      {
+       "base": "Hablo español.",
+       "cue": "ella",
+       "answers": [
+        "Habla español."
+       ]
+      },
+      {
+       "base": "Hablo español.",
+       "cue": "nosotros",
+       "answers": [
+        "Hablamos español."
+       ]
+      },
+      {
+       "base": "Hablo español.",
+       "cue": "vosotros",
+       "answers": [
+        "Habláis español."
+       ]
+      },
+      {
+       "base": "Hablo español.",
+       "cue": "ellos",
+       "answers": [
+        "Hablan español."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Turn it into a question for a friend.",
+     "items": [
+      {
+       "base": "Me gusta el fútbol.",
+       "cue": null,
+       "answers": [
+        "¿Te gusta el fútbol?"
+       ]
+      },
+      {
+       "base": "Me gustan las tapas.",
+       "cue": null,
+       "answers": [
+        "¿Te gustan las tapas?"
+       ]
+      },
+      {
+       "base": "Hablo inglés.",
+       "cue": null,
+       "answers": [
+        "¿Hablas inglés?"
+       ]
+      },
+      {
+       "base": "Voy al Retiro.",
+       "cue": null,
+       "answers": [
+        "¿Vas al Retiro?"
+       ]
+      },
+      {
+       "base": "Soy de Madrid.",
+       "cue": null,
+       "answers": [
+        "¿Eres de Madrid?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "I do not like football.",
+       "answers": [
+        "No me gusta el fútbol."
+       ]
+      },
+      {
+       "en": "We speak a little Spanish.",
+       "answers": [
+        "Hablamos un poco de español."
+       ]
+      },
+      {
+       "en": "I love the tapas here.",
+       "answers": [
+        "Me encantan las tapas de aquí.",
+        "Me encantan las tapas aquí."
+       ]
+      },
+      {
+       "en": "Do you all like Madrid?",
+       "answers": [
+        "¿Os gusta Madrid?"
+       ]
+      },
+      {
+       "en": "I am going to the museum with some friends.",
+       "answers": [
+        "Voy al museo con unos amigos.",
+        "Voy al museo con amigos."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u9",
+   "title": "El trabajo",
+   "en": "Work",
+   "noteHtml": "<code>trabajar</code>: <code>trabajo, trabajas, trabaja, trabajamos, trabajáis, trabajan</code>. <code>los lunes</code> means \"on Mondays\". <code>empezar</code> (to start) changes e to ie in most forms: <code>empiezo, empiezas, empieza, empiezan</code>, but <code>empezamos, empezáis</code>.",
+   "dialogue": [
+    {
+     "speaker": "Ana",
+     "es": "¿A qué te dedicas?",
+     "en": "What do you do for work?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Soy ingeniero. Trabajo en una empresa de tecnología.",
+     "en": "I am an engineer. I work at a tech company."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¿Trabajas en la oficina?",
+     "en": "Do you work in the office?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "No, trabajo desde casa los lunes y los viernes.",
+     "en": "No, I work from home on Mondays and Fridays."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¡Qué suerte! ¿Te gusta tu trabajo?",
+     "en": "Lucky you! Do you like your job?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Sí, pero tengo muchas reuniones.",
+     "en": "Yes, but I have a lot of meetings."
+    },
+    {
+     "speaker": "Ana",
+     "es": "¿A qué hora empiezas?",
+     "en": "What time do you start?"
+    },
+    {
+     "speaker": "Leo",
+     "es": "Empiezo a las nueve y termino a las seis.",
+     "en": "I start at nine and finish at six."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Trabajo desde casa.",
+       "cue": "tú",
+       "answers": [
+        "Trabajas desde casa."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa.",
+       "cue": "ella",
+       "answers": [
+        "Trabaja desde casa."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa.",
+       "cue": "nosotros",
+       "answers": [
+        "Trabajamos desde casa."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa.",
+       "cue": "vosotros",
+       "answers": [
+        "Trabajáis desde casa."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa.",
+       "cue": "ellos",
+       "answers": [
+        "Trabajan desde casa."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Trabajo desde casa los lunes.",
+       "cue": "los viernes",
+       "answers": [
+        "Trabajo desde casa los viernes."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa los lunes.",
+       "cue": "los martes",
+       "answers": [
+        "Trabajo desde casa los martes."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa los lunes.",
+       "cue": "los miércoles",
+       "answers": [
+        "Trabajo desde casa los miércoles."
+       ]
+      },
+      {
+       "base": "Trabajo desde casa los lunes.",
+       "cue": "los jueves",
+       "answers": [
+        "Trabajo desde casa los jueves."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Empiezo a las nueve.",
+       "cue": "tú",
+       "answers": [
+        "Empiezas a las nueve."
+       ]
+      },
+      {
+       "base": "Empiezo a las nueve.",
+       "cue": "nosotros",
+       "answers": [
+        "Empezamos a las nueve."
+       ]
+      },
+      {
+       "base": "Empiezo a las nueve.",
+       "cue": "vosotros",
+       "answers": [
+        "Empezáis a las nueve."
+       ]
+      },
+      {
+       "base": "Empiezo a las nueve.",
+       "cue": "ellos",
+       "answers": [
+        "Empiezan a las nueve."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Spanish.",
+     "items": [
+      {
+       "en": "I work at a bank.",
+       "answers": [
+        "Trabajo en un banco."
+       ]
+      },
+      {
+       "en": "We have a meeting at ten.",
+       "answers": [
+        "Tenemos una reunión a las diez."
+       ]
+      },
+      {
+       "en": "She works from home on Fridays.",
+       "answers": [
+        "Trabaja desde casa los viernes.",
+        "Ella trabaja desde casa los viernes."
+       ]
+      },
+      {
+       "en": "What time do you finish? (one friend)",
+       "answers": [
+        "¿A qué hora terminas?"
+       ]
+      },
+      {
+       "en": "I do not like meetings.",
+       "answers": [
+        "No me gustan las reuniones."
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
