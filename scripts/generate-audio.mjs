@@ -5,7 +5,8 @@
 import fs from 'node:fs/promises';
 import crypto from 'node:crypto';
 
-const VOICE_ID = 'Syqs6p4s6hxhfAyhhlbS'; // Castilian voice chosen in the ElevenLabs Voice Library
+// Set the repository variable ELEVENLABS_VOICE_ID to switch voices without editing code.
+const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'Syqs6p4s6hxhfAyhhlbS'; // Castilian voice from the Voice Library
 const MODEL_ID = 'eleven_multilingual_v2';
 const FORMAT = 'mp3_44100_64';
 const DIR = 'audio';
@@ -76,8 +77,8 @@ for (const text of texts) {
     failed++;
     console.error(`FAIL ${text} -> ${e.message}`);
     if (failed <= 3) console.log(`::error title=ElevenLabs request failed::${e.message.replace(/[\r\n]+/g, ' ')}`);
-    if (/quota|401|unauthor|invalid_api_key|authentication_error/i.test(e.message)) {
-      console.error('Stopping: the key was rejected or the ElevenLabs quota is used up.');
+    if (/quota|401|unauthor|invalid_api_key|authentication_error|402|payment_required/i.test(e.message)) {
+      console.error('Stopping: ElevenLabs refused the request (key, plan or quota). See the error above.');
       break;
     }
   }

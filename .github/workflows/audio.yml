@@ -28,6 +28,7 @@ jobs:
         run: node scripts/generate-audio.mjs
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
       - name: Commit audio
         if: always()
         run: |
