@@ -6,7 +6,7 @@ import fs from 'node:fs/promises';
 import crypto from 'node:crypto';
 
 // Set the repository variable ELEVENLABS_VOICE_ID to switch voices without editing code.
-const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'Syqs6p4s6hxhfAyhhlbS'; // Castilian voice from the Voice Library
+const VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'GB7fZx4ubHWxbBE05abF';
 const MODEL_ID = 'eleven_multilingual_v2';
 const FORMAT = 'mp3_44100_64';
 const DIR = 'audio';

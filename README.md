@@ -9,7 +9,7 @@ A small web app for learning conversational Spain Spanish with the FSI drill met
 | `index.html`, `app.js` | The app. Progress is stored in the browser on each device. |
 | `course.json` | All units, dialogues and drills. Edit this to add content. |
 | `audio/` | One MP3 per Spanish sentence, plus `manifest.json` mapping sentence to file. |
-| `scripts/generate-audio.mjs` | Creates missing MP3s with ElevenLabs (voice `Syqs6p4s6hxhfAyhhlbS`, model `eleven_multilingual_v2`). |
+| `scripts/generate-audio.mjs` | Creates missing MP3s with ElevenLabs (voice `GB7fZx4ubHWxbBE05abF`, model `eleven_multilingual_v2`). |
 | `.github/workflows/audio.yml` | Runs the script and commits new audio whenever `course.json` changes on `main`, or on demand from the Actions tab. |
 | `api/stt.js` | Vercel function for speech checking. Sends a recording to ElevenLabs speech-to-text (`scribe_v2`, Spanish) and returns the transcript. |
 
