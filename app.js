@@ -4,6 +4,10 @@
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const TR = 'Say it in Spanish.';
+const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8v14.4a1 1 0 0 0 1.5.86l11.8-7.2a1 1 0 0 0 0-1.72L8.5 3.94A1 1 0 0 0 7 4.8z"/></svg>';
+const MIC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 14zm6-3.6a1 1 0 1 0-2 0 4 4 0 0 1-8 0 1 1 0 1 0-2 0 6 6 0 0 0 5 5.9V19H8.5a1 1 0 1 0 0 2h7a1 1 0 1 0 0-2H13v-2.7a6 6 0 0 0 5-5.9z"/></svg>';
+const STOP = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5"/></svg>';
+const SPIN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 1 1 0 1 0-2 0 7 7 0 1 1-7-7 1 1 0 1 0 0-2z"/></svg>';
 const INT = [0, 1, 3, 7, 14, 30, 60];
 const NEW_PER_DAY = 10;
 const REVIEW_CAP = 25;
@@ -338,11 +342,11 @@ function vSession() {
     + `<div class="meta"><span>${esc(c.label)} · ${esc(u.title)}</span><span>${sess.done.size} / ${sess.total}</span></div><section class="sheet">`;
   if (st.phase === 'learn') {
     h += `<p class="how">New line. Listen, then say it aloud three times.</p><p class="who">${esc(c.who)}</p><p class="es">${esc(c.es)}</p><p class="en">${esc(c.en)}</p>`
-      + `<div class="row"><button class="btn ghost" data-act="say" data-t="${esc(c.es)}">&#9654; Listen</button><button class="btn" data-act="learned" data-primary>I said it three times</button></div>`;
+      + `<div class="row"><button class="btn ghost" data-act="say" data-t="${esc(c.es)}">${PLAY} Listen</button><button class="btn" data-act="learned" data-primary>I said it three times</button></div>`;
   } else {
     h += `<p class="how">${esc(c.kind === 'line' ? TR : c.how)}</p>`;
     if (c.base) {
-      h += `<p class="es">${esc(c.base)} <button class="play" data-act="say" data-t="${esc(c.base)}" aria-label="Play the sentence">&#9654;</button></p>`;
+      h += `<p class="es">${esc(c.base)} <button class="play" data-act="say" data-t="${esc(c.base)}" aria-label="Play the sentence">${PLAY}</button></p>`;
       if (c.cue) h += `<p class="cue"><span>${esc(c.cue)}</span></p>`;
     } else {
       h += `<p class="enq">${esc(c.en)}</p>`;
@@ -353,10 +357,14 @@ function vSession() {
           + `<div class="keys">${['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü', '¿', '¡'].map((k) => `<button type="button" data-act="key" data-t="${k}">${k}</button>`).join('')}</div>`
           + '<div class="row"><button class="btn" type="submit">Check</button><button class="btn link" type="button" data-act="reveal">I do not know</button></div></form>';
       } else if (speechOn()) {
-        if (sess.phase === 'busy') h += '<button class="btn wide mic" disabled>Checking…</button>';
-        else h += `<button class="btn wide mic${sess.phase === 'rec' ? ' rec' : ''}" data-act="mic" data-primary>${sess.phase === 'rec' ? 'Listening. Tap to stop' : 'Tap and say your answer'}</button>`;
+        const ph = sess.phase;
+        h += '<div class="mic-wrap">'
+          + (ph === 'busy'
+            ? `<button class="mic busy" disabled aria-label="Checking your answer">${SPIN}</button><p class="mic-label muted">Checking…</p>`
+            : `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="mic" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record your answer'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label">${ph === 'rec' ? 'Listening… tap to stop' : 'Tap and say your answer'}</p>`)
+          + '</div>';
         if (sess.micErr) h += `<p class="err">${esc(sess.micErr)}</p>`;
-        if (!sess.phase) h += '<div class="row"><button class="btn link" data-act="reveal">Show answer instead</button></div>';
+        if (!sess.phase) h += '<div class="row" style="justify-content:center"><button class="btn link" data-act="reveal">Show answer instead</button></div>';
       } else {
         const why = sess.micErr || speechWhy();
         h += `<p class="hint">Say your answer out loud first.</p>${why ? `<p class="muted small">${esc(why)}</p>` : ''}<button class="btn wide" data-act="reveal" data-primary>Show answer</button>`;
@@ -369,7 +377,7 @@ function vSession() {
         if (sess.heard !== null) h += `<p class="muted">You said: ${sess.heard ? esc(sess.heard) : '(nothing was heard)'}</p>`;
         else if (sess.res !== 'ok' && sess.typed) h += `<p class="muted">You wrote: ${esc(sess.typed)}</p>`;
       }
-      h += `<p class="es">${esc(c.es)} <button class="play" data-act="say" data-t="${esc(c.es)}" aria-label="Play the answer">&#9654;</button></p>`;
+      h += `<p class="es">${esc(c.es)} <button class="play" data-act="say" data-t="${esc(c.es)}" aria-label="Play the answer">${PLAY}</button></p>`;
       if (c.kind === 'line') h += `<p class="who">${esc(c.who)}</p>`;
       h += '</div>';
       if (sess.res === 'ok' || sess.res === 'accent') h += '<button class="btn wide" data-act="grade" data-g="good" data-primary>Next</button>';
@@ -395,8 +403,8 @@ function vCourse() {
     const cs = CARDS.filter((c) => c.u === ui);
     const seen = cs.filter((c) => S.cards[c.id]).length;
     h += `<details${ui === 0 ? ' open' : ''}><summary><span>Unit ${ui + 1} · ${esc(u.title)} <span class="muted" style="font-weight:400">${esc(u.en)}</span></span><small>${seen} / ${cs.length} started</small></summary><div class="dbody">`
-      + `<div class="row"><button class="btn ghost" data-act="dlg" data-u="${ui}">&#9654; Play the dialogue</button></div><ol class="dlg">`
-      + u.dialogue.map((l) => `<li><button class="play" data-act="say" data-t="${esc(l.es)}" aria-label="Play this line">&#9654;</button><div><p class="who">${esc(l.speaker)}</p><p class="l-es">${esc(l.es)}</p><p class="l-en">${esc(l.en)}</p></div></li>`).join('')
+      + `<div class="row"><button class="btn ghost" data-act="dlg" data-u="${ui}">${PLAY} Play the dialogue</button></div><ol class="dlg">`
+      + u.dialogue.map((l) => `<li><button class="play" data-act="say" data-t="${esc(l.es)}" aria-label="Play this line">${PLAY}</button><div><p class="who">${esc(l.speaker)}</p><p class="l-es">${esc(l.es)}</p><p class="l-en">${esc(l.en)}</p></div></li>`).join('')
       + `</ol><p class="note">${u.noteHtml}</p></div></details>`;
   });
   h += `<div class="row">${confirmReset

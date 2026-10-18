@@ -4,8 +4,8 @@
   "description": "FSI-style Spanish drills",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F2F1F7",
-  "theme_color": "#3B2FB5",
+  "background_color": "#F5F6F8",
+  "theme_color": "#2457F5",
   "icons": [
     { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
