@@ -1,0 +1,26 @@
+name: Find voices
+
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: "Language code, for example th, es, fr, ja"
+        required: true
+        default: "th"
+      gender:
+        description: "Optional: female or male"
+        required: false
+        default: ""
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Search the ElevenLabs Voice Library
+        run: node scripts/find-voices.mjs "${{ inputs.language }}" "${{ inputs.gender }}"
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
