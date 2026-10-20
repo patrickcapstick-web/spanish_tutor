@@ -70,7 +70,7 @@ async function synthesize(text, voice, model) {
     throw new Error(`HTTP ${r.status}: ${detail}`);
   }
 }
-const FATAL = /quota|401|unauthor|invalid_api_key|authentication_error|402|payment_required|voice_not_found/i;
+const FATAL = /quota|401|unauthor|invalid_api_key|authentication_error|402|payment_required|voice_not_found|not_fine_tuned|voice_not_fine_tuned/i;
 
 let failedTotal = 0;
 let madeTotal = 0;

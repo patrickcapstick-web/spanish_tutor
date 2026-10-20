@@ -7,7 +7,7 @@
  "lang": "th-TH",
  "speechLanguage": "th",
  "voice": "7XW5JhaNn90bnFojQ5DA",
- "model": "eleven_v3",
+ "model": "eleven_v4",
  "sayIt": "Say it in Thai.",
  "doneMessage": "เก่งมาก! Great work.",
  "romanization": "Pronunciation",
