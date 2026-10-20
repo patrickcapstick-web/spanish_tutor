@@ -2,7 +2,7 @@
   "name": "autopilot-language",
   "private": true,
   "type": "module",
-  "description": "FSI-style Spanish drills with ElevenLabs audio and speech checking",
+  "description": "FSI-style language drills with ElevenLabs audio and speech checking",
   "engines": {
     "node": ">=20"
   },
