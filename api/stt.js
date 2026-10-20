@@ -1,15 +1,17 @@
 // Speech checking: receives a short recording from the app, sends it to
 // ElevenLabs speech-to-text in the language given by ?lang= and returns { text }. The ElevenLabs key stays here
-// on the server. Every call must carry the APP_PASSCODE in the x-passcode header.
+// on the server. If APP_PASSCODE is set, every call must carry it in the x-passcode header.
 import { timingSafeEqual } from 'node:crypto';
 
 const MAX_BYTES = 4 * 1024 * 1024; // Vercel's request limit is 4.5 MB
 const STT_URL = 'https://api.elevenlabs.io/v1/speech-to-text';
 const MODEL = 'scribe_v2';
 
+// The passcode is optional: if APP_PASSCODE is not set in Vercel, anyone can use speech checking.
 function passcodeOk(given) {
   const want = process.env.APP_PASSCODE || '';
-  if (!want || typeof given !== 'string') return false;
+  if (!want) return true;
+  if (typeof given !== 'string') return false;
   const a = Buffer.from(given);
   const b = Buffer.from(want);
   return a.length === b.length && timingSafeEqual(a, b);

@@ -136,6 +136,7 @@ function clean(r) {
 }
 let S = clean(null);
 let PASS = store.get(PASS_KEY) || '';
+let needPass = false; // set when the server says a passcode is required
 function save() { if (!C) return; S.t = Date.now(); store.set(stateKey(C.id), JSON.stringify(S)); }
 function loadState(id) { try { return clean(JSON.parse(store.get(stateKey(id)))); } catch { return clean(null); } }
 
@@ -197,12 +198,12 @@ let recTimer = 0;
 let micBlocked = false;
 let passErr = '';
 const micSupported = () => !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
-const speechOn = () => S.mode === 'speak' && !!PASS && micSupported() && !micBlocked;
+const speechOn = () => S.mode === 'speak' && (!needPass || !!PASS) && micSupported() && !micBlocked;
 function speechWhy() {
   if (S.mode !== 'speak') return '';
   if (!micSupported()) return 'This browser cannot record audio, so grade yourself.';
   if (micBlocked) return 'Microphone access is blocked, so grade yourself. Allow the microphone for this site in your browser settings to turn checking back on.';
-  if (!PASS) return 'Add your passcode on the Today screen to have your answers checked.';
+  if (needPass && !PASS) return 'This app needs a passcode for speech checking. Enter it on the Today screen under Settings.';
   return '';
 }
 async function startRec() {
@@ -241,9 +242,9 @@ async function transcribe(blob) {
     });
     if (!sess || sess.end || cur().id !== id) return;
     if (r.status === 401) {
-      PASS = ''; store.set(PASS_KEY, null);
+      PASS = ''; store.set(PASS_KEY, null); needPass = true;
       sess.phase = null;
-      sess.micErr = 'The passcode was not accepted. Enter it again on the Today screen.';
+      sess.micErr = 'Speech checking needs a passcode for this app. Enter it on the Today screen under Settings.';
       render();
       return;
     }
@@ -267,7 +268,7 @@ async function savePasscode(v) {
   passErr = '';
   try {
     const r = await fetch('/api/stt', { headers: { 'x-passcode': v } });
-    if (r.status === 204) { PASS = v; store.set(PASS_KEY, v); micBlocked = false; }
+    if (r.status === 204) { PASS = v; store.set(PASS_KEY, v); micBlocked = false; needPass = false; }
     else if (r.status === 401) passErr = 'That passcode is not right. Ask the person who shared the app with you.';
     else passErr = `The server answered with an error (${r.status}). Try again later.`;
   } catch {
@@ -359,10 +360,10 @@ const hasRom = () => CARDS.some((c) => c.rom);
 function vSpeech() {
   if (S.mode !== 'speak') return '';
   if (!micSupported()) return '<p class="muted small">This browser cannot record audio, so you will grade yourself.</p>';
-  if (PASS) return `<p class="muted small">Speech checking is on.${micBlocked ? ' The microphone is blocked right now.' : ''} <button class="btn link inline" data-act="forget">Remove passcode</button></p>`;
+  if (!needPass) return `<p class="muted small">Speech checking is on.${micBlocked ? ' The microphone is blocked right now; allow it in your browser settings.' : ''}</p>`;
   return '<form id="pf" class="pass" autocomplete="off"><label class="lbl" for="pass">Passcode for speech checking</label>'
     + '<div class="row"><input type="password" id="pass" autocomplete="current-password"><button class="btn ghost" type="submit">Turn on</button></div>'
-    + `${passErr ? `<p class="err">${esc(passErr)}</p>` : '<p class="muted small">Get it from the person who shared this app. Without it, you say the answer aloud and grade yourself.</p>'}</form>`;
+    + `${passErr ? `<p class="err">${esc(passErr)}</p>` : '<p class="muted small">This copy of the app asks for a passcode. Get it from the person who shared it. Without it, you say the answer aloud and grade yourself.</p>'}</form>`;
 }
 function vHome() {
   const p = plan(allowance());
@@ -494,15 +495,15 @@ function vGuide() {
 </ol>
 <h2>Make it fit you</h2>
 <ul>
-<li><b>Language:</b> tap the language name at the top to switch. Each language keeps its own progress.</li>
+<li><b>Language:</b> pick it from the menu at the top right. Each language keeps its own progress.</li>
 <li><b>Answer by:</b> Speaking (the app listens and checks you) or Typing.</li>
 <li><b>Voice speed:</b> Slow plays everything at three-quarter speed.</li>
 <li><b>Polite form</b> (Thai): pick Male (khráp) or Female (khâ). Every sentence and recording switches to match.</li>
 <li><b>Pronunciation:</b> show or hide the spelling in Latin letters under each sentence. Hide it once you can read the script.</li>
 <li><b>New items a day:</b> 5 for a light pace, 20 if your trip is soon.</li>
 </ul>
-<h2>Turn on speech checking</h2>
-<p>Speech checking needs a passcode. Ask the person who shared the app with you, then enter it on the Today screen under Settings. Your browser will ask for the microphone the first time; tap Allow. To use it like an app, add it to your home screen from the browser's Share or menu button.</p>
+<h2>Speech checking</h2>
+<p>In Speaking mode, tap the round button, say your answer and tap again. Your browser asks for the microphone the first time; tap Allow. If the Today screen asks for a passcode, get it from the person who shared the app. To use it like an app, add it to your home screen from the browser's Share or menu button.</p>
 <h2>Add a new language or topic</h2>
 <ol>
 <li>Tap <b>Copy the course prompt</b> below.</li>
@@ -520,7 +521,9 @@ function vHeader() {
   const nav = [['today', 'Today'], ['course', 'Course'], ['guide', 'Guide']]
     .map(([k, l]) => `<button data-tab="${k}" aria-current="${tab === k ? 'page' : 'false'}">${l}</button>`).join('');
   $('#nav').innerHTML = nav;
-  $('#langbtn').innerHTML = C ? `${esc(C.name)} ${CHEV}` : `Choose language ${CHEV}`;
+  const sel = $('#langsel');
+  sel.innerHTML = (C ? '' : '<option value="" selected disabled>Choose language</option>')
+    + INDEX.map((c) => `<option value="${esc(c.id)}"${C && C.id === c.id ? ' selected' : ''}>${esc(c.name)}</option>`).join('');
 }
 function render() {
   vHeader();
@@ -547,6 +550,7 @@ async function openCourse(id) {
     S = loadState(id);
     if (C.variants && !C.variants.options.some((o) => o.id === S.variant)) S.variant = C.variants.options[0].id;
     store.set(COURSE_KEY, id);
+    try { history.replaceState(null, '', `#${id}`); } catch {}
     sess = null;
     tab = 'today';
     pickVoice();
@@ -563,7 +567,6 @@ async function openCourse(id) {
 document.addEventListener('click', async (e) => {
   const tb = e.target.closest('[data-tab]');
   if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(); } render(); window.scrollTo(0, 0); return; }
-  if (e.target.closest('#langbtn')) { tab = 'pick'; render(); return; }
   const b = e.target.closest('[data-act]');
   if (!b) return;
   const a = b.dataset.act;
@@ -586,7 +589,6 @@ document.addEventListener('click', async (e) => {
     else if (k === 'variant') S.variant = v;
     save(); render();
   }
-  else if (a === 'forget') { PASS = ''; store.set(PASS_KEY, null); render(); }
   else if (a === 'copyprompt') {
     try {
       const txt = await fetch('/course-prompt.txt').then((r) => r.text());
@@ -607,6 +609,9 @@ document.addEventListener('click', async (e) => {
   else if (a === 'askreset') { confirmReset = true; render(); }
   else if (a === 'noreset') { confirmReset = false; render(); }
   else if (a === 'reset') { S = clean({ mode: S.mode, slow: S.slow, perDay: S.perDay, showRom: S.showRom, variant: S.variant }); sess = null; confirmReset = false; save(); render(); }
+});
+document.addEventListener('change', (e) => {
+  if (e.target.id === 'langsel' && e.target.value) openCourse(e.target.value);
 });
 document.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -637,6 +642,10 @@ document.addEventListener('keydown', (e) => {
     return;
   }
   if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = pickVoice;
+  // Ask the server whether speech checking needs a passcode (only if APP_PASSCODE is set in Vercel).
+  fetch('/api/stt', { headers: PASS ? { 'x-passcode': PASS } : {} })
+    .then((r) => { if (r.status === 401) { needPass = true; if (PASS) { PASS = ''; store.set(PASS_KEY, null); } render(); } })
+    .catch(() => {});
   const hash = (location.hash || '').replace('#', '');
   let id = INDEX.some((c) => c.id === hash) ? hash : store.get(COURSE_KEY);
   if (!id && store.get(stateKey('es'))) id = 'es'; // people who used the Spanish-only version

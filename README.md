@@ -34,7 +34,7 @@ A language app built on the FSI drill method: memorise a short real-life dialogu
 ## Settings
 
 - GitHub repository secret `ELEVENLABS_API_KEY`: used by the workflows. Needs Text to Speech and Voices: Read.
-- Vercel environment variables `ELEVENLABS_API_KEY` (needs Speech to Text) and `APP_PASSCODE`.
+- Vercel environment variable `ELEVENLABS_API_KEY` (needs Speech to Text). Optional `APP_PASSCODE`: when set, speech checking asks for it.
 
 ## Voice models
 

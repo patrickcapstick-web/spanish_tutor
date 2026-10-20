@@ -37,15 +37,14 @@ Your copy includes the Spanish and Thai courses and their recordings.
 
 1. Sign in to Vercel with your GitHub account.
 2. Click **Add New → Project** and **Import** your repository.
-3. Open **Environment Variables** and add two:
-   - `ELEVENLABS_API_KEY` with your `sk_` key
-   - `APP_PASSCODE` with a passcode you make up, for example `tapas-and-tuk-tuks`. People need it to turn on speech checking, so share it only with people you want using your credits.
+3. Open **Environment Variables** and add `ELEVENLABS_API_KEY` with your `sk_` key.
+   - Optional: add `APP_PASSCODE` with a passcode you make up, for example `tapas-and-tuk-tuks`. With it, people must enter the passcode before speech checking works. Without it, anyone with your web address can use speech checking, and each answer they say uses a little of your ElevenLabs credits.
 4. Click **Deploy**. After a minute you get a web address like `my-language-app.vercel.app`. That's your app.
 
 ## 5. Check it works
 
 1. Open your address. You should see the language list.
-2. Pick a language, enter your passcode under **Settings** and tap **Turn on**. It should say "Speech checking is on".
+2. Pick a language. Under **Settings** it should say "Speech checking is on" (if you set a passcode, enter it there first).
 3. Start a session, answer a drill out loud and check that you see "You said: …".
 
 If speech checking fails, open your project in Vercel, go to **Logs**, and look for a line starting `ElevenLabs speech-to-text failed`. It says what ElevenLabs refused, usually a missing permission on the key.
@@ -62,7 +61,7 @@ To change a course later, edit the file on GitHub (open it and click the pencil 
 
 ## 7. Share it
 
-Send people your web address and the passcode. To open the app straight on a language, add `#` and the course code to the address, for example `my-language-app.vercel.app/#th`. On a phone, they can add it to the home screen from the browser's **Share** or menu button.
+Send people your web address (and the passcode, if you set one). To open the app straight on a language, add `#` and the course code to the address, for example `my-language-app.vercel.app/#th`. On a phone, they can add it to the home screen from the browser's **Share** or menu button.
 
 Progress is saved on each person's own device and browser.
 
