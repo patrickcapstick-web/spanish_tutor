@@ -1,0 +1,93 @@
+LANGUAGE: (for example: Japanese)
+WHY I'M LEARNING: (for example: a two-week trip to Tokyo in March)
+MY LEVEL: (for example: complete beginner)
+TOPICS I CARE ABOUT: (optional, for example: food, trains, small talk with my partner's family)
+
+---------------------------------------------------------------
+Everything below is instructions for Claude. You don't need to change it.
+---------------------------------------------------------------
+
+Please write a course file for the Sin Pensar language app, using the details above.
+
+How the app teaches: it follows the US Foreign Service Institute (FSI) method. Each unit has a short, realistic dialogue the learner memorises, then drills that recombine its patterns until they become automatic: substitution (swap a word into a sentence), transformation (make it negative, a question, plural, and so on) and translation from English. Keep sentences short, natural and useful for the stated purpose. Build each unit on the previous ones.
+
+Write 8 units. Each unit has a dialogue of 6 to 8 lines and 2 to 4 drill groups of 3 to 6 items each. Use everyday, spoken language that a native speaker would really say, in the variety most useful for the stated purpose.
+
+Reply with ONE JSON object and nothing else, in a code block, and tell me the file name to save it as: the "id" followed by .json (for example ja.json).
+
+The JSON format:
+
+{
+  "id": "ja",                       // short lowercase code for the language, also the file name
+  "name": "Japanese",               // shown in the language list
+  "variety": "Standard Japanese",   // optional, for example "Spain", "Brazil", "Central Thai"
+  "nativeName": "日本語",            // the language's name in its own script
+  "description": "One sentence about what this course covers.",
+  "lang": "ja-JP",                  // BCP-47 code for the variety
+  "speechLanguage": "ja",           // ISO 639-1 code used for speech recognition
+  "voice": "PASTE_VOICE_ID",        // leave exactly like this; the app owner fills it in
+  "model": "eleven_v3",             // use "eleven_multilingual_v2" only for Spanish, French, German, Italian or Portuguese; otherwise "eleven_v3"
+  "sayIt": "Say it in Japanese.",
+  "doneMessage": "A short congratulation in the language, then its English meaning.",
+  "romanization": "Pronunciation",  // include only if the language uses a non-Latin script
+  "pronouns": [],                   // subject pronouns, only for languages where verbs change with the person
+  "keys": [],                       // special characters to show as buttons for typing (for example accented letters); empty for non-Latin scripts
+  "noSpaces": false,                // true for languages written without spaces between words (Thai, Japanese, Chinese, Lao, Khmer, Burmese)
+  "optionalWords": [],              // polite particles that speech recognition may drop and should be ignored when checking answers (for example Thai "ครับ")
+  "numbers": null,                  // leave null
+  "variants": null,                 // see the note on variants below
+  "units": [
+    {
+      "id": "u1",
+      "title": "Unit title in the language",
+      "en": "Unit title in English",
+      "note": "2 to 4 short sentences of grammar or culture notes. Put words in the language inside `backticks`.",
+      "dialogue": [
+        { "speaker": "Name or role", "target": "Line in the language", "rom": "romanization (only for non-Latin scripts)", "en": "English meaning" }
+      ],
+      "drills": [
+        {
+          "type": "Substitution",
+          "kind": "sub",
+          "instruction": "Say it again with the new word swapped in.",
+          "items": [
+            {
+              "base": "Sentence in the language",
+              "baseRom": "its romanization (non-Latin scripts only)",
+              "baseEn": "its English meaning",
+              "cue": "the word to swap in",
+              "cueRom": "its romanization (non-Latin scripts only)",
+              "cueEn": "its English meaning",
+              "answers": ["The correct new sentence", "another fully correct version, if there is one"],
+              "answerRom": "romanization of the first answer (non-Latin scripts only)"
+            }
+          ]
+        },
+        {
+          "type": "Transformation",
+          "kind": "xf",
+          "instruction": "Make it negative.",
+          "items": [ { "base": "...", "baseRom": "...", "baseEn": "...", "answers": ["..."], "answerRom": "..." } ]
+        },
+        {
+          "type": "Translation",
+          "kind": "tr",
+          "instruction": "Say it in Japanese.",
+          "items": [ { "en": "English sentence", "answers": ["translation", "another correct translation"], "answerRom": "..." } ]
+        }
+      ]
+    }
+  ]
+}
+
+Rules:
+- Remove all the // comments; the file must be valid JSON.
+- Every drill item needs "answers" with the most natural answer first. Add other answers only if they are equally correct and common.
+- For non-Latin scripts, give romanization for every dialogue line, base, cue and first answer, using a beginner-friendly system that shows tones or long vowels where they matter.
+- Variants: use these only when the learner's own sentences change with their gender or similar (Thai polite particles, Spanish adjective endings are NOT needed). Write the changing part as a token like {p} in "target", "base" and "answers", and the same token in the romanization fields. Then set:
+  "variants": { "label": "Polite form", "options": [
+    { "id": "male", "label": "Male", "replace": { "{p}": "..." }, "romReplace": { "{p}": "..." } },
+    { "id": "female", "label": "Female", "replace": { "{p}": "..." }, "romReplace": { "{p}": "..." } } ] }
+  Only use tokens in lines the learner says, not in lines other characters say.
+- Do not invent facts about places, prices or laws. Keep cultural notes general and accurate.
+- After the JSON, list any sentences you are less than fully sure a native speaker would say, so they can be checked.

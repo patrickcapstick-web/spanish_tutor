@@ -1,5 +1,5 @@
 // Speech checking: receives a short recording from the app, sends it to
-// ElevenLabs speech-to-text and returns { text }. The ElevenLabs key stays here
+// ElevenLabs speech-to-text in the language given by ?lang= and returns { text }. The ElevenLabs key stays here
 // on the server. Every call must carry the APP_PASSCODE in the x-passcode header.
 import { timingSafeEqual } from 'node:crypto';
 
@@ -52,7 +52,8 @@ export default async function handler(req, res) {
 
   const form = new FormData();
   form.append('model_id', MODEL);
-  form.append('language_code', 'es');
+  const lang = new URL(req.url || '/', 'http://x').searchParams.get('lang') || 'es';
+  form.append('language_code', /^[a-z]{2,3}$/.test(lang) ? lang : 'es');
   form.append('tag_audio_events', 'false');
   form.append('timestamps_granularity', 'none');
   form.append('file', new Blob([audio], { type }), `answer.${ext}`);

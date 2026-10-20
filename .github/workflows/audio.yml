@@ -5,8 +5,9 @@ on:
   push:
     branches: [main]
     paths:
-      - course.json
+      - courses/**
       - scripts/generate-audio.mjs
+      - scripts/course-tools.mjs
       - .github/workflows/audio.yml
 
 permissions:
@@ -28,14 +29,13 @@ jobs:
         run: node scripts/generate-audio.mjs
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
       - name: Commit audio
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add audio
+          git add audio courses/index.json
           if git diff --cached --quiet; then echo "No audio changes"; exit 0; fi
-          git commit -m "Generate audio"
+          git commit -m "Generate audio and course index"
           git pull --rebase origin main
           git push origin HEAD:main

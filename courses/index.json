@@ -1,0 +1,12 @@
+{
+ "courses": [
+  {
+   "id": "es",
+   "name": "Spanish",
+   "variety": "Spain",
+   "nativeName": "Español",
+   "description": "Conversational Castilian Spanish for travel and everyday life.",
+   "units": 9
+  }
+ ]
+}

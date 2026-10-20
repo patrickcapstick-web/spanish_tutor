@@ -1,51 +1,86 @@
 {
- "version": 1,
- "variety": "es-ES",
+ "id": "es",
+ "name": "Spanish",
+ "variety": "Spain",
+ "nativeName": "Español",
+ "description": "Conversational Castilian Spanish for travel and everyday life.",
+ "lang": "es-ES",
+ "speechLanguage": "es",
+ "voice": "rixsIpPlTphvsJd2mI03",
+ "model": "eleven_multilingual_v2",
+ "sayIt": "Say it in Spanish.",
+ "doneMessage": "Hecho. Hasta mañana.",
+ "pronouns": [
+  "yo",
+  "tú",
+  "él",
+  "ella",
+  "usted",
+  "nosotros",
+  "vosotros",
+  "ellos",
+  "ellas",
+  "ustedes"
+ ],
+ "keys": [
+  "á",
+  "é",
+  "í",
+  "ó",
+  "ú",
+  "ñ",
+  "ü",
+  "¿",
+  "¡"
+ ],
+ "noSpaces": false,
+ "optionalWords": [],
+ "numbers": "es",
  "units": [
   {
    "id": "u1",
    "title": "Saludos",
    "en": "Greetings",
-   "noteHtml": "<code>¿Cómo estás?</code> is for one person you know. <code>¿Cómo está usted?</code> is formal. <code>¿Cómo estáis?</code> is for a group of friends and is used every day in Spain.",
+   "note": "`¿Cómo estás?` is for one person you know. `¿Cómo está usted?` is formal. `¿Cómo estáis?` is for a group of friends and is used every day in Spain.",
    "dialogue": [
     {
      "speaker": "Ana",
-     "es": "Hola, buenos días.",
+     "target": "Hola, buenos días.",
      "en": "Hello, good morning."
     },
     {
      "speaker": "Leo",
-     "es": "Buenos días. ¿Cómo estás?",
+     "target": "Buenos días. ¿Cómo estás?",
      "en": "Good morning. How are you?"
     },
     {
      "speaker": "Ana",
-     "es": "Muy bien, gracias. ¿Y tú?",
+     "target": "Muy bien, gracias. ¿Y tú?",
      "en": "Very well, thanks. And you?"
     },
     {
      "speaker": "Leo",
-     "es": "Bien también. ¿Cómo te llamas?",
+     "target": "Bien también. ¿Cómo te llamas?",
      "en": "Fine too. What is your name?"
     },
     {
      "speaker": "Ana",
-     "es": "Me llamo Ana. ¿Y tú?",
+     "target": "Me llamo Ana. ¿Y tú?",
      "en": "My name is Ana. And you?"
     },
     {
      "speaker": "Leo",
-     "es": "Me llamo Leo. Mucho gusto.",
+     "target": "Me llamo Leo. Mucho gusto.",
      "en": "My name is Leo. Nice to meet you."
     },
     {
      "speaker": "Ana",
-     "es": "Encantada. Hasta luego.",
+     "target": "Encantada. Hasta luego.",
      "en": "Pleased to meet you. See you later."
     },
     {
      "speaker": "Leo",
-     "es": "Adiós, hasta luego.",
+     "target": "Adiós, hasta luego.",
      "en": "Goodbye, see you later."
     }
    ],
@@ -174,46 +209,46 @@
    "id": "u2",
    "title": "¿De dónde eres?",
    "en": "Where are you from?",
-   "noteHtml": "The verb <code>ser</code> says who you are and where you are from: <code>soy, eres, es, somos, sois, son</code>. Spanish usually drops the pronoun because the verb ending already says who.",
+   "note": "The verb `ser` says who you are and where you are from: `soy, eres, es, somos, sois, son`. Spanish usually drops the pronoun because the verb ending already says who.",
    "dialogue": [
     {
      "speaker": "Ana",
-     "es": "¿De dónde eres, Leo?",
+     "target": "¿De dónde eres, Leo?",
      "en": "Where are you from, Leo?"
     },
     {
      "speaker": "Leo",
-     "es": "Soy de Estados Unidos. ¿Y tú?",
+     "target": "Soy de Estados Unidos. ¿Y tú?",
      "en": "I am from the United States. And you?"
     },
     {
      "speaker": "Ana",
-     "es": "Soy de Madrid. ¿Eres estudiante?",
+     "target": "Soy de Madrid. ¿Eres estudiante?",
      "en": "I am from Madrid. Are you a student?"
     },
     {
      "speaker": "Leo",
-     "es": "No, soy ingeniero.",
+     "target": "No, soy ingeniero.",
      "en": "No, I am an engineer."
     },
     {
      "speaker": "Ana",
-     "es": "¿Y tus amigos? ¿Son de aquí?",
+     "target": "¿Y tus amigos? ¿Son de aquí?",
      "en": "And your friends? Are they from here?"
     },
     {
      "speaker": "Leo",
-     "es": "No, son de Inglaterra.",
+     "target": "No, son de Inglaterra.",
      "en": "No, they are from England."
     },
     {
      "speaker": "Ana",
-     "es": "¿Sois turistas?",
+     "target": "¿Sois turistas?",
      "en": "Are you all tourists?"
     },
     {
      "speaker": "Leo",
-     "es": "Sí, somos turistas.",
+     "target": "Sí, somos turistas.",
      "en": "Yes, we are tourists."
     }
    ],
@@ -295,35 +330,30 @@
      "items": [
       {
        "base": "Soy estudiante.",
-       "cue": null,
        "answers": [
         "No soy estudiante."
        ]
       },
       {
        "base": "Es de aquí.",
-       "cue": null,
        "answers": [
         "No es de aquí."
        ]
       },
       {
        "base": "Somos turistas.",
-       "cue": null,
        "answers": [
         "No somos turistas."
        ]
       },
       {
        "base": "Son de Inglaterra.",
-       "cue": null,
        "answers": [
         "No son de Inglaterra."
        ]
       },
       {
        "base": "Sois de Madrid.",
-       "cue": null,
        "answers": [
         "No sois de Madrid."
        ]
@@ -377,46 +407,46 @@
    "id": "u3",
    "title": "En el bar",
    "en": "At the bar",
-   "noteHtml": "<code>querer</code> (to want): <code>quiero, quieres, quiere, queremos, queréis, quieren</code>. Use <code>un</code> with masculine nouns and <code>una</code> with feminine ones. A <code>caña</code> is a small draught beer.",
+   "note": "`querer` (to want): `quiero, quieres, quiere, queremos, queréis, quieren`. Use `un` with masculine nouns and `una` with feminine ones. A `caña` is a small draught beer.",
    "dialogue": [
     {
      "speaker": "Camarero",
-     "es": "Hola, ¿qué te pongo?",
+     "target": "Hola, ¿qué te pongo?",
      "en": "Hi, what can I get you?"
     },
     {
      "speaker": "Leo",
-     "es": "Quiero un café con leche, por favor.",
+     "target": "Quiero un café con leche, por favor.",
      "en": "I want a coffee with milk, please."
     },
     {
      "speaker": "Camarero",
-     "es": "¿Algo más?",
+     "target": "¿Algo más?",
      "en": "Anything else?"
     },
     {
      "speaker": "Leo",
-     "es": "Sí, una tostada con tomate.",
+     "target": "Sí, una tostada con tomate.",
      "en": "Yes, a toast with tomato."
     },
     {
      "speaker": "Camarero",
-     "es": "Muy bien, ahora mismo.",
+     "target": "Muy bien, ahora mismo.",
      "en": "Very good, right away."
     },
     {
      "speaker": "Leo",
-     "es": "¿Cuánto es?",
+     "target": "¿Cuánto es?",
      "en": "How much is it?"
     },
     {
      "speaker": "Camarero",
-     "es": "Son tres euros con cincuenta.",
+     "target": "Son tres euros con cincuenta.",
      "en": "It is three euros fifty."
     },
     {
      "speaker": "Leo",
-     "es": "Aquí tienes. Gracias.",
+     "target": "Aquí tienes. Gracias.",
      "en": "Here you go. Thanks."
     }
    ],
@@ -512,42 +542,36 @@
      "items": [
       {
        "base": "café",
-       "cue": null,
        "answers": [
         "un café"
        ]
       },
       {
        "base": "cerveza",
-       "cue": null,
        "answers": [
         "una cerveza"
        ]
       },
       {
        "base": "tostada",
-       "cue": null,
        "answers": [
         "una tostada"
        ]
       },
       {
        "base": "bocadillo",
-       "cue": null,
        "answers": [
         "un bocadillo"
        ]
       },
       {
        "base": "zumo",
-       "cue": null,
        "answers": [
         "un zumo"
        ]
       },
       {
        "base": "caña",
-       "cue": null,
        "answers": [
         "una caña"
        ]
@@ -597,46 +621,46 @@
    "id": "u4",
    "title": "¿Dónde está?",
    "en": "Where is it?",
-   "noteHtml": "The verb <code>estar</code> says where something is: <code>estoy, estás, está, estamos, estáis, están</code>. <code>Hay</code> means \"there is\" or \"there are\".",
+   "note": "The verb `estar` says where something is: `estoy, estás, está, estamos, estáis, están`. `Hay` means \"there is\" or \"there are\".",
    "dialogue": [
     {
      "speaker": "Leo",
-     "es": "Perdona, ¿dónde está la estación de metro?",
+     "target": "Perdona, ¿dónde está la estación de metro?",
      "en": "Excuse me, where is the metro station?"
     },
     {
      "speaker": "Ana",
-     "es": "Está cerca. Todo recto y a la derecha.",
+     "target": "Está cerca. Todo recto y a la derecha.",
      "en": "It is nearby. Straight ahead and to the right."
     },
     {
      "speaker": "Leo",
-     "es": "¿Está lejos de aquí?",
+     "target": "¿Está lejos de aquí?",
      "en": "Is it far from here?"
     },
     {
      "speaker": "Ana",
-     "es": "No, está a cinco minutos.",
+     "target": "No, está a cinco minutos.",
      "en": "No, it is five minutes away."
     },
     {
      "speaker": "Leo",
-     "es": "¿Hay una farmacia por aquí?",
+     "target": "¿Hay una farmacia por aquí?",
      "en": "Is there a pharmacy around here?"
     },
     {
      "speaker": "Ana",
-     "es": "Sí, hay una a la izquierda, al lado del banco.",
+     "target": "Sí, hay una a la izquierda, al lado del banco.",
      "en": "Yes, there is one on the left, next to the bank."
     },
     {
      "speaker": "Leo",
-     "es": "Muchas gracias.",
+     "target": "Muchas gracias.",
      "en": "Thank you very much."
     },
     {
      "speaker": "Ana",
-     "es": "De nada.",
+     "target": "De nada.",
      "en": "You are welcome."
     }
    ],
@@ -805,46 +829,46 @@
    "id": "u5",
    "title": "En el restaurante",
    "en": "At a restaurant",
-   "noteHtml": "<code>tener</code> (to have): <code>tengo, tienes, tiene, tenemos, tenéis, tienen</code>. The <code>menú del día</code> is a fixed-price lunch with a <code>primero</code> (first course), a <code>segundo</code> (main) and a drink. Ask for the bill with <code>La cuenta, por favor</code>.",
+   "note": "`tener` (to have): `tengo, tienes, tiene, tenemos, tenéis, tienen`. The `menú del día` is a fixed-price lunch with a `primero` (first course), a `segundo` (main) and a drink. Ask for the bill with `La cuenta, por favor`.",
    "dialogue": [
     {
      "speaker": "Camarera",
-     "es": "Buenas noches. ¿Cuántos sois?",
+     "target": "Buenas noches. ¿Cuántos sois?",
      "en": "Good evening. How many of you are there?"
     },
     {
      "speaker": "Leo",
-     "es": "Somos dos. ¿Hay mesa?",
+     "target": "Somos dos. ¿Hay mesa?",
      "en": "There are two of us. Is there a table?"
     },
     {
      "speaker": "Camarera",
-     "es": "Sí, por aquí. Aquí tenéis la carta.",
+     "target": "Sí, por aquí. Aquí tenéis la carta.",
      "en": "Yes, this way. Here is the menu."
     },
     {
      "speaker": "Leo",
-     "es": "¿Qué nos recomiendas?",
+     "target": "¿Qué nos recomiendas?",
      "en": "What do you recommend?"
     },
     {
      "speaker": "Camarera",
-     "es": "El menú del día está muy bien.",
+     "target": "El menú del día está muy bien.",
      "en": "The set menu of the day is very good."
     },
     {
      "speaker": "Leo",
-     "es": "Vale. De primero, la sopa, y de segundo, el pollo.",
+     "target": "Vale. De primero, la sopa, y de segundo, el pollo.",
      "en": "OK. The soup to start, and the chicken for the main course."
     },
     {
      "speaker": "Camarera",
-     "es": "¿Y para beber?",
+     "target": "¿Y para beber?",
      "en": "And to drink?"
     },
     {
      "speaker": "Leo",
-     "es": "Agua sin gas, por favor.",
+     "target": "Agua sin gas, por favor.",
      "en": "Still water, please."
     }
    ],
@@ -940,35 +964,30 @@
      "items": [
       {
        "base": "la sopa",
-       "cue": null,
        "answers": [
         "las sopas"
        ]
       },
       {
        "base": "el pescado",
-       "cue": null,
        "answers": [
         "los pescados"
        ]
       },
       {
        "base": "la cerveza",
-       "cue": null,
        "answers": [
         "las cervezas"
        ]
       },
       {
        "base": "el café",
-       "cue": null,
        "answers": [
         "los cafés"
        ]
       },
       {
        "base": "la mesa",
-       "cue": null,
        "answers": [
         "las mesas"
        ]
@@ -1021,46 +1040,46 @@
    "id": "u6",
    "title": "El transporte",
    "en": "Getting around",
-   "noteHtml": "<code>ir</code> (to go): <code>voy, vas, va, vamos, vais, van</code>. <code>a</code> + <code>el</code> joins into <code>al</code>: <code>voy al centro</code>. Times use <code>a la una</code>, <code>a las dos</code>, <code>y cuarto</code> (quarter past) and <code>y media</code> (half past).",
+   "note": "`ir` (to go): `voy, vas, va, vamos, vais, van`. `a` + `el` joins into `al`: `voy al centro`. Times use `a la una`, `a las dos`, `y cuarto` (quarter past) and `y media` (half past).",
    "dialogue": [
     {
      "speaker": "Leo",
-     "es": "Hola, quiero un billete para Toledo.",
+     "target": "Hola, quiero un billete para Toledo.",
      "en": "Hello, I want a ticket to Toledo."
     },
     {
      "speaker": "Empleada",
-     "es": "¿De ida o de ida y vuelta?",
+     "target": "¿De ida o de ida y vuelta?",
      "en": "One way or return?"
     },
     {
      "speaker": "Leo",
-     "es": "De ida y vuelta, por favor.",
+     "target": "De ida y vuelta, por favor.",
      "en": "Return, please."
     },
     {
      "speaker": "Empleada",
-     "es": "Muy bien. Son veinte euros.",
+     "target": "Muy bien. Son veinte euros.",
      "en": "Very good. That is twenty euros."
     },
     {
      "speaker": "Leo",
-     "es": "¿A qué hora sale el tren?",
+     "target": "¿A qué hora sale el tren?",
      "en": "What time does the train leave?"
     },
     {
      "speaker": "Empleada",
-     "es": "Sale a las diez y media.",
+     "target": "Sale a las diez y media.",
      "en": "It leaves at half past ten."
     },
     {
      "speaker": "Leo",
-     "es": "¿De qué andén?",
+     "target": "¿De qué andén?",
      "en": "From which platform?"
     },
     {
      "speaker": "Empleada",
-     "es": "Del andén cinco. Buen viaje.",
+     "target": "Del andén cinco. Buen viaje.",
      "en": "From platform five. Have a good trip."
     }
    ],
@@ -1231,46 +1250,46 @@
    "id": "u7",
    "title": "De compras",
    "en": "Shopping",
-   "noteHtml": "<code>este</code> and <code>esta</code> mean \"this\" or \"this one\". Most colours agree with the noun: <code>un jersey negro</code>, <code>una camiseta negra</code>. <code>azul</code> and <code>verde</code> stay the same. Ask <code>¿Cuánto cuesta?</code> for one thing and <code>¿Cuánto cuestan?</code> for several. <code>caro</code> means expensive, and <code>me lo llevo</code> or <code>me la llevo</code> means \"I will take it\".",
+   "note": "`este` and `esta` mean \"this\" or \"this one\". Most colours agree with the noun: `un jersey negro`, `una camiseta negra`. `azul` and `verde` stay the same. Ask `¿Cuánto cuesta?` for one thing and `¿Cuánto cuestan?` for several. `caro` means expensive, and `me lo llevo` or `me la llevo` means \"I will take it\".",
    "dialogue": [
     {
      "speaker": "Dependienta",
-     "es": "Hola, ¿te puedo ayudar?",
+     "target": "Hola, ¿te puedo ayudar?",
      "en": "Hi, can I help you?"
     },
     {
      "speaker": "Leo",
-     "es": "Sí, busco una camiseta.",
+     "target": "Sí, busco una camiseta.",
      "en": "Yes, I am looking for a T-shirt."
     },
     {
      "speaker": "Dependienta",
-     "es": "¿De qué talla?",
+     "target": "¿De qué talla?",
      "en": "What size?"
     },
     {
      "speaker": "Leo",
-     "es": "Mediana. ¿La tenéis en azul?",
+     "target": "Mediana. ¿La tenéis en azul?",
      "en": "Medium. Do you have it in blue?"
     },
     {
      "speaker": "Dependienta",
-     "es": "Sí, esta es azul.",
+     "target": "Sí, esta es azul.",
      "en": "Yes, this one is blue."
     },
     {
      "speaker": "Leo",
-     "es": "¿Cuánto cuesta?",
+     "target": "¿Cuánto cuesta?",
      "en": "How much does it cost?"
     },
     {
      "speaker": "Dependienta",
-     "es": "Cuesta quince euros.",
+     "target": "Cuesta quince euros.",
      "en": "It costs fifteen euros."
     },
     {
      "speaker": "Leo",
-     "es": "Perfecto, me la llevo.",
+     "target": "Perfecto, me la llevo.",
      "en": "Perfect, I will take it."
     }
    ],
@@ -1352,35 +1371,30 @@
      "items": [
       {
        "base": "la camiseta",
-       "cue": null,
        "answers": [
         "¿Cuánto cuesta la camiseta?"
        ]
       },
       {
        "base": "los zapatos",
-       "cue": null,
        "answers": [
         "¿Cuánto cuestan los zapatos?"
        ]
       },
       {
        "base": "el jersey",
-       "cue": null,
        "answers": [
         "¿Cuánto cuesta el jersey?"
        ]
       },
       {
        "base": "las gafas",
-       "cue": null,
        "answers": [
         "¿Cuánto cuestan las gafas?"
        ]
       },
       {
        "base": "esta chaqueta",
-       "cue": null,
        "answers": [
         "¿Cuánto cuesta esta chaqueta?"
        ]
@@ -1434,46 +1448,46 @@
    "id": "u8",
    "title": "Charlando",
    "en": "Small talk",
-   "noteHtml": "<code>me gusta</code> + one thing, <code>me gustan</code> + several. <code>te gusta</code> asks a friend and <code>os gusta</code> asks a group. Regular -ar verbs like <code>hablar</code>: <code>hablo, hablas, habla, hablamos, habláis, hablan</code>.",
+   "note": "`me gusta` + one thing, `me gustan` + several. `te gusta` asks a friend and `os gusta` asks a group. Regular -ar verbs like `hablar`: `hablo, hablas, habla, hablamos, habláis, hablan`.",
    "dialogue": [
     {
      "speaker": "Ana",
-     "es": "¿Qué haces este fin de semana?",
+     "target": "¿Qué haces este fin de semana?",
      "en": "What are you doing this weekend?"
     },
     {
      "speaker": "Leo",
-     "es": "Voy al Retiro con unos amigos.",
+     "target": "Voy al Retiro con unos amigos.",
      "en": "I am going to the Retiro with some friends."
     },
     {
      "speaker": "Ana",
-     "es": "¡Qué bien! ¿Te gusta Madrid?",
+     "target": "¡Qué bien! ¿Te gusta Madrid?",
      "en": "How nice! Do you like Madrid?"
     },
     {
      "speaker": "Leo",
-     "es": "Sí, me gusta mucho.",
+     "target": "Sí, me gusta mucho.",
      "en": "Yes, I like it a lot."
     },
     {
      "speaker": "Ana",
-     "es": "¿Y la comida?",
+     "target": "¿Y la comida?",
      "en": "And the food?"
     },
     {
      "speaker": "Leo",
-     "es": "Me encanta. Me gustan mucho las tapas.",
+     "target": "Me encanta. Me gustan mucho las tapas.",
      "en": "I love it. I really like tapas."
     },
     {
      "speaker": "Ana",
-     "es": "¿Hablas español en el trabajo?",
+     "target": "¿Hablas español en el trabajo?",
      "en": "Do you speak Spanish at work?"
     },
     {
      "speaker": "Leo",
-     "es": "Un poco. Casi siempre hablo inglés.",
+     "target": "Un poco. Casi siempre hablo inglés.",
      "en": "A little. I almost always speak English."
     }
    ],
@@ -1569,35 +1583,30 @@
      "items": [
       {
        "base": "Me gusta el fútbol.",
-       "cue": null,
        "answers": [
         "¿Te gusta el fútbol?"
        ]
       },
       {
        "base": "Me gustan las tapas.",
-       "cue": null,
        "answers": [
         "¿Te gustan las tapas?"
        ]
       },
       {
        "base": "Hablo inglés.",
-       "cue": null,
        "answers": [
         "¿Hablas inglés?"
        ]
       },
       {
        "base": "Voy al Retiro.",
-       "cue": null,
        "answers": [
         "¿Vas al Retiro?"
        ]
       },
       {
        "base": "Soy de Madrid.",
-       "cue": null,
        "answers": [
         "¿Eres de Madrid?"
        ]
@@ -1649,46 +1658,46 @@
    "id": "u9",
    "title": "El trabajo",
    "en": "Work",
-   "noteHtml": "<code>trabajar</code>: <code>trabajo, trabajas, trabaja, trabajamos, trabajáis, trabajan</code>. <code>los lunes</code> means \"on Mondays\". <code>empezar</code> (to start) changes e to ie in most forms: <code>empiezo, empiezas, empieza, empiezan</code>, but <code>empezamos, empezáis</code>.",
+   "note": "`trabajar`: `trabajo, trabajas, trabaja, trabajamos, trabajáis, trabajan`. `los lunes` means \"on Mondays\". `empezar` (to start) changes e to ie in most forms: `empiezo, empiezas, empieza, empiezan`, but `empezamos, empezáis`.",
    "dialogue": [
     {
      "speaker": "Ana",
-     "es": "¿A qué te dedicas?",
+     "target": "¿A qué te dedicas?",
      "en": "What do you do for work?"
     },
     {
      "speaker": "Leo",
-     "es": "Soy ingeniero. Trabajo en una empresa de tecnología.",
+     "target": "Soy ingeniero. Trabajo en una empresa de tecnología.",
      "en": "I am an engineer. I work at a tech company."
     },
     {
      "speaker": "Ana",
-     "es": "¿Trabajas en la oficina?",
+     "target": "¿Trabajas en la oficina?",
      "en": "Do you work in the office?"
     },
     {
      "speaker": "Leo",
-     "es": "No, trabajo desde casa los lunes y los viernes.",
+     "target": "No, trabajo desde casa los lunes y los viernes.",
      "en": "No, I work from home on Mondays and Fridays."
     },
     {
      "speaker": "Ana",
-     "es": "¡Qué suerte! ¿Te gusta tu trabajo?",
+     "target": "¡Qué suerte! ¿Te gusta tu trabajo?",
      "en": "Lucky you! Do you like your job?"
     },
     {
      "speaker": "Leo",
-     "es": "Sí, pero tengo muchas reuniones.",
+     "target": "Sí, pero tengo muchas reuniones.",
      "en": "Yes, but I have a lot of meetings."
     },
     {
      "speaker": "Ana",
-     "es": "¿A qué hora empiezas?",
+     "target": "¿A qué hora empiezas?",
      "en": "What time do you start?"
     },
     {
      "speaker": "Leo",
-     "es": "Empiezo a las nueve y termino a las seis.",
+     "target": "Empiezo a las nueve y termino a las seis.",
      "en": "I start at nine and finish at six."
     }
    ],
