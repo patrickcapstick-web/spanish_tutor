@@ -1,0 +1,1565 @@
+{
+ "id": "th",
+ "name": "Thai",
+ "variety": "Central Thai",
+ "nativeName": "ภาษาไทย",
+ "description": "Everyday Thai for a trip: greetings, prices, food, taxis, hotels and getting help.",
+ "lang": "th-TH",
+ "speechLanguage": "th",
+ "voice": "7XW5JhaNn90bnFojQ5DA",
+ "model": "eleven_v3",
+ "sayIt": "Say it in Thai.",
+ "doneMessage": "เก่งมาก! Great work.",
+ "romanization": "Pronunciation",
+ "pronouns": [],
+ "keys": [],
+ "noSpaces": true,
+ "optionalWords": [
+  "ครับ",
+  "ค่ะ",
+  "คะ",
+  "คับ",
+  "ค่า"
+ ],
+ "numbers": "th",
+ "variants": {
+  "label": "Polite form",
+  "options": [
+   {
+    "id": "male",
+    "label": "Male (khráp)",
+    "replace": {
+     "{p}": "ครับ",
+     "{q}": "ครับ",
+     "{I}": "ผม"
+    },
+    "romReplace": {
+     "{p}": "khráp",
+     "{q}": "khráp",
+     "{I}": "phǒm"
+    }
+   },
+   {
+    "id": "female",
+    "label": "Female (khâ)",
+    "replace": {
+     "{p}": "ค่ะ",
+     "{q}": "คะ",
+     "{I}": "ฉัน"
+    },
+    "romReplace": {
+     "{p}": "khâ",
+     "{q}": "khá",
+     "{I}": "chǎn"
+    }
+   }
+  ]
+ },
+ "units": [
+  {
+   "id": "u1",
+   "title": "สวัสดี",
+   "en": "Greetings",
+   "note": "Thai has no verb endings to learn. Politeness comes from a word at the end of the sentence: men say `ครับ` (khráp), women say `ค่ะ` (khâ) in statements and `คะ` (khá) in questions. Choose yours on the Today screen. Thai also writes words without spaces; a space marks the end of a phrase.",
+   "dialogue": [
+    {
+     "speaker": "You",
+     "target": "สวัสดี{p}",
+     "rom": "sà-wàt-dee {p}",
+     "en": "Hello."
+    },
+    {
+     "speaker": "Nok",
+     "target": "สวัสดีค่ะ",
+     "rom": "sà-wàt-dee khâ",
+     "en": "Hello."
+    },
+    {
+     "speaker": "You",
+     "target": "สบายดีไหม{q}",
+     "rom": "sà-baai dee mǎi {q}",
+     "en": "How are you?"
+    },
+    {
+     "speaker": "Nok",
+     "target": "สบายดีค่ะ แล้วคุณล่ะคะ",
+     "rom": "sà-baai dee khâ. láew khun lâ khá",
+     "en": "I'm fine. And you?"
+    },
+    {
+     "speaker": "You",
+     "target": "สบายดี{p} ขอบคุณ{p}",
+     "rom": "sà-baai dee {p}. khàwp-khun {p}",
+     "en": "I'm fine, thank you."
+    },
+    {
+     "speaker": "Nok",
+     "target": "คุณชื่ออะไรคะ",
+     "rom": "khun chûue à-rai khá",
+     "en": "What's your name?"
+    },
+    {
+     "speaker": "You",
+     "target": "{I}ชื่อแซม{p}",
+     "rom": "{I} chûue Saem {p}",
+     "en": "My name is Sam."
+    },
+    {
+     "speaker": "Nok",
+     "target": "ยินดีที่ได้รู้จักค่ะ",
+     "rom": "yin-dee thîi dâai rúu-jàk khâ",
+     "en": "Nice to meet you."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "สวัสดี{p}",
+       "baseRom": "sà-wàt-dee {p}",
+       "baseEn": "Hello.",
+       "cue": "ขอบคุณ",
+       "cueRom": "khàwp-khun",
+       "cueEn": "thank you",
+       "answers": [
+        "ขอบคุณ{p}"
+       ],
+       "answerRom": "khàwp-khun {p}"
+      },
+      {
+       "base": "สวัสดี{p}",
+       "baseRom": "sà-wàt-dee {p}",
+       "baseEn": "Hello.",
+       "cue": "ขอโทษ",
+       "cueRom": "khǎw-thôot",
+       "cueEn": "sorry / excuse me",
+       "answers": [
+        "ขอโทษ{p}"
+       ],
+       "answerRom": "khǎw-thôot {p}"
+      },
+      {
+       "base": "สวัสดี{p}",
+       "baseRom": "sà-wàt-dee {p}",
+       "baseEn": "Hello.",
+       "cue": "ไม่เป็นไร",
+       "cueRom": "mâi bpen rai",
+       "cueEn": "no problem",
+       "answers": [
+        "ไม่เป็นไร{p}"
+       ],
+       "answerRom": "mâi bpen rai {p}"
+      },
+      {
+       "base": "สวัสดี{p}",
+       "baseRom": "sà-wàt-dee {p}",
+       "baseEn": "Hello.",
+       "cue": "ลาก่อน",
+       "cueRom": "laa-gàwn",
+       "cueEn": "goodbye",
+       "answers": [
+        "ลาก่อน{p}"
+       ],
+       "answerRom": "laa-gàwn {p}"
+      },
+      {
+       "base": "{I}ชื่อแซม{p}",
+       "baseRom": "{I} chûue Saem {p}",
+       "baseEn": "My name is Sam.",
+       "cue": "ทอม",
+       "cueRom": "Thawm",
+       "cueEn": "Tom",
+       "answers": [
+        "{I}ชื่อทอม{p}",
+        "ชื่อทอม{p}"
+       ],
+       "answerRom": "{I} chûue Thawm {p}"
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Turn it into a question by adding ไหม (mǎi) at the end.",
+     "items": [
+      {
+       "base": "สบายดี",
+       "baseRom": "sà-baai dee",
+       "baseEn": "I'm fine.",
+       "answers": [
+        "สบายดีไหม{q}"
+       ],
+       "answerRom": "sà-baai dee mǎi {q}"
+      },
+      {
+       "base": "เข้าใจ",
+       "baseRom": "khâo-jai",
+       "baseEn": "I understand.",
+       "answers": [
+        "เข้าใจไหม{q}"
+       ],
+       "answerRom": "khâo-jai mǎi {q}"
+      },
+      {
+       "base": "หิว",
+       "baseRom": "hǐw",
+       "baseEn": "I'm hungry.",
+       "answers": [
+        "หิวไหม{q}"
+       ],
+       "answerRom": "hǐw mǎi {q}"
+      },
+      {
+       "base": "พูดภาษาอังกฤษได้",
+       "baseRom": "phûut phaa-sǎa ang-grìt dâai",
+       "baseEn": "I can speak English.",
+       "answers": [
+        "พูดภาษาอังกฤษได้ไหม{q}"
+       ],
+       "answerRom": "phûut phaa-sǎa ang-grìt dâai mǎi {q}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "Thank you.",
+       "answers": [
+        "ขอบคุณ{p}"
+       ],
+       "answerRom": "khàwp-khun {p}"
+      },
+      {
+       "en": "Sorry.",
+       "answers": [
+        "ขอโทษ{p}"
+       ],
+       "answerRom": "khǎw-thôot {p}"
+      },
+      {
+       "en": "No problem.",
+       "answers": [
+        "ไม่เป็นไร{p}"
+       ],
+       "answerRom": "mâi bpen rai {p}"
+      },
+      {
+       "en": "My name is Tom.",
+       "answers": [
+        "{I}ชื่อทอม{p}",
+        "ชื่อทอม{p}"
+       ],
+       "answerRom": "{I} chûue Thawm {p}"
+      },
+      {
+       "en": "Do you understand?",
+       "answers": [
+        "เข้าใจไหม{q}"
+       ],
+       "answerRom": "khâo-jai mǎi {q}"
+      },
+      {
+       "en": "I don't understand.",
+       "answers": [
+        "ไม่เข้าใจ{p}",
+        "{I}ไม่เข้าใจ{p}"
+       ],
+       "answerRom": "mâi khâo-jai {p}"
+      },
+      {
+       "en": "Please speak slowly.",
+       "answers": [
+        "พูดช้าๆหน่อย{p}",
+        "พูดช้าๆ หน่อย{p}",
+        "ช่วยพูดช้าๆหน่อย{p}"
+       ],
+       "answerRom": "phûut cháa cháa nòi {p}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u2",
+   "title": "ราคา",
+   "en": "Numbers and prices",
+   "note": "Numbers: `หนึ่ง` 1, `สอง` 2, `สาม` 3, `สี่` 4, `ห้า` 5, `หก` 6, `เจ็ด` 7, `แปด` 8, `เก้า` 9, `สิบ` 10. Twenty is `ยี่สิบ`, a hundred is `ร้อย`. Prices are in `บาท` (bàat). Gentle bargaining is normal at markets, not in shops or restaurants.",
+   "dialogue": [
+    {
+     "speaker": "You",
+     "target": "อันนี้เท่าไหร่{q}",
+     "rom": "an níi thâo-rài {q}",
+     "en": "How much is this?"
+    },
+    {
+     "speaker": "Vendor",
+     "target": "ร้อยห้าสิบบาทค่ะ",
+     "rom": "rói hâa-sìp bàat khâ",
+     "en": "150 baht."
+    },
+    {
+     "speaker": "You",
+     "target": "แพงไป{p} ลดได้ไหม{q}",
+     "rom": "phaeng bpai {p}. lót dâai mǎi {q}",
+     "en": "That's too expensive. Can you lower it?"
+    },
+    {
+     "speaker": "Vendor",
+     "target": "ได้ค่ะ ร้อยยี่สิบบาท",
+     "rom": "dâai khâ. rói yîi-sìp bàat",
+     "en": "OK, 120 baht."
+    },
+    {
+     "speaker": "You",
+     "target": "ร้อยบาทได้ไหม{q}",
+     "rom": "rói bàat dâai mǎi {q}",
+     "en": "Can you do 100 baht?"
+    },
+    {
+     "speaker": "Vendor",
+     "target": "ไม่ได้ค่ะ ร้อยสิบบาทค่ะ",
+     "rom": "mâi dâai khâ. rói sìp bàat khâ",
+     "en": "No, 110 baht."
+    },
+    {
+     "speaker": "You",
+     "target": "โอเค เอาอันนี้{p}",
+     "rom": "oo-khee. ao an níi {p}",
+     "en": "OK, I'll take this one."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new number.",
+     "items": [
+      {
+       "base": "ร้อยบาท",
+       "baseRom": "rói bàat",
+       "baseEn": "100 baht",
+       "cue": "สอง",
+       "cueRom": "sǎwng",
+       "cueEn": "two",
+       "answers": [
+        "สองร้อยบาท"
+       ],
+       "answerRom": "sǎwng rói bàat"
+      },
+      {
+       "base": "ร้อยบาท",
+       "baseRom": "rói bàat",
+       "baseEn": "100 baht",
+       "cue": "ห้า",
+       "cueRom": "hâa",
+       "cueEn": "five",
+       "answers": [
+        "ห้าร้อยบาท"
+       ],
+       "answerRom": "hâa rói bàat"
+      },
+      {
+       "base": "ยี่สิบบาท",
+       "baseRom": "yîi-sìp bàat",
+       "baseEn": "20 baht",
+       "cue": "สาม",
+       "cueRom": "sǎam",
+       "cueEn": "three",
+       "answers": [
+        "สามสิบบาท"
+       ],
+       "answerRom": "sǎam-sìp bàat"
+      },
+      {
+       "base": "ยี่สิบบาท",
+       "baseRom": "yîi-sìp bàat",
+       "baseEn": "20 baht",
+       "cue": "ห้า",
+       "cueRom": "hâa",
+       "cueEn": "five",
+       "answers": [
+        "ห้าสิบบาท"
+       ],
+       "answerRom": "hâa-sìp bàat"
+      },
+      {
+       "base": "ยี่สิบบาท",
+       "baseRom": "yîi-sìp bàat",
+       "baseEn": "20 baht",
+       "cue": "เก้า",
+       "cueRom": "gâo",
+       "cueEn": "nine",
+       "answers": [
+        "เก้าสิบบาท"
+       ],
+       "answerRom": "gâo-sìp bàat"
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "อันนี้เท่าไหร่{q}",
+       "baseRom": "an níi thâo-rài {q}",
+       "baseEn": "How much is this?",
+       "cue": "เสื้อตัวนี้",
+       "cueRom": "sûea dtua níi",
+       "cueEn": "this shirt",
+       "answers": [
+        "เสื้อตัวนี้เท่าไหร่{q}"
+       ],
+       "answerRom": "sûea dtua níi thâo-rài {q}"
+      },
+      {
+       "base": "อันนี้เท่าไหร่{q}",
+       "baseRom": "an níi thâo-rài {q}",
+       "baseEn": "How much is this?",
+       "cue": "น้ำ",
+       "cueRom": "náam",
+       "cueEn": "water",
+       "answers": [
+        "น้ำเท่าไหร่{q}"
+       ],
+       "answerRom": "náam thâo-rài {q}"
+      },
+      {
+       "base": "อันนี้เท่าไหร่{q}",
+       "baseRom": "an níi thâo-rài {q}",
+       "baseEn": "How much is this?",
+       "cue": "ไปสนามบิน",
+       "cueRom": "bpai sà-nǎam-bin",
+       "cueEn": "to the airport",
+       "answers": [
+        "ไปสนามบินเท่าไหร่{q}"
+       ],
+       "answerRom": "bpai sà-nǎam-bin thâo-rài {q}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "How much is this?",
+       "answers": [
+        "อันนี้เท่าไหร่{q}"
+       ],
+       "answerRom": "an níi thâo-rài {q}"
+      },
+      {
+       "en": "Too expensive.",
+       "answers": [
+        "แพงไป{p}",
+        "แพงไปหน่อย{p}"
+       ],
+       "answerRom": "phaeng bpai {p}"
+      },
+      {
+       "en": "Can you lower the price?",
+       "answers": [
+        "ลดได้ไหม{q}",
+        "ลดหน่อยได้ไหม{q}"
+       ],
+       "answerRom": "lót dâai mǎi {q}"
+      },
+      {
+       "en": "100 baht",
+       "answers": [
+        "ร้อยบาท",
+        "หนึ่งร้อยบาท"
+       ],
+       "answerRom": "rói bàat"
+      },
+      {
+       "en": "I'll take this one.",
+       "answers": [
+        "เอาอันนี้{p}"
+       ],
+       "answerRom": "ao an níi {p}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u3",
+   "title": "สั่งอาหาร",
+   "en": "Ordering food",
+   "note": "`ขอ` (khǎw) + item is the polite way to ask for something: \"may I have\". Thai food can be very hot: `ไม่เผ็ด` (mâi phèt) means not spicy, `เผ็ดนิดหน่อย` (phèt nít-nòi) a little spicy.",
+   "dialogue": [
+    {
+     "speaker": "Waiter",
+     "target": "รับอะไรดีครับ",
+     "rom": "ráp à-rai dee khráp",
+     "en": "What would you like?"
+    },
+    {
+     "speaker": "You",
+     "target": "ขอผัดไทยหนึ่งจาน{p}",
+     "rom": "khǎw phàt-thai nùeng jaan {p}",
+     "en": "One pad thai, please."
+    },
+    {
+     "speaker": "Waiter",
+     "target": "เผ็ดไหมครับ",
+     "rom": "phèt mǎi khráp",
+     "en": "Spicy?"
+    },
+    {
+     "speaker": "You",
+     "target": "เผ็ดนิดหน่อย{p}",
+     "rom": "phèt nít-nòi {p}",
+     "en": "A little spicy."
+    },
+    {
+     "speaker": "Waiter",
+     "target": "ดื่มอะไรครับ",
+     "rom": "dùuem à-rai khráp",
+     "en": "Anything to drink?"
+    },
+    {
+     "speaker": "You",
+     "target": "ขอน้ำเปล่าขวดหนึ่ง{p}",
+     "rom": "khǎw náam-bplàao khùat nùeng {p}",
+     "en": "A bottle of water, please."
+    },
+    {
+     "speaker": "You",
+     "target": "อร่อยมาก{p}",
+     "rom": "à-ròi mâak {p}",
+     "en": "It's delicious!"
+    },
+    {
+     "speaker": "You",
+     "target": "เช็คบิลด้วย{p}",
+     "rom": "chék bin dûai {p}",
+     "en": "The bill, please."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "ขอผัดไทย{p}",
+       "baseRom": "khǎw phàt-thai {p}",
+       "baseEn": "Pad thai, please.",
+       "cue": "ข้าวผัด",
+       "cueRom": "khâao-phàt",
+       "cueEn": "fried rice",
+       "answers": [
+        "ขอข้าวผัด{p}"
+       ],
+       "answerRom": "khǎw khâao-phàt {p}"
+      },
+      {
+       "base": "ขอผัดไทย{p}",
+       "baseRom": "khǎw phàt-thai {p}",
+       "baseEn": "Pad thai, please.",
+       "cue": "ต้มยำกุ้ง",
+       "cueRom": "dtôm-yam-gûng",
+       "cueEn": "tom yum soup",
+       "answers": [
+        "ขอต้มยำกุ้ง{p}"
+       ],
+       "answerRom": "khǎw dtôm-yam-gûng {p}"
+      },
+      {
+       "base": "ขอผัดไทย{p}",
+       "baseRom": "khǎw phàt-thai {p}",
+       "baseEn": "Pad thai, please.",
+       "cue": "ส้มตำ",
+       "cueRom": "sôm-dtam",
+       "cueEn": "papaya salad",
+       "answers": [
+        "ขอส้มตำ{p}"
+       ],
+       "answerRom": "khǎw sôm-dtam {p}"
+      },
+      {
+       "base": "ขอผัดไทย{p}",
+       "baseRom": "khǎw phàt-thai {p}",
+       "baseEn": "Pad thai, please.",
+       "cue": "กาแฟเย็น",
+       "cueRom": "gaa-fae yen",
+       "cueEn": "iced coffee",
+       "answers": [
+        "ขอกาแฟเย็น{p}"
+       ],
+       "answerRom": "khǎw gaa-fae yen {p}"
+      },
+      {
+       "base": "ขอผัดไทย{p}",
+       "baseRom": "khǎw phàt-thai {p}",
+       "baseEn": "Pad thai, please.",
+       "cue": "เบียร์",
+       "cueRom": "bia",
+       "cueEn": "beer",
+       "answers": [
+        "ขอเบียร์{p}"
+       ],
+       "answerRom": "khǎw bia {p}"
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it negative by putting ไม่ (mâi) in front.",
+     "items": [
+      {
+       "base": "เผ็ด",
+       "baseRom": "phèt",
+       "baseEn": "spicy",
+       "answers": [
+        "ไม่เผ็ด"
+       ],
+       "answerRom": "mâi phèt"
+      },
+      {
+       "base": "หวาน",
+       "baseRom": "wǎan",
+       "baseEn": "sweet",
+       "answers": [
+        "ไม่หวาน"
+       ],
+       "answerRom": "mâi wǎan"
+      },
+      {
+       "base": "ใส่น้ำแข็ง",
+       "baseRom": "sài náam-khǎeng",
+       "baseEn": "with ice",
+       "answers": [
+        "ไม่ใส่น้ำแข็ง"
+       ],
+       "answerRom": "mâi sài náam-khǎeng"
+      },
+      {
+       "base": "อร่อย",
+       "baseRom": "à-ròi",
+       "baseEn": "delicious",
+       "answers": [
+        "ไม่อร่อย"
+       ],
+       "answerRom": "mâi à-ròi"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "Not spicy, please.",
+       "answers": [
+        "ไม่เผ็ด{p}",
+        "ขอไม่เผ็ด{p}"
+       ],
+       "answerRom": "mâi phèt {p}"
+      },
+      {
+       "en": "It's delicious.",
+       "answers": [
+        "อร่อยมาก{p}",
+        "อร่อย{p}"
+       ],
+       "answerRom": "à-ròi mâak {p}"
+      },
+      {
+       "en": "The bill, please.",
+       "answers": [
+        "เช็คบิลด้วย{p}",
+        "เก็บเงินด้วย{p}"
+       ],
+       "answerRom": "chék bin dûai {p}"
+      },
+      {
+       "en": "One fried rice, please.",
+       "answers": [
+        "ขอข้าวผัดหนึ่งจาน{p}",
+        "ขอข้าวผัดจานหนึ่ง{p}"
+       ],
+       "answerRom": "khǎw khâao-phàt nùeng jaan {p}"
+      },
+      {
+       "en": "Water, please.",
+       "answers": [
+        "ขอน้ำเปล่า{p}",
+        "ขอน้ำ{p}"
+       ],
+       "answerRom": "khǎw náam-bplàao {p}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u4",
+   "title": "การเดินทาง",
+   "en": "Getting around",
+   "note": "`ไป` (bpai) means go. `ไป ... ไหม` asks a taxi or tuk-tuk driver \"will you go to ...?\". Ask for the meter with `ใช้มิเตอร์ได้ไหม` before you set off.",
+   "dialogue": [
+    {
+     "speaker": "You",
+     "target": "ไปถนนข้าวสารไหม{q}",
+     "rom": "bpai thà-nǒn khâao-sǎan mǎi {q}",
+     "en": "Will you go to Khao San Road?"
+    },
+    {
+     "speaker": "Driver",
+     "target": "ไปครับ สองร้อยบาท",
+     "rom": "bpai khráp. sǎwng rói bàat",
+     "en": "Yes. 200 baht."
+    },
+    {
+     "speaker": "You",
+     "target": "ใช้มิเตอร์ได้ไหม{q}",
+     "rom": "chái mí-dtôe dâai mǎi {q}",
+     "en": "Can you use the meter?"
+    },
+    {
+     "speaker": "Driver",
+     "target": "ได้ครับ",
+     "rom": "dâai khráp",
+     "en": "Sure."
+    },
+    {
+     "speaker": "You",
+     "target": "ตรงไป{p}",
+     "rom": "dtrong bpai {p}",
+     "en": "Go straight."
+    },
+    {
+     "speaker": "You",
+     "target": "เลี้ยวซ้าย{p}",
+     "rom": "líao sáai {p}",
+     "en": "Turn left."
+    },
+    {
+     "speaker": "You",
+     "target": "จอดตรงนี้{p}",
+     "rom": "jàwt dtrong níi {p}",
+     "en": "Stop here."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "ไปสนามบินไหม{q}",
+       "baseRom": "bpai sà-nǎam-bin mǎi {q}",
+       "baseEn": "Will you go to the airport?",
+       "cue": "โรงแรม",
+       "cueRom": "roong-raem",
+       "cueEn": "the hotel",
+       "answers": [
+        "ไปโรงแรมไหม{q}"
+       ],
+       "answerRom": "bpai roong-raem mǎi {q}"
+      },
+      {
+       "base": "ไปสนามบินไหม{q}",
+       "baseRom": "bpai sà-nǎam-bin mǎi {q}",
+       "baseEn": "Will you go to the airport?",
+       "cue": "สถานีรถไฟ",
+       "cueRom": "sà-thǎa-nii rót-fai",
+       "cueEn": "the train station",
+       "answers": [
+        "ไปสถานีรถไฟไหม{q}"
+       ],
+       "answerRom": "bpai sà-thǎa-nii rót-fai mǎi {q}"
+      },
+      {
+       "base": "ไปสนามบินไหม{q}",
+       "baseRom": "bpai sà-nǎam-bin mǎi {q}",
+       "baseEn": "Will you go to the airport?",
+       "cue": "ตลาด",
+       "cueRom": "dtà-làat",
+       "cueEn": "the market",
+       "answers": [
+        "ไปตลาดไหม{q}"
+       ],
+       "answerRom": "bpai dtà-làat mǎi {q}"
+      },
+      {
+       "base": "ไปสนามบินไหม{q}",
+       "baseRom": "bpai sà-nǎam-bin mǎi {q}",
+       "baseEn": "Will you go to the airport?",
+       "cue": "วัดพระแก้ว",
+       "cueRom": "wát phrá-gâew",
+       "cueEn": "the Temple of the Emerald Buddha",
+       "answers": [
+        "ไปวัดพระแก้วไหม{q}"
+       ],
+       "answerRom": "bpai wát phrá-gâew mǎi {q}"
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "เลี้ยวซ้าย{p}",
+       "baseRom": "líao sáai {p}",
+       "baseEn": "Turn left.",
+       "cue": "ขวา",
+       "cueRom": "khwǎa",
+       "cueEn": "right",
+       "answers": [
+        "เลี้ยวขวา{p}"
+       ],
+       "answerRom": "líao khwǎa {p}"
+      },
+      {
+       "base": "จอดตรงนี้{p}",
+       "baseRom": "jàwt dtrong níi {p}",
+       "baseEn": "Stop here.",
+       "cue": "ตรงนั้น",
+       "cueRom": "dtrong nán",
+       "cueEn": "there",
+       "answers": [
+        "จอดตรงนั้น{p}"
+       ],
+       "answerRom": "jàwt dtrong nán {p}"
+      },
+      {
+       "base": "จอดตรงนี้{p}",
+       "baseRom": "jàwt dtrong níi {p}",
+       "baseEn": "Stop here.",
+       "cue": "หน้าโรงแรม",
+       "cueRom": "nâa roong-raem",
+       "cueEn": "in front of the hotel",
+       "answers": [
+        "จอดหน้าโรงแรม{p}"
+       ],
+       "answerRom": "jàwt nâa roong-raem {p}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "To the airport, please.",
+       "answers": [
+        "ไปสนามบิน{p}"
+       ],
+       "answerRom": "bpai sà-nǎam-bin {p}"
+      },
+      {
+       "en": "Turn right.",
+       "answers": [
+        "เลี้ยวขวา{p}"
+       ],
+       "answerRom": "líao khwǎa {p}"
+      },
+      {
+       "en": "Stop here.",
+       "answers": [
+        "จอดตรงนี้{p}"
+       ],
+       "answerRom": "jàwt dtrong níi {p}"
+      },
+      {
+       "en": "Can you use the meter?",
+       "answers": [
+        "ใช้มิเตอร์ได้ไหม{q}"
+       ],
+       "answerRom": "chái mí-dtôe dâai mǎi {q}"
+      },
+      {
+       "en": "How much to the hotel?",
+       "answers": [
+        "ไปโรงแรมเท่าไหร่{q}"
+       ],
+       "answerRom": "bpai roong-raem thâo-rài {q}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u5",
+   "title": "อยู่ที่ไหน",
+   "en": "Where is it?",
+   "note": "`อยู่ที่ไหน` (yùu thîi-nǎi) means \"where is\" and goes after the place. `แถวนี้มี ... ไหม` (thǎew níi mii ... mǎi) asks \"is there a ... around here?\".",
+   "dialogue": [
+    {
+     "speaker": "You",
+     "target": "ขอโทษ{p} ห้องน้ำอยู่ที่ไหน{q}",
+     "rom": "khǎw-thôot {p}. hâwng-náam yùu thîi-nǎi {q}",
+     "en": "Excuse me, where is the bathroom?"
+    },
+    {
+     "speaker": "Passer-by",
+     "target": "อยู่ข้างหลังค่ะ",
+     "rom": "yùu khâang-lǎng khâ",
+     "en": "It's at the back."
+    },
+    {
+     "speaker": "You",
+     "target": "ไกลไหม{q}",
+     "rom": "glai mǎi {q}",
+     "en": "Is it far?"
+    },
+    {
+     "speaker": "Passer-by",
+     "target": "ไม่ไกลค่ะ เดินไปห้านาที",
+     "rom": "mâi glai khâ. doen bpai hâa naa-thii",
+     "en": "Not far. Five minutes on foot."
+    },
+    {
+     "speaker": "You",
+     "target": "แถวนี้มีร้านขายยาไหม{q}",
+     "rom": "thǎew níi mii ráan-khǎai-yaa mǎi {q}",
+     "en": "Is there a pharmacy around here?"
+    },
+    {
+     "speaker": "Passer-by",
+     "target": "มีค่ะ อยู่ตรงข้ามเซเว่น",
+     "rom": "mii khâ. yùu dtrong-khâam se-wên",
+     "en": "Yes, across from the 7-Eleven."
+    },
+    {
+     "speaker": "You",
+     "target": "ขอบคุณมาก{p}",
+     "rom": "khàwp-khun mâak {p}",
+     "en": "Thank you very much."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "ห้องน้ำอยู่ที่ไหน{q}",
+       "baseRom": "hâwng-náam yùu thîi-nǎi {q}",
+       "baseEn": "Where is the bathroom?",
+       "cue": "สถานีรถไฟฟ้า",
+       "cueRom": "sà-thǎa-nii rót-fai-fáa",
+       "cueEn": "the skytrain station",
+       "answers": [
+        "สถานีรถไฟฟ้าอยู่ที่ไหน{q}"
+       ],
+       "answerRom": "sà-thǎa-nii rót-fai-fáa yùu thîi-nǎi {q}"
+      },
+      {
+       "base": "ห้องน้ำอยู่ที่ไหน{q}",
+       "baseRom": "hâwng-náam yùu thîi-nǎi {q}",
+       "baseEn": "Where is the bathroom?",
+       "cue": "โรงพยาบาล",
+       "cueRom": "roong-phá-yaa-baan",
+       "cueEn": "the hospital",
+       "answers": [
+        "โรงพยาบาลอยู่ที่ไหน{q}"
+       ],
+       "answerRom": "roong-phá-yaa-baan yùu thîi-nǎi {q}"
+      },
+      {
+       "base": "ห้องน้ำอยู่ที่ไหน{q}",
+       "baseRom": "hâwng-náam yùu thîi-nǎi {q}",
+       "baseEn": "Where is the bathroom?",
+       "cue": "โรงแรม",
+       "cueRom": "roong-raem",
+       "cueEn": "the hotel",
+       "answers": [
+        "โรงแรมอยู่ที่ไหน{q}"
+       ],
+       "answerRom": "roong-raem yùu thîi-nǎi {q}"
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "แถวนี้มีร้านขายยาไหม{q}",
+       "baseRom": "thǎew níi mii ráan-khǎai-yaa mǎi {q}",
+       "baseEn": "Is there a pharmacy around here?",
+       "cue": "ตู้เอทีเอ็ม",
+       "cueRom": "dtûu ee-thii-em",
+       "cueEn": "an ATM",
+       "answers": [
+        "แถวนี้มีตู้เอทีเอ็มไหม{q}"
+       ],
+       "answerRom": "thǎew níi mii dtûu ee-thii-em mǎi {q}"
+      },
+      {
+       "base": "แถวนี้มีร้านขายยาไหม{q}",
+       "baseRom": "thǎew níi mii ráan-khǎai-yaa mǎi {q}",
+       "baseEn": "Is there a pharmacy around here?",
+       "cue": "ร้านอาหาร",
+       "cueRom": "ráan aa-hǎan",
+       "cueEn": "a restaurant",
+       "answers": [
+        "แถวนี้มีร้านอาหารไหม{q}"
+       ],
+       "answerRom": "thǎew níi mii ráan aa-hǎan mǎi {q}"
+      },
+      {
+       "base": "แถวนี้มีร้านขายยาไหม{q}",
+       "baseRom": "thǎew níi mii ráan-khǎai-yaa mǎi {q}",
+       "baseEn": "Is there a pharmacy around here?",
+       "cue": "ร้านกาแฟ",
+       "cueRom": "ráan gaa-fae",
+       "cueEn": "a café",
+       "answers": [
+        "แถวนี้มีร้านกาแฟไหม{q}"
+       ],
+       "answerRom": "thǎew níi mii ráan gaa-fae mǎi {q}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "Where is the bathroom?",
+       "answers": [
+        "ห้องน้ำอยู่ที่ไหน{q}"
+       ],
+       "answerRom": "hâwng-náam yùu thîi-nǎi {q}"
+      },
+      {
+       "en": "Is it far?",
+       "answers": [
+        "ไกลไหม{q}"
+       ],
+       "answerRom": "glai mǎi {q}"
+      },
+      {
+       "en": "It's not far.",
+       "answers": [
+        "ไม่ไกล{p}"
+       ],
+       "answerRom": "mâi glai {p}"
+      },
+      {
+       "en": "Is there an ATM around here?",
+       "answers": [
+        "แถวนี้มีตู้เอทีเอ็มไหม{q}"
+       ],
+       "answerRom": "thǎew níi mii dtûu ee-thii-em mǎi {q}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u6",
+   "title": "ที่โรงแรม",
+   "en": "At the hotel",
+   "note": "`มี ... ไหม` (mii ... mǎi) means \"is there ...?\" or \"do you have ...?\". `กี่โมง` (gìi moong) asks \"what time?\" and goes at the end.",
+   "dialogue": [
+    {
+     "speaker": "Receptionist",
+     "target": "สวัสดีค่ะ จองไว้ไหมคะ",
+     "rom": "sà-wàt-dee khâ. jawng wái mǎi khá",
+     "en": "Hello. Do you have a reservation?"
+    },
+    {
+     "speaker": "You",
+     "target": "จองไว้แล้ว{p} ชื่อแซม",
+     "rom": "jawng wái láew {p}. chûue Saem",
+     "en": "Yes, I booked. The name is Sam."
+    },
+    {
+     "speaker": "Receptionist",
+     "target": "ขอดูพาสปอร์ตหน่อยค่ะ",
+     "rom": "khǎw duu pháat-sà-bpàwt nòi khâ",
+     "en": "May I see your passport?"
+    },
+    {
+     "speaker": "You",
+     "target": "นี่{p}",
+     "rom": "nîi {p}",
+     "en": "Here you are."
+    },
+    {
+     "speaker": "You",
+     "target": "มีไวไฟไหม{q}",
+     "rom": "mii wai-fai mǎi {q}",
+     "en": "Is there Wi-Fi?"
+    },
+    {
+     "speaker": "Receptionist",
+     "target": "มีค่ะ รหัสอยู่ในห้อง",
+     "rom": "mii khâ. rá-hàt yùu nai hâwng",
+     "en": "Yes, the password is in the room."
+    },
+    {
+     "speaker": "You",
+     "target": "อาหารเช้ากี่โมง{q}",
+     "rom": "aa-hǎan cháao gìi moong {q}",
+     "en": "What time is breakfast?"
+    },
+    {
+     "speaker": "Receptionist",
+     "target": "เจ็ดโมงถึงสิบโมงค่ะ",
+     "rom": "jèt moong thǔeng sìp moong khâ",
+     "en": "From seven to ten."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "มีไวไฟไหม{q}",
+       "baseRom": "mii wai-fai mǎi {q}",
+       "baseEn": "Is there Wi-Fi?",
+       "cue": "สระว่ายน้ำ",
+       "cueRom": "sà wâai-náam",
+       "cueEn": "a swimming pool",
+       "answers": [
+        "มีสระว่ายน้ำไหม{q}"
+       ],
+       "answerRom": "mii sà wâai-náam mǎi {q}"
+      },
+      {
+       "base": "มีไวไฟไหม{q}",
+       "baseRom": "mii wai-fai mǎi {q}",
+       "baseEn": "Is there Wi-Fi?",
+       "cue": "ผ้าเช็ดตัว",
+       "cueRom": "phâa chét dtua",
+       "cueEn": "towels",
+       "answers": [
+        "มีผ้าเช็ดตัวไหม{q}"
+       ],
+       "answerRom": "mii phâa chét dtua mǎi {q}"
+      },
+      {
+       "base": "มีไวไฟไหม{q}",
+       "baseRom": "mii wai-fai mǎi {q}",
+       "baseEn": "Is there Wi-Fi?",
+       "cue": "ห้องว่าง",
+       "cueRom": "hâwng wâang",
+       "cueEn": "a free room",
+       "answers": [
+        "มีห้องว่างไหม{q}"
+       ],
+       "answerRom": "mii hâwng wâang mǎi {q}"
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Ask what time, with กี่โมง (gìi moong) at the end.",
+     "items": [
+      {
+       "base": "อาหารเช้า",
+       "baseRom": "aa-hǎan cháao",
+       "baseEn": "breakfast",
+       "answers": [
+        "อาหารเช้ากี่โมง{q}"
+       ],
+       "answerRom": "aa-hǎan cháao gìi moong {q}"
+      },
+      {
+       "base": "เช็คเอาท์",
+       "baseRom": "chék-áo",
+       "baseEn": "check-out",
+       "answers": [
+        "เช็คเอาท์กี่โมง{q}"
+       ],
+       "answerRom": "chék-áo gìi moong {q}"
+      },
+      {
+       "base": "รถออก",
+       "baseRom": "rót àwk",
+       "baseEn": "the bus leaves",
+       "answers": [
+        "รถออกกี่โมง{q}"
+       ],
+       "answerRom": "rót àwk gìi moong {q}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "Is there Wi-Fi?",
+       "answers": [
+        "มีไวไฟไหม{q}"
+       ],
+       "answerRom": "mii wai-fai mǎi {q}"
+      },
+      {
+       "en": "What time is check-out?",
+       "answers": [
+        "เช็คเอาท์กี่โมง{q}"
+       ],
+       "answerRom": "chék-áo gìi moong {q}"
+      },
+      {
+       "en": "I have a reservation.",
+       "answers": [
+        "จองไว้แล้ว{p}"
+       ],
+       "answerRom": "jawng wái láew {p}"
+      },
+      {
+       "en": "Here you are.",
+       "answers": [
+        "นี่{p}"
+       ],
+       "answerRom": "nîi {p}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u7",
+   "title": "คุยเล่น",
+   "en": "Small talk",
+   "note": "`มาจาก` (maa jàak) means \"come from\". Thai people will often praise your Thai with `พูดไทยเก่ง` (phûut thai gèng). The modest reply is `นิดหน่อย` (nít-nòi), \"just a little\".",
+   "dialogue": [
+    {
+     "speaker": "Nok",
+     "target": "มาจากไหนคะ",
+     "rom": "maa jàak nǎi khá",
+     "en": "Where are you from?"
+    },
+    {
+     "speaker": "You",
+     "target": "มาจากอเมริกา{p}",
+     "rom": "maa jàak à-mee-rí-gaa {p}",
+     "en": "I'm from America."
+    },
+    {
+     "speaker": "Nok",
+     "target": "มาเที่ยวกี่วันคะ",
+     "rom": "maa thîao gìi wan khá",
+     "en": "How many days are you visiting?"
+    },
+    {
+     "speaker": "You",
+     "target": "สิบวัน{p}",
+     "rom": "sìp wan {p}",
+     "en": "Ten days."
+    },
+    {
+     "speaker": "Nok",
+     "target": "ชอบเมืองไทยไหมคะ",
+     "rom": "châwp mueang thai mǎi khá",
+     "en": "Do you like Thailand?"
+    },
+    {
+     "speaker": "You",
+     "target": "ชอบมาก{p} อาหารอร่อย",
+     "rom": "châwp mâak {p}. aa-hǎan à-ròi",
+     "en": "I like it a lot. The food is delicious."
+    },
+    {
+     "speaker": "Nok",
+     "target": "พูดไทยเก่งนะคะ",
+     "rom": "phûut thai gèng ná khá",
+     "en": "You speak Thai well!"
+    },
+    {
+     "speaker": "You",
+     "target": "นิดหน่อย{p}",
+     "rom": "nít-nòi {p}",
+     "en": "Just a little."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "มาจากอเมริกา{p}",
+       "baseRom": "maa jàak à-mee-rí-gaa {p}",
+       "baseEn": "I'm from America.",
+       "cue": "อังกฤษ",
+       "cueRom": "ang-grìt",
+       "cueEn": "England",
+       "answers": [
+        "มาจากอังกฤษ{p}"
+       ],
+       "answerRom": "maa jàak ang-grìt {p}"
+      },
+      {
+       "base": "มาจากอเมริกา{p}",
+       "baseRom": "maa jàak à-mee-rí-gaa {p}",
+       "baseEn": "I'm from America.",
+       "cue": "ออสเตรเลีย",
+       "cueRom": "áwt-sà-dtree-lia",
+       "cueEn": "Australia",
+       "answers": [
+        "มาจากออสเตรเลีย{p}"
+       ],
+       "answerRom": "maa jàak áwt-sà-dtree-lia {p}"
+      },
+      {
+       "base": "มาจากอเมริกา{p}",
+       "baseRom": "maa jàak à-mee-rí-gaa {p}",
+       "baseEn": "I'm from America.",
+       "cue": "แคนาดา",
+       "cueRom": "khae-naa-daa",
+       "cueEn": "Canada",
+       "answers": [
+        "มาจากแคนาดา{p}"
+       ],
+       "answerRom": "maa jàak khae-naa-daa {p}"
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new number.",
+     "items": [
+      {
+       "base": "สิบวัน{p}",
+       "baseRom": "sìp wan {p}",
+       "baseEn": "Ten days.",
+       "cue": "ห้า",
+       "cueRom": "hâa",
+       "cueEn": "five",
+       "answers": [
+        "ห้าวัน{p}"
+       ],
+       "answerRom": "hâa wan {p}"
+      },
+      {
+       "base": "สิบวัน{p}",
+       "baseRom": "sìp wan {p}",
+       "baseEn": "Ten days.",
+       "cue": "เจ็ด",
+       "cueRom": "jèt",
+       "cueEn": "seven",
+       "answers": [
+        "เจ็ดวัน{p}"
+       ],
+       "answerRom": "jèt wan {p}"
+      },
+      {
+       "base": "สิบวัน{p}",
+       "baseRom": "sìp wan {p}",
+       "baseEn": "Ten days.",
+       "cue": "สิบสี่",
+       "cueRom": "sìp-sìi",
+       "cueEn": "fourteen",
+       "answers": [
+        "สิบสี่วัน{p}"
+       ],
+       "answerRom": "sìp-sìi wan {p}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "I'm from America.",
+       "answers": [
+        "มาจากอเมริกา{p}",
+        "{I}มาจากอเมริกา{p}"
+       ],
+       "answerRom": "maa jàak à-mee-rí-gaa {p}"
+      },
+      {
+       "en": "I like Thailand a lot.",
+       "answers": [
+        "ชอบเมืองไทยมาก{p}",
+        "{I}ชอบเมืองไทยมาก{p}"
+       ],
+       "answerRom": "châwp mueang thai mâak {p}"
+      },
+      {
+       "en": "Do you like Thai food?",
+       "answers": [
+        "ชอบอาหารไทยไหม{q}"
+       ],
+       "answerRom": "châwp aa-hǎan thai mǎi {q}"
+      },
+      {
+       "en": "Just a little.",
+       "answers": [
+        "นิดหน่อย{p}"
+       ],
+       "answerRom": "nít-nòi {p}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u8",
+   "title": "ขอความช่วยเหลือ",
+   "en": "Getting help",
+   "note": "`ปวด` (bpùat) means \"it hurts\" and goes before the body part. Pharmacies are everywhere in Thai cities and pharmacists are a good first stop for minor problems. In an emergency, call 1669 for an ambulance or 1155 for the tourist police.",
+   "dialogue": [
+    {
+     "speaker": "You",
+     "target": "ไม่สบาย{p}",
+     "rom": "mâi sà-baai {p}",
+     "en": "I don't feel well."
+    },
+    {
+     "speaker": "Pharmacist",
+     "target": "เป็นอะไรคะ",
+     "rom": "bpen à-rai khá",
+     "en": "What's wrong?"
+    },
+    {
+     "speaker": "You",
+     "target": "ปวดหัว{p}",
+     "rom": "bpùat hǔa {p}",
+     "en": "I have a headache."
+    },
+    {
+     "speaker": "Pharmacist",
+     "target": "ทานยานี้วันละสามครั้งนะคะ",
+     "rom": "thaan yaa níi wan lá sǎam khráng ná khá",
+     "en": "Take this medicine three times a day."
+    },
+    {
+     "speaker": "You",
+     "target": "หลังอาหารไหม{q}",
+     "rom": "lǎng aa-hǎan mǎi {q}",
+     "en": "After meals?"
+    },
+    {
+     "speaker": "Pharmacist",
+     "target": "ใช่ค่ะ หลังอาหาร",
+     "rom": "châi khâ. lǎng aa-hǎan",
+     "en": "Yes, after meals."
+    },
+    {
+     "speaker": "You",
+     "target": "ขอบคุณ{p}",
+     "rom": "khàwp-khun {p}",
+     "en": "Thank you."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "ปวดหัว{p}",
+       "baseRom": "bpùat hǔa {p}",
+       "baseEn": "I have a headache.",
+       "cue": "ท้อง",
+       "cueRom": "tháwng",
+       "cueEn": "stomach",
+       "answers": [
+        "ปวดท้อง{p}"
+       ],
+       "answerRom": "bpùat tháwng {p}"
+      },
+      {
+       "base": "ปวดหัว{p}",
+       "baseRom": "bpùat hǔa {p}",
+       "baseEn": "I have a headache.",
+       "cue": "ฟัน",
+       "cueRom": "fan",
+       "cueEn": "tooth",
+       "answers": [
+        "ปวดฟัน{p}"
+       ],
+       "answerRom": "bpùat fan {p}"
+      },
+      {
+       "base": "ปวดหัว{p}",
+       "baseRom": "bpùat hǔa {p}",
+       "baseEn": "I have a headache.",
+       "cue": "หลัง",
+       "cueRom": "lǎng",
+       "cueEn": "back",
+       "answers": [
+        "ปวดหลัง{p}"
+       ],
+       "answerRom": "bpùat lǎng {p}"
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Thai.",
+     "items": [
+      {
+       "en": "Help!",
+       "answers": [
+        "ช่วยด้วย"
+       ],
+       "answerRom": "chûai dûai"
+      },
+      {
+       "en": "Please call the police.",
+       "answers": [
+        "ช่วยเรียกตำรวจหน่อย{p}"
+       ],
+       "answerRom": "chûai rîak dtam-rùat nòi {p}"
+      },
+      {
+       "en": "I'm lost.",
+       "answers": [
+        "{I}หลงทาง{p}",
+        "หลงทาง{p}"
+       ],
+       "answerRom": "{I} lǒng thaang {p}"
+      },
+      {
+       "en": "I don't feel well.",
+       "answers": [
+        "ไม่สบาย{p}"
+       ],
+       "answerRom": "mâi sà-baai {p}"
+      },
+      {
+       "en": "I have a stomach ache.",
+       "answers": [
+        "ปวดท้อง{p}"
+       ],
+       "answerRom": "bpùat tháwng {p}"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

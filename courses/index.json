@@ -7,6 +7,14 @@
    "nativeName": "Español",
    "description": "Conversational Castilian Spanish for travel and everyday life.",
    "units": 9
+  },
+  {
+   "id": "th",
+   "name": "Thai",
+   "variety": "Central Thai",
+   "nativeName": "ภาษาไทย",
+   "description": "Everyday Thai for a trip: greetings, prices, food, taxis, hotels and getting help.",
+   "units": 8
   }
  ]
 }
