@@ -38,4 +38,4 @@ A language app built on the FSI drill method: memorise a short real-life dialogu
 
 ## Voice models
 
-Each course sets its own `model`. `eleven_multilingual_v2` covers 29 major languages including Spanish. Thai and many others need `eleven_v3`.
+Each course sets its own `model`. `eleven_multilingual_v2` covers 29 major languages including Spanish. Thai and many others need `eleven_v4` (or `eleven_v3`, which some voices do not support).
