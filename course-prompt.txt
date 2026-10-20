@@ -7,7 +7,7 @@ TOPICS I CARE ABOUT: (optional, for example: food, trains, small talk with my pa
 Everything below is instructions for Claude. You don't need to change it.
 ---------------------------------------------------------------
 
-Please write a course file for the Sin Pensar language app, using the details above.
+Please write a course file for the Autopilot language app, using the details above.
 
 How the app teaches: it follows the US Foreign Service Institute (FSI) method. Each unit has a short, realistic dialogue the learner memorises, then drills that recombine its patterns until they become automatic: substitution (swap a word into a sentence), transformation (make it negative, a question, plural, and so on) and translation from English. Keep sentences short, natural and useful for the stated purpose. Build each unit on the previous ones.
 

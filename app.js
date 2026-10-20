@@ -1,5 +1,5 @@
 'use strict';
-/* Sin Pensar: FSI-style drills in any language, with spaced review, recorded audio and speech checking. */
+/* Autopilot: FSI-style drills in any language, with spaced review, recorded audio and speech checking. */
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -484,8 +484,8 @@ function vPick() {
   return h;
 }
 function vGuide() {
-  return `<section class="sheet guide"><p class="lbl">Guide</p><h1>How to use Sin Pensar</h1>
-<p>Sin Pensar teaches the way US diplomats are trained: you memorise short real-life dialogues, then repeat drills until the answer comes out <i>sin pensar</i>, without thinking. About 10 to 15 minutes a day works best.</p>
+  return `<section class="sheet guide"><p class="lbl">Guide</p><h1>How to use Autopilot</h1>
+<p>Autopilot teaches the way US diplomats are trained: you memorise short real-life dialogues, then repeat drills until the answer comes out on autopilot, without thinking. About 10 to 15 minutes a day works best.</p>
 <h2>Your daily session</h2>
 <ol>
 <li><b>Start session</b> on the Today screen. It mixes reviews that are due with a few new items.</li>
@@ -555,7 +555,7 @@ async function openCourse(id) {
     tab = 'today';
     pickVoice();
     $('#audio-note').textContent = Object.keys(AUDIO.files).length ? '' : `Recorded ${C.name} audio is not ready yet, so the device voice is used for now.`;
-    document.title = `Sin Pensar · ${C.name}`;
+    document.title = `Autopilot · ${C.name}`;
   } catch {
     $('#view').innerHTML = '<section class="sheet"><p class="err">That course could not be loaded. Check your connection and try again.</p></section>';
     return;

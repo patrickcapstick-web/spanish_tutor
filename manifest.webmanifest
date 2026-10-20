@@ -1,6 +1,6 @@
 {
-  "name": "Sin Pensar",
-  "short_name": "Sin Pensar",
+  "name": "Autopilot",
+  "short_name": "Autopilot",
   "description": "FSI-style language drills",
   "start_url": "/",
   "display": "standalone",

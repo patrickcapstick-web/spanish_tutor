@@ -1,4 +1,4 @@
-# Run your own Sin Pensar
+# Run your own Autopilot
 
 This guide sets up your own copy of the app, with your own languages and voices. No coding is needed. It takes about 30 minutes.
 
@@ -14,7 +14,7 @@ A full 8-unit course needs roughly 3,000 to 6,000 characters of audio, a small p
 
 ## 1. Copy the app
 
-1. Open the [Sin Pensar repository](https://github.com/patrickcapstick-web/spanish_tutor).
+1. Open the [Autopilot repository](https://github.com/patrickcapstick-web/spanish_tutor).
 2. Click **Use this template**, then **Create a new repository**.
 3. Give it a name, for example `my-language-app`, and click **Create repository**.
 

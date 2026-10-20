@@ -1,6 +1,6 @@
-# Sin Pensar
+# Autopilot
 
-A language app built on the FSI drill method: memorise a short real-life dialogue, drill its patterns until the answer comes out *sin pensar* (without thinking), and review on a spaced schedule. It ships with Spanish (Spain) and Thai, and anyone can add a language with an AI-written course file.
+A language app built on the FSI drill method: memorise a short real-life dialogue, drill its patterns until the answer comes out on autopilot, without thinking, and review on a spaced schedule. It ships with Spanish (Spain) and Thai, and anyone can add a language with an AI-written course file.
 
 **Want your own copy?** Follow [SETUP.md](SETUP.md). No coding needed.
 
