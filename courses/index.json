@@ -9,6 +9,14 @@
    "units": 9
   },
   {
+   "id": "fr",
+   "name": "French",
+   "variety": "France",
+   "nativeName": "Français",
+   "description": "Conversational French for travel and everyday life: cafés, trains, restaurants and small talk.",
+   "units": 9
+  },
+  {
    "id": "it",
    "name": "Italian",
    "variety": "Standard Italian",
