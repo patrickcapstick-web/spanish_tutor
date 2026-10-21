@@ -25,6 +25,14 @@
    "units": 9
   },
   {
+   "id": "ja",
+   "name": "Japanese",
+   "variety": "Standard Japanese",
+   "nativeName": "日本語",
+   "description": "Polite everyday Japanese for a trip: greetings, cafés, trains, restaurants, shopping and getting help.",
+   "units": 9
+  },
+  {
    "id": "th",
    "name": "Thai",
    "variety": "Central Thai",
