@@ -1,0 +1,1849 @@
+{
+ "id": "fr",
+ "name": "French",
+ "variety": "France",
+ "nativeName": "Français",
+ "description": "Conversational French for travel and everyday life: cafés, trains, restaurants and small talk.",
+ "lang": "fr-FR",
+ "speechLanguage": "fr",
+ "voice": "ICk609TItINMseDpChFt",
+ "model": "eleven_multilingual_v2",
+ "sayIt": "Say it in French.",
+ "doneMessage": "Bravo. À demain !",
+ "pronouns": [
+  "je",
+  "tu",
+  "il",
+  "elle",
+  "on",
+  "nous",
+  "vous",
+  "ils",
+  "elles"
+ ],
+ "keys": [
+  "é",
+  "è",
+  "ê",
+  "à",
+  "â",
+  "ç",
+  "î",
+  "ô",
+  "û",
+  "ù",
+  "ë",
+  "ï",
+  "œ"
+ ],
+ "noSpaces": false,
+ "optionalWords": [],
+ "numbers": "fr",
+ "units": [
+  {
+   "id": "u1",
+   "title": "Salutations",
+   "en": "Greetings",
+   "note": "`Ça va ?` and `Comment vas-tu ?` are for friends. `Comment allez-vous ?` is polite, or for a group. Say `Bonjour` during the day and `Bonsoir` in the evening; `Salut` means hi and bye among friends. Men write `enchanté`, women `enchantée`; they sound the same.",
+   "dialogue": [
+    {
+     "speaker": "Camille",
+     "target": "Salut, bonjour.",
+     "en": "Hi, good morning."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Bonjour. Ça va ?",
+     "en": "Hello. How are you?"
+    },
+    {
+     "speaker": "Camille",
+     "target": "Ça va bien, merci. Et toi ?",
+     "en": "I'm fine, thanks. And you?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Moi aussi, ça va. Comment tu t'appelles ?",
+     "en": "Fine too. What's your name?"
+    },
+    {
+     "speaker": "Camille",
+     "target": "Je m'appelle Camille. Et toi ?",
+     "en": "My name is Camille. And you?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Je m'appelle Léo. Enchanté.",
+     "en": "My name is Léo. Nice to meet you."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Enchantée. À plus tard !",
+     "en": "Nice to meet you. See you later!"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Salut, à plus tard.",
+     "en": "Bye, see you later."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Bonjour.",
+       "cue": "soir",
+       "answers": [
+        "Bonsoir."
+       ]
+      },
+      {
+       "base": "Bonne journée.",
+       "cue": "soirée",
+       "answers": [
+        "Bonne soirée."
+       ]
+      },
+      {
+       "base": "À plus tard.",
+       "cue": "demain",
+       "answers": [
+        "À demain."
+       ]
+      },
+      {
+       "base": "À plus tard.",
+       "cue": "bientôt",
+       "answers": [
+        "À bientôt."
+       ]
+      },
+      {
+       "base": "Je m'appelle Camille.",
+       "cue": "Léo",
+       "answers": [
+        "Je m'appelle Léo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Make it polite, with vous.",
+     "items": [
+      {
+       "base": "Comment vas-tu ?",
+       "cue": "vous",
+       "answers": [
+        "Comment allez-vous ?"
+       ]
+      },
+      {
+       "base": "Comment tu t'appelles ?",
+       "cue": "vous",
+       "answers": [
+        "Comment vous appelez-vous ?",
+        "Vous vous appelez comment ?"
+       ]
+      },
+      {
+       "base": "Et toi ?",
+       "cue": "vous",
+       "answers": [
+        "Et vous ?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "Good evening. How are you?",
+       "answers": [
+        "Bonsoir. Comment ça va ?",
+        "Bonsoir. Ça va ?",
+        "Bonsoir. Comment vas-tu ?",
+        "Bonsoir. Comment allez-vous ?"
+       ]
+      },
+      {
+       "en": "Very well, and you?",
+       "answers": [
+        "Très bien, et toi ?",
+        "Très bien, et vous ?"
+       ]
+      },
+      {
+       "en": "Good night, see you tomorrow.",
+       "answers": [
+        "Bonne nuit, à demain."
+       ]
+      },
+      {
+       "en": "Hello, my name is Léo.",
+       "answers": [
+        "Bonjour, je m'appelle Léo.",
+        "Salut, je m'appelle Léo."
+       ]
+      },
+      {
+       "en": "Thanks, see you soon.",
+       "answers": [
+        "Merci, à bientôt."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u2",
+   "title": "Tu viens d'où ?",
+   "en": "Where are you from?",
+   "note": "The verb `être` (to be): `je suis, tu es, il/elle est, nous sommes, vous êtes, ils/elles sont`. Unlike Spanish and Italian, French always keeps the pronoun. In everyday speech people often say `on` instead of `nous`: `on est touristes`.",
+   "dialogue": [
+    {
+     "speaker": "Camille",
+     "target": "Tu viens d'où, Léo ?",
+     "en": "Where are you from, Léo?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Je suis de Chicago. Et toi ?",
+     "en": "I'm from Chicago. And you?"
+    },
+    {
+     "speaker": "Camille",
+     "target": "Je suis de Paris. Tu es étudiant ?",
+     "en": "I'm from Paris. Are you a student?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Non, je suis ingénieur.",
+     "en": "No, I'm an engineer."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Et tes amis ? Ils sont d'ici ?",
+     "en": "And your friends? Are they from here?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Non, ils sont de Londres.",
+     "en": "No, they're from London."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Vous êtes touristes ?",
+     "en": "Are you all tourists?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Oui, nous sommes touristes.",
+     "en": "Yes, we're tourists."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je suis de Paris.",
+       "cue": "tu",
+       "answers": [
+        "Tu es de Paris."
+       ]
+      },
+      {
+       "base": "Je suis de Paris.",
+       "cue": "elle",
+       "answers": [
+        "Elle est de Paris."
+       ]
+      },
+      {
+       "base": "Je suis de Paris.",
+       "cue": "nous",
+       "answers": [
+        "Nous sommes de Paris.",
+        "On est de Paris."
+       ]
+      },
+      {
+       "base": "Je suis de Paris.",
+       "cue": "vous",
+       "answers": [
+        "Vous êtes de Paris."
+       ]
+      },
+      {
+       "base": "Je suis de Paris.",
+       "cue": "ils",
+       "answers": [
+        "Ils sont de Paris."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Je suis de Paris.",
+       "cue": "Lyon",
+       "answers": [
+        "Je suis de Lyon."
+       ]
+      },
+      {
+       "base": "Je suis étudiant.",
+       "cue": "touriste",
+       "answers": [
+        "Je suis touriste."
+       ]
+      },
+      {
+       "base": "Nous sommes touristes.",
+       "cue": "étudiants",
+       "answers": [
+        "Nous sommes étudiants."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it negative with ne ... pas.",
+     "items": [
+      {
+       "base": "Je suis étudiant.",
+       "answers": [
+        "Je ne suis pas étudiant."
+       ]
+      },
+      {
+       "base": "Elle est d'ici.",
+       "answers": [
+        "Elle n'est pas d'ici."
+       ]
+      },
+      {
+       "base": "Nous sommes touristes.",
+       "answers": [
+        "Nous ne sommes pas touristes."
+       ]
+      },
+      {
+       "base": "Ils sont de Londres.",
+       "answers": [
+        "Ils ne sont pas de Londres."
+       ]
+      },
+      {
+       "base": "Vous êtes de Paris.",
+       "answers": [
+        "Vous n'êtes pas de Paris."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "She is from London.",
+       "answers": [
+        "Elle est de Londres."
+       ]
+      },
+      {
+       "en": "Are you from here? (one friend)",
+       "answers": [
+        "Tu es d'ici ?"
+       ]
+      },
+      {
+       "en": "We are not students.",
+       "answers": [
+        "Nous ne sommes pas étudiants.",
+        "On n'est pas étudiants."
+       ]
+      },
+      {
+       "en": "Where are you all from?",
+       "answers": [
+        "Vous venez d'où ?",
+        "D'où venez-vous ?",
+        "Vous êtes d'où ?"
+       ]
+      },
+      {
+       "en": "Your friends are tourists.",
+       "answers": [
+        "Tes amis sont touristes."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u3",
+   "title": "Au café",
+   "en": "At the café",
+   "note": "`vouloir` (to want): `je veux, tu veux, il veut, nous voulons, vous voulez, ils veulent`. To order politely, say `je voudrais` (I'd like). Use `un` with masculine nouns and `une` with feminine ones. A plain `café` is an espresso; `un café crème` comes with milk.",
+   "dialogue": [
+    {
+     "speaker": "Serveur",
+     "target": "Bonjour, qu'est-ce que je vous sers ?",
+     "en": "Hello, what can I get you?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Un café crème, s'il vous plaît.",
+     "en": "A coffee with milk, please."
+    },
+    {
+     "speaker": "Serveur",
+     "target": "Et avec ceci ?",
+     "en": "Anything else?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Un croissant, s'il vous plaît.",
+     "en": "A croissant, please."
+    },
+    {
+     "speaker": "Serveur",
+     "target": "Très bien.",
+     "en": "Very good."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Je vous dois combien ?",
+     "en": "How much do I owe you?"
+    },
+    {
+     "speaker": "Serveur",
+     "target": "Ça fait trois euros cinquante.",
+     "en": "That's three euros fifty."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Voilà. Merci.",
+     "en": "Here you go. Thanks."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Je voudrais un café.",
+       "cue": "une bière",
+       "answers": [
+        "Je voudrais une bière."
+       ]
+      },
+      {
+       "base": "Je voudrais un café.",
+       "cue": "un jus d'orange",
+       "answers": [
+        "Je voudrais un jus d'orange."
+       ]
+      },
+      {
+       "base": "Je voudrais un café.",
+       "cue": "une carafe d'eau",
+       "answers": [
+        "Je voudrais une carafe d'eau."
+       ]
+      },
+      {
+       "base": "Je voudrais un café.",
+       "cue": "un sandwich",
+       "answers": [
+        "Je voudrais un sandwich."
+       ]
+      },
+      {
+       "base": "Je voudrais un café.",
+       "cue": "une eau minérale",
+       "answers": [
+        "Je voudrais une eau minérale."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je veux un café.",
+       "cue": "tu",
+       "answers": [
+        "Tu veux un café."
+       ]
+      },
+      {
+       "base": "Je veux un café.",
+       "cue": "elle",
+       "answers": [
+        "Elle veut un café."
+       ]
+      },
+      {
+       "base": "Je veux un café.",
+       "cue": "nous",
+       "answers": [
+        "Nous voulons un café."
+       ]
+      },
+      {
+       "base": "Je veux un café.",
+       "cue": "vous",
+       "answers": [
+        "Vous voulez un café."
+       ]
+      },
+      {
+       "base": "Je veux un café.",
+       "cue": "ils",
+       "answers": [
+        "Ils veulent un café."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Add the right article: un or une.",
+     "items": [
+      {
+       "base": "café",
+       "answers": [
+        "un café"
+       ]
+      },
+      {
+       "base": "bière",
+       "answers": [
+        "une bière"
+       ]
+      },
+      {
+       "base": "croissant",
+       "answers": [
+        "un croissant"
+       ]
+      },
+      {
+       "base": "baguette",
+       "answers": [
+        "une baguette"
+       ]
+      },
+      {
+       "base": "thé",
+       "answers": [
+        "un thé"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "We'd like two beers, please.",
+       "answers": [
+        "Nous voudrions deux bières, s'il vous plaît.",
+        "On voudrait deux bières, s'il vous plaît."
+       ]
+      },
+      {
+       "en": "A coffee and a croissant.",
+       "answers": [
+        "Un café et un croissant."
+       ]
+      },
+      {
+       "en": "Do you want anything else? (one friend)",
+       "answers": [
+        "Tu veux autre chose ?"
+       ]
+      },
+      {
+       "en": "That's two euros.",
+       "answers": [
+        "Ça fait deux euros."
+       ]
+      },
+      {
+       "en": "No milk, thanks.",
+       "answers": [
+        "Sans lait, merci."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u4",
+   "title": "C'est où ?",
+   "en": "Where is it?",
+   "note": "`Où est ... ?` asks where something is; `Où sont ... ?` for several. `Il y a` means \"there is\" or \"there are\". Directions: `à droite` right, `à gauche` left, `tout droit` straight on.",
+   "dialogue": [
+    {
+     "speaker": "Léo",
+     "target": "Excusez-moi, où est la gare ?",
+     "en": "Excuse me, where is the station?"
+    },
+    {
+     "speaker": "Camille",
+     "target": "C'est tout près. Tout droit, puis à droite.",
+     "en": "It's very close. Straight on, then right."
+    },
+    {
+     "speaker": "Léo",
+     "target": "C'est loin d'ici ?",
+     "en": "Is it far from here?"
+    },
+    {
+     "speaker": "Camille",
+     "target": "Non, c'est à cinq minutes à pied.",
+     "en": "No, it's five minutes on foot."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Il y a une pharmacie près d'ici ?",
+     "en": "Is there a pharmacy near here?"
+    },
+    {
+     "speaker": "Camille",
+     "target": "Oui, il y a une pharmacie à gauche, à côté de la banque.",
+     "en": "Yes, there's a pharmacy on the left, next to the bank."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Merci beaucoup.",
+     "en": "Thank you very much."
+    },
+    {
+     "speaker": "Camille",
+     "target": "De rien.",
+     "en": "You're welcome."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Où est la gare ?",
+       "cue": "la pharmacie",
+       "answers": [
+        "Où est la pharmacie ?"
+       ]
+      },
+      {
+       "base": "Où est la gare ?",
+       "cue": "l'hôtel",
+       "answers": [
+        "Où est l'hôtel ?"
+       ]
+      },
+      {
+       "base": "Où est la gare ?",
+       "cue": "l'arrêt de bus",
+       "answers": [
+        "Où est l'arrêt de bus ?"
+       ]
+      },
+      {
+       "base": "Où est la gare ?",
+       "cue": "le métro",
+       "answers": [
+        "Où est le métro ?"
+       ]
+      },
+      {
+       "base": "Où est la gare ?",
+       "cue": "les toilettes",
+       "answers": [
+        "Où sont les toilettes ?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je suis à Paris.",
+       "cue": "tu",
+       "answers": [
+        "Tu es à Paris."
+       ]
+      },
+      {
+       "base": "Je suis à Paris.",
+       "cue": "elle",
+       "answers": [
+        "Elle est à Paris."
+       ]
+      },
+      {
+       "base": "Je suis à Paris.",
+       "cue": "nous",
+       "answers": [
+        "Nous sommes à Paris.",
+        "On est à Paris."
+       ]
+      },
+      {
+       "base": "Je suis à Paris.",
+       "cue": "vous",
+       "answers": [
+        "Vous êtes à Paris."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "C'est à droite.",
+       "cue": "à gauche",
+       "answers": [
+        "C'est à gauche."
+       ]
+      },
+      {
+       "base": "C'est à droite.",
+       "cue": "près d'ici",
+       "answers": [
+        "C'est près d'ici."
+       ]
+      },
+      {
+       "base": "C'est à droite.",
+       "cue": "loin",
+       "answers": [
+        "C'est loin."
+       ]
+      },
+      {
+       "base": "C'est à droite.",
+       "cue": "à côté de l'hôtel",
+       "answers": [
+        "C'est à côté de l'hôtel."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "The hotel is far from here.",
+       "answers": [
+        "L'hôtel est loin d'ici."
+       ]
+      },
+      {
+       "en": "Is there a bank near here?",
+       "answers": [
+        "Il y a une banque près d'ici ?",
+        "Est-ce qu'il y a une banque près d'ici ?"
+       ]
+      },
+      {
+       "en": "The pharmacy is on the right.",
+       "answers": [
+        "La pharmacie est à droite."
+       ]
+      },
+      {
+       "en": "We are in Paris.",
+       "answers": [
+        "Nous sommes à Paris.",
+        "On est à Paris."
+       ]
+      },
+      {
+       "en": "Excuse me, where are the toilets?",
+       "answers": [
+        "Excusez-moi, où sont les toilettes ?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u5",
+   "title": "Au restaurant",
+   "en": "At a restaurant",
+   "note": "`avoir` (to have): `j'ai, tu as, il a, nous avons, vous avez, ils ont`. A French menu runs `entrée` (starter), `plat` (main) and `dessert`. Tap water is free: ask for `une carafe d'eau`. Ask for the bill with `L'addition, s'il vous plaît`.",
+   "dialogue": [
+    {
+     "speaker": "Serveur",
+     "target": "Bonsoir. Vous êtes combien ?",
+     "en": "Good evening. How many of you are there?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Nous sommes deux. Vous avez une table ?",
+     "en": "There are two of us. Do you have a table?"
+    },
+    {
+     "speaker": "Serveur",
+     "target": "Oui, par ici. Voici la carte.",
+     "en": "Yes, this way. Here's the menu."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Qu'est-ce que vous nous conseillez ?",
+     "en": "What do you recommend?"
+    },
+    {
+     "speaker": "Serveur",
+     "target": "Le bœuf bourguignon est excellent.",
+     "en": "The beef bourguignon is excellent."
+    },
+    {
+     "speaker": "Léo",
+     "target": "D'accord. En entrée la soupe à l'oignon, et en plat le bœuf bourguignon.",
+     "en": "OK. Onion soup to start, and the beef bourguignon for the main."
+    },
+    {
+     "speaker": "Serveur",
+     "target": "Et comme boisson ?",
+     "en": "And to drink?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Une carafe d'eau, s'il vous plaît.",
+     "en": "A jug of tap water, please."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "En entrée la soupe à l'oignon.",
+       "cue": "la salade",
+       "answers": [
+        "En entrée la salade."
+       ]
+      },
+      {
+       "base": "En entrée la soupe à l'oignon.",
+       "cue": "les escargots",
+       "answers": [
+        "En entrée les escargots."
+       ]
+      },
+      {
+       "base": "En plat le bœuf bourguignon.",
+       "cue": "le poulet rôti",
+       "answers": [
+        "En plat le poulet rôti."
+       ]
+      },
+      {
+       "base": "En plat le bœuf bourguignon.",
+       "cue": "le poisson",
+       "answers": [
+        "En plat le poisson."
+       ]
+      },
+      {
+       "base": "Une carafe d'eau, s'il vous plaît.",
+       "cue": "un verre de vin rouge",
+       "answers": [
+        "Un verre de vin rouge, s'il vous plaît."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "J'ai une réservation.",
+       "cue": "tu",
+       "answers": [
+        "Tu as une réservation."
+       ]
+      },
+      {
+       "base": "J'ai une réservation.",
+       "cue": "elle",
+       "answers": [
+        "Elle a une réservation."
+       ]
+      },
+      {
+       "base": "J'ai une réservation.",
+       "cue": "nous",
+       "answers": [
+        "Nous avons une réservation.",
+        "On a une réservation."
+       ]
+      },
+      {
+       "base": "J'ai une réservation.",
+       "cue": "vous",
+       "answers": [
+        "Vous avez une réservation."
+       ]
+      },
+      {
+       "base": "J'ai une réservation.",
+       "cue": "ils",
+       "answers": [
+        "Ils ont une réservation."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it plural.",
+     "items": [
+      {
+       "base": "la table",
+       "answers": [
+        "les tables"
+       ]
+      },
+      {
+       "base": "le plat",
+       "answers": [
+        "les plats"
+       ]
+      },
+      {
+       "base": "la bière",
+       "answers": [
+        "les bières"
+       ]
+      },
+      {
+       "base": "le verre",
+       "answers": [
+        "les verres"
+       ]
+      },
+      {
+       "base": "le gâteau",
+       "answers": [
+        "les gâteaux"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "The bill, please.",
+       "answers": [
+        "L'addition, s'il vous plaît."
+       ]
+      },
+      {
+       "en": "We have a reservation.",
+       "answers": [
+        "Nous avons une réservation.",
+        "On a une réservation."
+       ]
+      },
+      {
+       "en": "A table for two, please.",
+       "answers": [
+        "Une table pour deux, s'il vous plaît."
+       ]
+      },
+      {
+       "en": "No dessert, thanks.",
+       "answers": [
+        "Pas de dessert, merci."
+       ]
+      },
+      {
+       "en": "Is the fish fresh?",
+       "answers": [
+        "Le poisson est frais ?",
+        "Est-ce que le poisson est frais ?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u6",
+   "title": "Les transports",
+   "en": "Getting around",
+   "note": "`aller` (to go): `je vais, tu vas, il va, nous allons, vous allez, ils vont`. Use `à` with cities (`à Lyon`); with places it joins the article: `à + le = au`, `à + les = aux`, but `à la` and `à l'` stay. Times: `à une heure`, `à dix heures`, `et demie` (half past), `et quart` (quarter past).",
+   "dialogue": [
+    {
+     "speaker": "Léo",
+     "target": "Bonjour, un billet pour Lyon, s'il vous plaît.",
+     "en": "Hello, a ticket to Lyon, please."
+    },
+    {
+     "speaker": "Agent",
+     "target": "Aller simple ou aller-retour ?",
+     "en": "One way or return?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Aller-retour, s'il vous plaît.",
+     "en": "Return, please."
+    },
+    {
+     "speaker": "Agent",
+     "target": "Ça fait quatre-vingts euros.",
+     "en": "That's eighty euros."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Le train part à quelle heure ?",
+     "en": "What time does the train leave?"
+    },
+    {
+     "speaker": "Agent",
+     "target": "Il part à dix heures et demie.",
+     "en": "It leaves at half past ten."
+    },
+    {
+     "speaker": "Léo",
+     "target": "De quelle voie ?",
+     "en": "From which platform?"
+    },
+    {
+     "speaker": "Agent",
+     "target": "Voie cinq. Bon voyage.",
+     "en": "Platform five. Have a good trip."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je vais à Lyon.",
+       "cue": "tu",
+       "answers": [
+        "Tu vas à Lyon."
+       ]
+      },
+      {
+       "base": "Je vais à Lyon.",
+       "cue": "elle",
+       "answers": [
+        "Elle va à Lyon."
+       ]
+      },
+      {
+       "base": "Je vais à Lyon.",
+       "cue": "nous",
+       "answers": [
+        "Nous allons à Lyon.",
+        "On va à Lyon."
+       ]
+      },
+      {
+       "base": "Je vais à Lyon.",
+       "cue": "vous",
+       "answers": [
+        "Vous allez à Lyon."
+       ]
+      },
+      {
+       "base": "Je vais à Lyon.",
+       "cue": "ils",
+       "answers": [
+        "Ils vont à Lyon."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Il part à dix heures.",
+       "cue": "onze heures",
+       "answers": [
+        "Il part à onze heures."
+       ]
+      },
+      {
+       "base": "Il part à dix heures.",
+       "cue": "une heure",
+       "answers": [
+        "Il part à une heure."
+       ]
+      },
+      {
+       "base": "Il part à dix heures.",
+       "cue": "dix heures et demie",
+       "answers": [
+        "Il part à dix heures et demie."
+       ]
+      },
+      {
+       "base": "Il part à dix heures.",
+       "cue": "trois heures et quart",
+       "answers": [
+        "Il part à trois heures et quart."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the place. Remember à + le becomes au.",
+     "items": [
+      {
+       "base": "Je vais à Paris.",
+       "cue": "l'aéroport",
+       "answers": [
+        "Je vais à l'aéroport."
+       ]
+      },
+      {
+       "base": "Je vais à Paris.",
+       "cue": "la gare",
+       "answers": [
+        "Je vais à la gare."
+       ]
+      },
+      {
+       "base": "Je vais à Paris.",
+       "cue": "le musée",
+       "answers": [
+        "Je vais au musée."
+       ]
+      },
+      {
+       "base": "Je vais à Paris.",
+       "cue": "la plage",
+       "answers": [
+        "Je vais à la plage."
+       ]
+      },
+      {
+       "base": "Je vais à Paris.",
+       "cue": "le marché",
+       "answers": [
+        "Je vais au marché."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "A one-way ticket to Nice, please.",
+       "answers": [
+        "Un aller simple pour Nice, s'il vous plaît."
+       ]
+      },
+      {
+       "en": "What time does the bus leave?",
+       "answers": [
+        "Le bus part à quelle heure ?",
+        "À quelle heure part le bus ?"
+       ]
+      },
+      {
+       "en": "We're going to the airport.",
+       "answers": [
+        "Nous allons à l'aéroport.",
+        "On va à l'aéroport."
+       ]
+      },
+      {
+       "en": "The train leaves at one.",
+       "answers": [
+        "Le train part à une heure."
+       ]
+      },
+      {
+       "en": "Where are you going? (one friend)",
+       "answers": [
+        "Tu vas où ?",
+        "Où vas-tu ?",
+        "Où est-ce que tu vas ?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u7",
+   "title": "Faire du shopping",
+   "en": "Shopping",
+   "note": "`celui-ci` and `celle-ci` mean \"this one\". Most colours agree with the noun: `un pull noir`, `une robe noire`; `marron` and `orange` never change. Ask `C'est combien ?` or `Combien ça coûte ?`. `Je le prends` or `Je la prends` means \"I'll take it\".",
+   "dialogue": [
+    {
+     "speaker": "Vendeuse",
+     "target": "Bonjour, je peux vous aider ?",
+     "en": "Hello, can I help you?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Oui, je cherche un t-shirt.",
+     "en": "Yes, I'm looking for a T-shirt."
+    },
+    {
+     "speaker": "Vendeuse",
+     "target": "Quelle taille ?",
+     "en": "What size?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Taille M. Vous l'avez en bleu ?",
+     "en": "Medium. Do you have it in blue?"
+    },
+    {
+     "speaker": "Vendeuse",
+     "target": "Oui, celui-ci est bleu.",
+     "en": "Yes, this one is blue."
+    },
+    {
+     "speaker": "Léo",
+     "target": "C'est combien ?",
+     "en": "How much is it?"
+    },
+    {
+     "speaker": "Vendeuse",
+     "target": "Quinze euros.",
+     "en": "Fifteen euros."
+    },
+    {
+     "speaker": "Léo",
+     "target": "Parfait, je le prends.",
+     "en": "Perfect, I'll take it."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Je cherche un t-shirt.",
+       "cue": "un pull",
+       "answers": [
+        "Je cherche un pull."
+       ]
+      },
+      {
+       "base": "Je cherche un t-shirt.",
+       "cue": "des chaussures",
+       "answers": [
+        "Je cherche des chaussures."
+       ]
+      },
+      {
+       "base": "Je cherche un t-shirt.",
+       "cue": "une veste",
+       "answers": [
+        "Je cherche une veste."
+       ]
+      },
+      {
+       "base": "Je cherche un t-shirt.",
+       "cue": "un cadeau",
+       "answers": [
+        "Je cherche un cadeau."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new item and make the colour agree.",
+     "items": [
+      {
+       "base": "Je voudrais la robe noire.",
+       "cue": "le pull",
+       "answers": [
+        "Je voudrais le pull noir."
+       ]
+      },
+      {
+       "base": "Je voudrais la robe noire.",
+       "cue": "la veste",
+       "answers": [
+        "Je voudrais la veste noire."
+       ]
+      },
+      {
+       "base": "Je voudrais la robe noire.",
+       "cue": "les chaussures",
+       "answers": [
+        "Je voudrais les chaussures noires."
+       ]
+      },
+      {
+       "base": "Je voudrais la robe noire.",
+       "cue": "le pantalon",
+       "answers": [
+        "Je voudrais le pantalon noir."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Ask the price. Use coûte for one thing and coûtent for several.",
+     "items": [
+      {
+       "base": "la robe",
+       "answers": [
+        "Combien coûte la robe ?"
+       ]
+      },
+      {
+       "base": "les chaussures",
+       "answers": [
+        "Combien coûtent les chaussures ?"
+       ]
+      },
+      {
+       "base": "le pull",
+       "answers": [
+        "Combien coûte le pull ?"
+       ]
+      },
+      {
+       "base": "les lunettes",
+       "answers": [
+        "Combien coûtent les lunettes ?"
+       ]
+      },
+      {
+       "base": "cette veste",
+       "answers": [
+        "Combien coûte cette veste ?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "Do you have it in black?",
+       "answers": [
+        "Vous l'avez en noir ?"
+       ]
+      },
+      {
+       "en": "This one is very expensive. (a dress)",
+       "answers": [
+        "Celle-ci est très chère."
+       ]
+      },
+      {
+       "en": "I'll take it. (a sweater)",
+       "answers": [
+        "Je le prends."
+       ]
+      },
+      {
+       "en": "I'm just looking, thanks.",
+       "answers": [
+        "Je regarde seulement, merci.",
+        "Je regarde, merci."
+       ]
+      },
+      {
+       "en": "Can I pay by card?",
+       "answers": [
+        "Je peux payer par carte ?",
+        "Est-ce que je peux payer par carte ?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u8",
+   "title": "On discute",
+   "en": "Small talk",
+   "note": "`aimer` (to like, to love): `j'aime, tu aimes, il aime, nous aimons, vous aimez, ils aiment`. French keeps the article after it: `j'aime le café`. `adorer` means to love. Regular -er verbs like `parler` follow the same pattern.",
+   "dialogue": [
+    {
+     "speaker": "Camille",
+     "target": "Tu fais quoi ce week-end ?",
+     "en": "What are you doing this weekend?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Je vais au jardin du Luxembourg avec des amis.",
+     "en": "I'm going to the Luxembourg Gardens with some friends."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Super ! Tu aimes Paris ?",
+     "en": "Great! Do you like Paris?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Oui, j'aime beaucoup.",
+     "en": "Yes, I like it a lot."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Et la cuisine ?",
+     "en": "And the food?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "J'adore. J'aime beaucoup les croissants.",
+     "en": "I love it. I really like croissants."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Tu parles français au travail ?",
+     "en": "Do you speak French at work?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Un peu. Je parle presque toujours anglais.",
+     "en": "A little. I almost always speak English."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "J'aime Paris.",
+       "cue": "le fromage",
+       "answers": [
+        "J'aime le fromage."
+       ]
+      },
+      {
+       "base": "J'aime Paris.",
+       "cue": "les musées",
+       "answers": [
+        "J'aime les musées."
+       ]
+      },
+      {
+       "base": "J'aime Paris.",
+       "cue": "le café",
+       "answers": [
+        "J'aime le café."
+       ]
+      },
+      {
+       "base": "J'aime Paris.",
+       "cue": "la musique",
+       "answers": [
+        "J'aime la musique."
+       ]
+      },
+      {
+       "base": "J'aime Paris.",
+       "cue": "le foot",
+       "answers": [
+        "J'aime le foot."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je parle français.",
+       "cue": "tu",
+       "answers": [
+        "Tu parles français."
+       ]
+      },
+      {
+       "base": "Je parle français.",
+       "cue": "elle",
+       "answers": [
+        "Elle parle français."
+       ]
+      },
+      {
+       "base": "Je parle français.",
+       "cue": "nous",
+       "answers": [
+        "Nous parlons français.",
+        "On parle français."
+       ]
+      },
+      {
+       "base": "Je parle français.",
+       "cue": "vous",
+       "answers": [
+        "Vous parlez français."
+       ]
+      },
+      {
+       "base": "Je parle français.",
+       "cue": "ils",
+       "answers": [
+        "Ils parlent français."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Turn it into a question for a friend.",
+     "items": [
+      {
+       "base": "J'aime le foot.",
+       "answers": [
+        "Tu aimes le foot ?"
+       ]
+      },
+      {
+       "base": "J'aime les croissants.",
+       "answers": [
+        "Tu aimes les croissants ?"
+       ]
+      },
+      {
+       "base": "Je parle anglais.",
+       "answers": [
+        "Tu parles anglais ?"
+       ]
+      },
+      {
+       "base": "Je vais au musée.",
+       "answers": [
+        "Tu vas au musée ?"
+       ]
+      },
+      {
+       "base": "Je suis de Paris.",
+       "answers": [
+        "Tu es de Paris ?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "I don't like football.",
+       "answers": [
+        "Je n'aime pas le foot.",
+        "Je n'aime pas le football."
+       ]
+      },
+      {
+       "en": "We speak a little French.",
+       "answers": [
+        "Nous parlons un peu français.",
+        "On parle un peu français."
+       ]
+      },
+      {
+       "en": "I love the food here.",
+       "answers": [
+        "J'adore la cuisine ici."
+       ]
+      },
+      {
+       "en": "Do you all like Paris?",
+       "answers": [
+        "Vous aimez Paris ?"
+       ]
+      },
+      {
+       "en": "I'm going to the museum with some friends.",
+       "answers": [
+        "Je vais au musée avec des amis."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u9",
+   "title": "Le travail",
+   "en": "Work",
+   "note": "`travailler`: `je travaille, tu travailles, il travaille, nous travaillons, vous travaillez, ils travaillent`. `le lundi` means \"on Mondays\". `commencer` (to start) adds a cedilla to keep the soft sound: `nous commençons`.",
+   "dialogue": [
+    {
+     "speaker": "Camille",
+     "target": "Qu'est-ce que tu fais dans la vie ?",
+     "en": "What do you do for a living?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Je suis ingénieur. Je travaille dans une entreprise de technologie.",
+     "en": "I'm an engineer. I work at a tech company."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Tu travailles au bureau ?",
+     "en": "Do you work in the office?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Non, le lundi et le vendredi, je travaille de chez moi.",
+     "en": "No, on Mondays and Fridays I work from home."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Quelle chance ! Tu aimes ton travail ?",
+     "en": "Lucky you! Do you like your job?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Oui, mais j'ai beaucoup de réunions.",
+     "en": "Yes, but I have a lot of meetings."
+    },
+    {
+     "speaker": "Camille",
+     "target": "Tu commences à quelle heure ?",
+     "en": "What time do you start?"
+    },
+    {
+     "speaker": "Léo",
+     "target": "Je commence à neuf heures et je finis à dix-huit heures.",
+     "en": "I start at nine and finish at six."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je travaille à Paris.",
+       "cue": "tu",
+       "answers": [
+        "Tu travailles à Paris."
+       ]
+      },
+      {
+       "base": "Je travaille à Paris.",
+       "cue": "elle",
+       "answers": [
+        "Elle travaille à Paris."
+       ]
+      },
+      {
+       "base": "Je travaille à Paris.",
+       "cue": "nous",
+       "answers": [
+        "Nous travaillons à Paris.",
+        "On travaille à Paris."
+       ]
+      },
+      {
+       "base": "Je travaille à Paris.",
+       "cue": "vous",
+       "answers": [
+        "Vous travaillez à Paris."
+       ]
+      },
+      {
+       "base": "Je travaille à Paris.",
+       "cue": "ils",
+       "answers": [
+        "Ils travaillent à Paris."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Le lundi, je travaille de chez moi.",
+       "cue": "le vendredi",
+       "answers": [
+        "Le vendredi, je travaille de chez moi."
+       ]
+      },
+      {
+       "base": "Le lundi, je travaille de chez moi.",
+       "cue": "le mardi",
+       "answers": [
+        "Le mardi, je travaille de chez moi."
+       ]
+      },
+      {
+       "base": "Le lundi, je travaille de chez moi.",
+       "cue": "le mercredi",
+       "answers": [
+        "Le mercredi, je travaille de chez moi."
+       ]
+      },
+      {
+       "base": "Le lundi, je travaille de chez moi.",
+       "cue": "le jeudi",
+       "answers": [
+        "Le jeudi, je travaille de chez moi."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Je commence à neuf heures.",
+       "cue": "tu",
+       "answers": [
+        "Tu commences à neuf heures."
+       ]
+      },
+      {
+       "base": "Je commence à neuf heures.",
+       "cue": "nous",
+       "answers": [
+        "Nous commençons à neuf heures.",
+        "On commence à neuf heures."
+       ]
+      },
+      {
+       "base": "Je commence à neuf heures.",
+       "cue": "vous",
+       "answers": [
+        "Vous commencez à neuf heures."
+       ]
+      },
+      {
+       "base": "Je commence à neuf heures.",
+       "cue": "ils",
+       "answers": [
+        "Ils commencent à neuf heures."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in French.",
+     "items": [
+      {
+       "en": "I work at a bank.",
+       "answers": [
+        "Je travaille dans une banque."
+       ]
+      },
+      {
+       "en": "We have a meeting at ten.",
+       "answers": [
+        "Nous avons une réunion à dix heures.",
+        "On a une réunion à dix heures."
+       ]
+      },
+      {
+       "en": "She works from home on Fridays.",
+       "answers": [
+        "Le vendredi, elle travaille de chez elle.",
+        "Elle travaille de chez elle le vendredi."
+       ]
+      },
+      {
+       "en": "What time do you finish? (one friend)",
+       "answers": [
+        "Tu finis à quelle heure ?",
+        "À quelle heure tu finis ?"
+       ]
+      },
+      {
+       "en": "I don't like meetings.",
+       "answers": [
+        "Je n'aime pas les réunions."
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

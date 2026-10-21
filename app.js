@@ -65,7 +65,7 @@ const noteHtml = (s) => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
 /* ---------- answer checking ---------- */
 function today() { const d = new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000); }
 function norm(s) {
-  let n = String(s).toLowerCase().normalize('NFC').replace(/[¿?¡!.,;:"'()«»“”„…。、！？]/g, ' ');
+  let n = String(s).toLowerCase().normalize('NFC').replace(/[¿?¡!.,;:"'’‘()«»“”„…。、！？]/g, ' ');
   for (const w of (C.optionalWords || [])) {
     const wn = w.toLowerCase().normalize('NFC');
     n = C.noSpaces ? n.split(wn).join(' ') : n.replace(new RegExp(`(^|\\s)${wn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?=\\s|$)`, 'g'), ' ');
@@ -113,6 +113,19 @@ function itNum(n) {
   if (n < 100) { const t = IT_TENS[Math.floor(n / 10)]; const u = n % 10; if (!u) return t; return (u === 1 || u === 8 ? t.slice(0, -1) : t) + (u === 3 ? 'tré' : IT_NUM[u]); }
   return String(n);
 }
+const FR_NUM = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize'];
+const FR_TENS = ['', 'dix', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante'];
+function frNum(n) {
+  n = +n;
+  if (n <= 16) return FR_NUM[n];
+  if (n < 20) return `dix-${FR_NUM[n - 10]}`;
+  if (n < 70) { const t = FR_TENS[Math.floor(n / 10)]; const u = n % 10; return !u ? t : u === 1 ? `${t} et un` : `${t}-${FR_NUM[u]}`; }
+  if (n < 80) return n === 71 ? 'soixante et onze' : `soixante-${frNum(n - 60)}`;
+  if (n === 80) return 'quatre-vingts';
+  if (n < 100) return `quatre-vingt-${frNum(n - 80)}`;
+  return String(n);
+}
+function frHour(h) { h = +h; return h === 1 ? 'une heure' : `${frNum(h)} heures`; }
 function spokenToText(s) {
   s = String(s).replace(/(\d),(\d{3})/g, '$1$2');
   if (C.numbers === 'es') {
@@ -120,6 +133,10 @@ function spokenToText(s) {
       .replace(/€/g, ' euros ').replace(/\d+/g, (d) => esNum(d)).replace(/\b(la) uno\b/gi, '$1 una');
   }
   if (C.numbers === 'th') return s.replace(/\d+/g, (d) => thNum(d));
+  if (C.numbers === 'fr') {
+    return s.replace(/(\d{1,2})\s?[h:]\s?(\d{2})?\b/gi, (m, h, mm) => { mm = +(mm || 0); return frHour(h) + (mm === 30 ? ' et demie' : mm === 15 ? ' et quart' : mm === 0 ? '' : ` ${frNum(mm)}`); })
+      .replace(/(\d+),(\d{2})\s?€/g, (m, e, c) => `${frNum(e)} euros ${frNum(c)}`).replace(/€/g, ' euros ').replace(/\d+/g, (d) => frNum(d)).replace(/\bun heure/g, 'une heure');
+  }
   if (C.numbers === 'it') {
     return s.replace(/(\d{1,2})[:.](\d{2})/g, (m, h, mm) => { mm = +mm; const hw = +h === 1 ? "l'una" : `le ${itNum(h)}`; return hw + (mm === 30 ? ' e mezza' : mm === 15 ? ' e un quarto' : mm === 0 ? '' : ` e ${itNum(mm)}`); })
       .replace(/\balle le /g, 'alle ').replace(/\balle l'una/g, "all'una").replace(/\ba l'una/g, "all'una").replace(/€/g, ' euro ').replace(/\d+/g, (d) => itNum(d)).replace(/\balle uno\b/g, "all'una");
