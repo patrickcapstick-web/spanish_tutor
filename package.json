@@ -8,5 +8,8 @@
   },
   "scripts": {
     "audio": "node scripts/generate-audio.mjs"
+  },
+  "dependencies": {
+    "kuromoji": "0.1.2"
   }
 }

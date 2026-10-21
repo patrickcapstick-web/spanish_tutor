@@ -1,7 +1,8 @@
 // Speech checking: receives a short recording from the app, sends it to
-// ElevenLabs speech-to-text in the language given by ?lang= and returns { text }. The ElevenLabs key stays here
+// ElevenLabs speech-to-text in the language given by ?lang= and returns { text } (plus { reading } for Japanese). The ElevenLabs key stays here
 // on the server. If APP_PASSCODE is set, every call must carry it in the x-passcode header.
 import { timingSafeEqual } from 'node:crypto';
+import { reading } from './_reading.js';
 
 const MAX_BYTES = 4 * 1024 * 1024; // Vercel's request limit is 4.5 MB
 const STT_URL = 'https://api.elevenlabs.io/v1/speech-to-text';
@@ -68,7 +69,13 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'transcription_failed', status: r.status });
     }
     const data = await r.json();
-    return res.status(200).json({ text: typeof data.text === 'string' ? data.text.trim() : '' });
+    const text = typeof data.text === 'string' ? data.text.trim() : '';
+    const out = { text };
+    // Japanese: also send the pronunciation, since the same word can be written in kanji or kana.
+    if (lang === 'ja' && text) {
+      try { out.reading = await reading(text); } catch (e) { console.error('Japanese reading failed', e); }
+    }
+    return res.status(200).json(out);
   } catch (e) {
     console.error('ElevenLabs request error', e);
     return res.status(502).json({ error: 'transcription_unreachable' });

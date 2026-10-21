@@ -1,6 +1,6 @@
 # Autopilot
 
-A language app built on the FSI drill method: memorise a short real-life dialogue, drill its patterns until the answer comes out on autopilot, without thinking, and review on a spaced schedule. It ships with Spanish (Spain), French, Italian and Thai, and anyone can add a language with an AI-written course file.
+A language app built on the FSI drill method: memorise a short real-life dialogue, drill its patterns until the answer comes out on autopilot, without thinking, and review on a spaced schedule. It ships with Spanish (Spain), French, Italian, Japanese and Thai, and anyone can add a language with an AI-written course file.
 
 **Want your own copy?** Follow [SETUP.md](SETUP.md). No coding needed.
 
@@ -12,6 +12,7 @@ A language app built on the FSI drill method: memorise a short real-life dialogu
 - Typing mode with accent buttons
 - Pronunciation (romanization) shown under non-Latin scripts, with a show/hide setting
 - Variants for sentences that change with the speaker, such as Thai polite particles (khráp / khâ)
+- Japanese answers are matched on pronunciation too, so kanji or kana spellings both count (`api/_reading.js`, using kuromoji)
 - Adjustable pace: 5 to 20 new items a day
 - Works as a home-screen app on phones
 

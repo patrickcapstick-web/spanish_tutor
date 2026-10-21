@@ -1,0 +1,2673 @@
+{
+ "id": "ja",
+ "name": "Japanese",
+ "variety": "Standard Japanese",
+ "nativeName": "日本語",
+ "description": "Polite everyday Japanese for a trip: greetings, cafés, trains, restaurants, shopping and getting help.",
+ "lang": "ja-JP",
+ "speechLanguage": "ja",
+ "voice": "tBfOvWrqvlfBiyUGpSAS",
+ "model": "eleven_multilingual_v2",
+ "sayIt": "Say it in Japanese.",
+ "doneMessage": "おつかれさまでした！ Great work.",
+ "romanization": "Romaji",
+ "pronouns": [],
+ "keys": [],
+ "noSpaces": true,
+ "optionalWords": [],
+ "numbers": "ja",
+ "units": [
+  {
+   "id": "u1",
+   "title": "あいさつ",
+   "en": "Greetings",
+   "note": "`こんにちは` (konnichiwa) is hello during the day, `おはようございます` (ohayō gozaimasu) good morning, `こんばんは` (konbanwa) good evening. `すみません` (sumimasen) means both \"excuse me\" and \"sorry\": the most useful word in Japan. Japanese usually leaves out \"I\" and \"you\"; add `さん` (san) after other people's names, never your own.",
+   "dialogue": [
+    {
+     "speaker": "Yuki",
+     "target": "こんにちは。",
+     "rom": "konnichiwa.",
+     "en": "Hello.",
+     "kana": [
+      "コンニチハ",
+      "コンニチワ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "こんにちは。はじめまして、サムです。",
+     "rom": "konnichiwa. hajimemashite, Samu desu.",
+     "en": "Hello. Nice to meet you, I'm Sam.",
+     "kana": [
+      "コンニチハハジメマシテサムデス",
+      "コンニチワハジメマシテサムデス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "はじめまして、ゆきです。よろしくお願いします。",
+     "rom": "hajimemashite, Yuki desu. yoroshiku onegaishimasu.",
+     "en": "Nice to meet you, I'm Yuki. Pleased to meet you.",
+     "kana": [
+      "ハジメマシテユキデスヨロシクオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "よろしくお願いします。",
+     "rom": "yoroshiku onegaishimasu.",
+     "en": "Pleased to meet you.",
+     "kana": [
+      "ヨロシクオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "お元気ですか。",
+     "rom": "o-genki desu ka.",
+     "en": "How are you?",
+     "kana": [
+      "オゲンキデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "はい、元気です。ありがとうございます。",
+     "rom": "hai, genki desu. arigatō gozaimasu.",
+     "en": "I'm well, thank you.",
+     "kana": [
+      "ハイゲンキデスアリガトウゴザイマス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "じゃあ、また明日。",
+     "rom": "jā, mata ashita.",
+     "en": "Well, see you tomorrow.",
+     "kana": [
+      "ジャアマタアシタ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "はい、また明日。",
+     "rom": "hai, mata ashita.",
+     "en": "Yes, see you tomorrow.",
+     "kana": [
+      "ハイマタアシタ"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "また明日。",
+       "baseRom": "mata ashita.",
+       "baseEn": "See you tomorrow.",
+       "cue": "来週",
+       "cueRom": "raishū",
+       "cueEn": "next week",
+       "answers": [
+        "また来週。"
+       ],
+       "answerRom": "mata raishū.",
+       "kana": [
+        "マタライシュウ"
+       ]
+      },
+      {
+       "base": "また明日。",
+       "baseRom": "mata ashita.",
+       "baseEn": "See you tomorrow.",
+       "cue": "今度",
+       "cueRom": "kondo",
+       "cueEn": "next time",
+       "answers": [
+        "また今度。"
+       ],
+       "answerRom": "mata kondo.",
+       "kana": [
+        "マタコンド"
+       ]
+      },
+      {
+       "base": "また明日。",
+       "baseRom": "mata ashita.",
+       "baseEn": "See you tomorrow.",
+       "cue": "後で",
+       "cueRom": "ato de",
+       "cueEn": "later",
+       "answers": [
+        "また後で。",
+        "またあとで。"
+       ],
+       "answerRom": "mata ato de.",
+       "kana": [
+        "マタアトデ"
+       ]
+      },
+      {
+       "base": "サムです。",
+       "baseRom": "Samu desu.",
+       "baseEn": "I'm Sam.",
+       "cue": "トム",
+       "cueRom": "Tomu",
+       "cueEn": "Tom",
+       "answers": [
+        "トムです。"
+       ],
+       "answerRom": "Tomu desu.",
+       "kana": [
+        "トムデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Turn it into a question by adding か (ka) at the end.",
+     "items": [
+      {
+       "base": "元気です。",
+       "baseRom": "genki desu.",
+       "baseEn": "I'm well.",
+       "answers": [
+        "元気ですか。"
+       ],
+       "answerRom": "genki desu ka.",
+       "kana": [
+        "ゲンキデスカ"
+       ]
+      },
+      {
+       "base": "学生です。",
+       "baseRom": "gakusei desu.",
+       "baseEn": "I'm a student.",
+       "answers": [
+        "学生ですか。"
+       ],
+       "answerRom": "gakusei desu ka.",
+       "kana": [
+        "ガクセイデスカ"
+       ]
+      },
+      {
+       "base": "日本人です。",
+       "baseRom": "Nihonjin desu.",
+       "baseEn": "I'm Japanese.",
+       "answers": [
+        "日本人ですか。"
+       ],
+       "answerRom": "Nihonjin desu ka.",
+       "kana": [
+        "ニッポンジンデスカ",
+        "ニホンジンデスカ"
+       ]
+      },
+      {
+       "base": "アメリカ人です。",
+       "baseRom": "Amerikajin desu.",
+       "baseEn": "I'm American.",
+       "answers": [
+        "アメリカ人ですか。"
+       ],
+       "answerRom": "Amerikajin desu ka.",
+       "kana": [
+        "アメリカジンデスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "Thank you.",
+       "answers": [
+        "ありがとうございます。",
+        "ありがとう。"
+       ],
+       "answerRom": "arigatō gozaimasu.",
+       "kana": [
+        "アリガトウゴザイマス",
+        "アリガトウ"
+       ]
+      },
+      {
+       "en": "Excuse me.",
+       "answers": [
+        "すみません。"
+       ],
+       "answerRom": "sumimasen.",
+       "kana": [
+        "スミマセン"
+       ]
+      },
+      {
+       "en": "Good morning.",
+       "answers": [
+        "おはようございます。"
+       ],
+       "answerRom": "ohayō gozaimasu.",
+       "kana": [
+        "オハヨウゴザイマス"
+       ]
+      },
+      {
+       "en": "Good evening.",
+       "answers": [
+        "こんばんは。"
+       ],
+       "answerRom": "konbanwa.",
+       "kana": [
+        "コンバンハ",
+        "コンバンワ"
+       ]
+      },
+      {
+       "en": "Nice to meet you, I'm Tom.",
+       "answers": [
+        "はじめまして、トムです。"
+       ],
+       "answerRom": "hajimemashite, Tomu desu.",
+       "kana": [
+        "ハジメマシテトムデス"
+       ]
+      },
+      {
+       "en": "See you tomorrow.",
+       "answers": [
+        "また明日。",
+        "またあした。"
+       ],
+       "answerRom": "mata ashita.",
+       "kana": [
+        "マタアシタ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u2",
+   "title": "自己紹介",
+   "en": "Where are you from?",
+   "note": "`～から来ました` (kara kimashita) means \"I came from\". Add `人` (jin) after a country for nationality: `アメリカ人` (Amerikajin). `～です` means \"am, is, are\"; the everyday negative is `～じゃないです` (ja nai desu), and `～ではありません` (dewa arimasen) is more formal.",
+   "dialogue": [
+    {
+     "speaker": "Yuki",
+     "target": "サムさんはどちらから来ましたか。",
+     "rom": "Samu-san wa dochira kara kimashita ka.",
+     "en": "Where are you from, Sam?",
+     "kana": [
+      "サムサンハドチラカラキマシタカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "アメリカから来ました。シカゴです。",
+     "rom": "Amerika kara kimashita. Shikago desu.",
+     "en": "I'm from America. Chicago.",
+     "kana": [
+      "アメリカカラキマシタシカゴデス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "そうですか。学生ですか。",
+     "rom": "sō desu ka. gakusei desu ka.",
+     "en": "I see. Are you a student?",
+     "kana": [
+      "ソウデスカガクセイデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "いいえ、学生じゃないです。エンジニアです。",
+     "rom": "iie, gakusei ja nai desu. enjinia desu.",
+     "en": "No, I'm not a student. I'm an engineer.",
+     "kana": [
+      "イイエガクセイジャナイデスエンジニアデス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "日本は初めてですか。",
+     "rom": "Nihon wa hajimete desu ka.",
+     "en": "Is this your first time in Japan?",
+     "kana": [
+      "ニッポンハハジメテデスカ",
+      "ニホンハハジメテデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "はい、初めてです。",
+     "rom": "hai, hajimete desu.",
+     "en": "Yes, it's my first time.",
+     "kana": [
+      "ハイハジメテデス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "日本語が上手ですね。",
+     "rom": "Nihongo ga jōzu desu ne.",
+     "en": "Your Japanese is good!",
+     "kana": [
+      "ニホンゴガジョウズデスネ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "いいえ、まだまだです。",
+     "rom": "iie, mada mada desu.",
+     "en": "No, I still have a long way to go.",
+     "kana": [
+      "イイエマダマダデス"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "アメリカから来ました。",
+       "baseRom": "Amerika kara kimashita.",
+       "baseEn": "I'm from America.",
+       "cue": "イギリス",
+       "cueRom": "Igirisu",
+       "cueEn": "Britain",
+       "answers": [
+        "イギリスから来ました。"
+       ],
+       "answerRom": "Igirisu kara kimashita.",
+       "kana": [
+        "イギリスカラキマシタ"
+       ]
+      },
+      {
+       "base": "アメリカから来ました。",
+       "baseRom": "Amerika kara kimashita.",
+       "baseEn": "I'm from America.",
+       "cue": "カナダ",
+       "cueRom": "Kanada",
+       "cueEn": "Canada",
+       "answers": [
+        "カナダから来ました。"
+       ],
+       "answerRom": "Kanada kara kimashita.",
+       "kana": [
+        "カナダカラキマシタ"
+       ]
+      },
+      {
+       "base": "アメリカから来ました。",
+       "baseRom": "Amerika kara kimashita.",
+       "baseEn": "I'm from America.",
+       "cue": "オーストラリア",
+       "cueRom": "Ōsutoraria",
+       "cueEn": "Australia",
+       "answers": [
+        "オーストラリアから来ました。"
+       ],
+       "answerRom": "Ōsutoraria kara kimashita.",
+       "kana": [
+        "オーストラリアカラキマシタ",
+        "オウストラリアカラキマシタ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the country to say the nationality.",
+     "items": [
+      {
+       "base": "アメリカ人です。",
+       "baseRom": "Amerikajin desu.",
+       "baseEn": "I'm American.",
+       "cue": "イギリス",
+       "cueRom": "Igirisu",
+       "cueEn": "Britain",
+       "answers": [
+        "イギリス人です。"
+       ],
+       "answerRom": "Igirisujin desu.",
+       "kana": [
+        "イギリスジンデス"
+       ]
+      },
+      {
+       "base": "アメリカ人です。",
+       "baseRom": "Amerikajin desu.",
+       "baseEn": "I'm American.",
+       "cue": "カナダ",
+       "cueRom": "Kanada",
+       "cueEn": "Canada",
+       "answers": [
+        "カナダ人です。"
+       ],
+       "answerRom": "Kanadajin desu.",
+       "kana": [
+        "カナダジンデス"
+       ]
+      },
+      {
+       "base": "アメリカ人です。",
+       "baseRom": "Amerikajin desu.",
+       "baseEn": "I'm American.",
+       "cue": "日本",
+       "cueRom": "Nihon",
+       "cueEn": "Japan",
+       "answers": [
+        "日本人です。"
+       ],
+       "answerRom": "Nihonjin desu.",
+       "kana": [
+        "ニッポンジンデス",
+        "ニホンジンデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it negative with じゃないです (ja nai desu).",
+     "items": [
+      {
+       "base": "学生です。",
+       "baseRom": "gakusei desu.",
+       "baseEn": "I'm a student.",
+       "answers": [
+        "学生じゃないです。",
+        "学生ではありません。",
+        "学生じゃありません。"
+       ],
+       "answerRom": "gakusei ja nai desu.",
+       "kana": [
+        "ガクセイジャナイデス",
+        "ガクセイデハアリマセン",
+        "ガクセイジャアリマセン"
+       ]
+      },
+      {
+       "base": "日本人です。",
+       "baseRom": "Nihonjin desu.",
+       "baseEn": "I'm Japanese.",
+       "answers": [
+        "日本人じゃないです。",
+        "日本人ではありません。",
+        "日本人じゃありません。"
+       ],
+       "answerRom": "Nihonjin ja nai desu.",
+       "kana": [
+        "ニッポンジンジャナイデス",
+        "ニッポンジンデハアリマセン",
+        "ニッポンジンジャアリマセン",
+        "ニホンジンジャナイデス"
+       ]
+      },
+      {
+       "base": "初めてです。",
+       "baseRom": "hajimete desu.",
+       "baseEn": "It's my first time.",
+       "answers": [
+        "初めてじゃないです。",
+        "初めてではありません。",
+        "初めてじゃありません。"
+       ],
+       "answerRom": "hajimete ja nai desu.",
+       "kana": [
+        "ハジメテジャナイデス",
+        "ハジメテデハアリマセン",
+        "ハジメテジャアリマセン"
+       ]
+      },
+      {
+       "base": "エンジニアです。",
+       "baseRom": "enjinia desu.",
+       "baseEn": "I'm an engineer.",
+       "answers": [
+        "エンジニアじゃないです。",
+        "エンジニアではありません。",
+        "エンジニアじゃありません。"
+       ],
+       "answerRom": "enjinia ja nai desu.",
+       "kana": [
+        "エンジニアジャナイデス",
+        "エンジニアデハアリマセン",
+        "エンジニアジャアリマセン"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "I'm from Canada.",
+       "answers": [
+        "カナダから来ました。"
+       ],
+       "answerRom": "Kanada kara kimashita.",
+       "kana": [
+        "カナダカラキマシタ"
+       ]
+      },
+      {
+       "en": "I'm not a student.",
+       "answers": [
+        "学生じゃないです。",
+        "学生ではありません。",
+        "学生じゃありません。"
+       ],
+       "answerRom": "gakusei ja nai desu.",
+       "kana": [
+        "ガクセイジャナイデス",
+        "ガクセイデハアリマセン",
+        "ガクセイジャアリマセン"
+       ]
+      },
+      {
+       "en": "Is this your first time in Japan?",
+       "answers": [
+        "日本は初めてですか。"
+       ],
+       "answerRom": "Nihon wa hajimete desu ka.",
+       "kana": [
+        "ニッポンハハジメテデスカ",
+        "ニホンハハジメテデスカ"
+       ]
+      },
+      {
+       "en": "I'm American.",
+       "answers": [
+        "アメリカ人です。",
+        "私はアメリカ人です。"
+       ],
+       "answerRom": "Amerikajin desu.",
+       "kana": [
+        "アメリカジンデス",
+        "ワタシハアメリカジンデス"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u3",
+   "title": "カフェで",
+   "en": "At the café",
+   "note": "`～をお願いします` (o onegaishimasu) is the polite way to ask for something and works everywhere; `～をください` (o kudasai) also works. Count things with `ひとつ, ふたつ, みっつ` (one, two, three). Tipping isn't done in Japan.",
+   "dialogue": [
+    {
+     "speaker": "Staff",
+     "target": "いらっしゃいませ。ご注文は？",
+     "rom": "irasshaimase. go-chūmon wa?",
+     "en": "Welcome. What would you like?",
+     "kana": [
+      "イラッシャイマセゴチュウモンハ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "コーヒーをひとつお願いします。",
+     "rom": "kōhī o hitotsu onegaishimasu.",
+     "en": "One coffee, please.",
+     "kana": [
+      "コーヒーヲヒトツオネガイシマス",
+      "コウヒイヲヒトツオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "ホットですか、アイスですか。",
+     "rom": "hotto desu ka, aisu desu ka.",
+     "en": "Hot or iced?",
+     "kana": [
+      "ホットデスカアイスデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "アイスでお願いします。",
+     "rom": "aisu de onegaishimasu.",
+     "en": "Iced, please.",
+     "kana": [
+      "アイスデオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "店内でお召し上がりですか。",
+     "rom": "tennai de o-meshiagari desu ka.",
+     "en": "Is that for here?",
+     "kana": [
+      "テンナイデオメシアガリデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "いいえ、持ち帰りで。",
+     "rom": "iie, mochikaeri de.",
+     "en": "No, to go.",
+     "kana": [
+      "イイエモチカエリデ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "四百五十円です。",
+     "rom": "yonhyaku gojū en desu.",
+     "en": "That's 450 yen.",
+     "kana": [
+      "ヨンヒャクゴジュウエンデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "カードで払えますか。",
+     "rom": "kādo de haraemasu ka.",
+     "en": "Can I pay by card?",
+     "kana": [
+      "カードデハラエマスカ",
+      "カアドデハラエマスカ"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "コーヒーをお願いします。",
+       "baseRom": "kōhī o onegaishimasu.",
+       "baseEn": "Coffee, please.",
+       "cue": "お茶",
+       "cueRom": "o-cha",
+       "cueEn": "green tea",
+       "answers": [
+        "お茶をお願いします。"
+       ],
+       "answerRom": "o-cha o onegaishimasu.",
+       "kana": [
+        "オチャヲオネガイシマス"
+       ]
+      },
+      {
+       "base": "コーヒーをお願いします。",
+       "baseRom": "kōhī o onegaishimasu.",
+       "baseEn": "Coffee, please.",
+       "cue": "水",
+       "cueRom": "mizu",
+       "cueEn": "water",
+       "answers": [
+        "水をお願いします。",
+        "お水をお願いします。"
+       ],
+       "answerRom": "mizu o onegaishimasu.",
+       "kana": [
+        "ミズヲオネガイシマス",
+        "オミズヲオネガイシマス"
+       ]
+      },
+      {
+       "base": "コーヒーをお願いします。",
+       "baseRom": "kōhī o onegaishimasu.",
+       "baseEn": "Coffee, please.",
+       "cue": "ビール",
+       "cueRom": "bīru",
+       "cueEn": "beer",
+       "answers": [
+        "ビールをお願いします。"
+       ],
+       "answerRom": "bīru o onegaishimasu.",
+       "kana": [
+        "ビールヲオネガイシマス",
+        "ビイルヲオネガイシマス"
+       ]
+      },
+      {
+       "base": "コーヒーをお願いします。",
+       "baseRom": "kōhī o onegaishimasu.",
+       "baseEn": "Coffee, please.",
+       "cue": "サンドイッチ",
+       "cueRom": "sandoicchi",
+       "cueEn": "a sandwich",
+       "answers": [
+        "サンドイッチをお願いします。"
+       ],
+       "answerRom": "sandoicchi o onegaishimasu.",
+       "kana": [
+        "サンドイッチヲオネガイシマス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new number.",
+     "items": [
+      {
+       "base": "コーヒーをひとつお願いします。",
+       "baseRom": "kōhī o hitotsu onegaishimasu.",
+       "baseEn": "One coffee, please.",
+       "cue": "ふたつ",
+       "cueRom": "futatsu",
+       "cueEn": "two",
+       "answers": [
+        "コーヒーをふたつお願いします。",
+        "コーヒーを二つお願いします。"
+       ],
+       "answerRom": "kōhī o futatsu onegaishimasu.",
+       "kana": [
+        "コーヒーヲフタツオネガイシマス",
+        "コウヒイヲフタツオネガイシマス"
+       ]
+      },
+      {
+       "base": "コーヒーをひとつお願いします。",
+       "baseRom": "kōhī o hitotsu onegaishimasu.",
+       "baseEn": "One coffee, please.",
+       "cue": "みっつ",
+       "cueRom": "mittsu",
+       "cueEn": "three",
+       "answers": [
+        "コーヒーをみっつお願いします。",
+        "コーヒーを三つお願いします。"
+       ],
+       "answerRom": "kōhī o mittsu onegaishimasu.",
+       "kana": [
+        "コーヒーヲミッツオネガイシマス",
+        "コウヒイヲミッツオネガイシマス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "Water, please.",
+       "answers": [
+        "水をお願いします。",
+        "お水をお願いします。",
+        "水をください。",
+        "お水をください。"
+       ],
+       "answerRom": "mizu o onegaishimasu.",
+       "kana": [
+        "ミズヲオネガイシマス",
+        "オミズヲオネガイシマス",
+        "ミズヲクダサイ",
+        "オミズヲクダサイ"
+       ]
+      },
+      {
+       "en": "Iced, please.",
+       "answers": [
+        "アイスでお願いします。"
+       ],
+       "answerRom": "aisu de onegaishimasu.",
+       "kana": [
+        "アイスデオネガイシマス"
+       ]
+      },
+      {
+       "en": "To go, please.",
+       "answers": [
+        "持ち帰りでお願いします。",
+        "持ち帰りで。",
+        "テイクアウトでお願いします。"
+       ],
+       "answerRom": "mochikaeri de onegaishimasu.",
+       "kana": [
+        "モチカエリデオネガイシマス",
+        "モチカエリデ",
+        "テイクアウトデオネガイシマス"
+       ]
+      },
+      {
+       "en": "Can I pay by card?",
+       "answers": [
+        "カードで払えますか。",
+        "カードは使えますか。",
+        "カード使えますか。"
+       ],
+       "answerRom": "kādo de haraemasu ka.",
+       "kana": [
+        "カードデハラエマスカ",
+        "カードハツカエマスカ",
+        "カードツカエマスカ",
+        "カアドデハラエマスカ"
+       ]
+      },
+      {
+       "en": "Two beers, please.",
+       "answers": [
+        "ビールをふたつお願いします。",
+        "ビールを二つお願いします。"
+       ],
+       "answerRom": "bīru o futatsu onegaishimasu.",
+       "kana": [
+        "ビールヲフタツオネガイシマス",
+        "ビイルヲフタツオネガイシマス"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u4",
+   "title": "どこですか",
+   "en": "Where is it?",
+   "note": "`～はどこですか` (wa doko desu ka) asks \"where is ...?\". `あります` (arimasu) means \"there is\" for things. Directions: `右` (migi) right, `左` (hidari) left, `まっすぐ` (massugu) straight on. `～てください` (te kudasai) makes a polite request.",
+   "dialogue": [
+    {
+     "speaker": "Sam",
+     "target": "すみません、駅はどこですか。",
+     "rom": "sumimasen, eki wa doko desu ka.",
+     "en": "Excuse me, where is the station?",
+     "kana": [
+      "スミマセンエキハドコデスカ"
+     ]
+    },
+    {
+     "speaker": "Passer-by",
+     "target": "まっすぐ行って、右です。",
+     "rom": "massugu itte, migi desu.",
+     "en": "Go straight, then it's on the right.",
+     "kana": [
+      "マッスグイッテミギデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "遠いですか。",
+     "rom": "tōi desu ka.",
+     "en": "Is it far?",
+     "kana": [
+      "トオイデスカ",
+      "トウイデスカ"
+     ]
+    },
+    {
+     "speaker": "Passer-by",
+     "target": "いいえ、歩いて五分ぐらいです。",
+     "rom": "iie, aruite gofun gurai desu.",
+     "en": "No, about five minutes on foot.",
+     "kana": [
+      "イイエアルイテゴフングライデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "この近くにコンビニはありますか。",
+     "rom": "kono chikaku ni konbini wa arimasu ka.",
+     "en": "Is there a convenience store near here?",
+     "kana": [
+      "コノチカクニコンビニハアリマスカ"
+     ]
+    },
+    {
+     "speaker": "Passer-by",
+     "target": "はい、あそこにあります。",
+     "rom": "hai, asoko ni arimasu.",
+     "en": "Yes, over there.",
+     "kana": [
+      "ハイアソコニアリマス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "ありがとうございます。",
+     "rom": "arigatō gozaimasu.",
+     "en": "Thank you.",
+     "kana": [
+      "アリガトウゴザイマス"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "駅はどこですか。",
+       "baseRom": "eki wa doko desu ka.",
+       "baseEn": "Where is the station?",
+       "cue": "トイレ",
+       "cueRom": "toire",
+       "cueEn": "the toilet",
+       "answers": [
+        "トイレはどこですか。"
+       ],
+       "answerRom": "toire wa doko desu ka.",
+       "kana": [
+        "トイレハドコデスカ"
+       ]
+      },
+      {
+       "base": "駅はどこですか。",
+       "baseRom": "eki wa doko desu ka.",
+       "baseEn": "Where is the station?",
+       "cue": "ホテル",
+       "cueRom": "hoteru",
+       "cueEn": "the hotel",
+       "answers": [
+        "ホテルはどこですか。"
+       ],
+       "answerRom": "hoteru wa doko desu ka.",
+       "kana": [
+        "ホテルハドコデスカ"
+       ]
+      },
+      {
+       "base": "駅はどこですか。",
+       "baseRom": "eki wa doko desu ka.",
+       "baseEn": "Where is the station?",
+       "cue": "出口",
+       "cueRom": "deguchi",
+       "cueEn": "the exit",
+       "answers": [
+        "出口はどこですか。"
+       ],
+       "answerRom": "deguchi wa doko desu ka.",
+       "kana": [
+        "デグチハドコデスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "この近くにコンビニはありますか。",
+       "baseRom": "kono chikaku ni konbini wa arimasu ka.",
+       "baseEn": "Is there a convenience store near here?",
+       "cue": "ATM",
+       "cueRom": "ē-tī-emu",
+       "cueEn": "an ATM",
+       "answers": [
+        "この近くにATMはありますか。"
+       ],
+       "answerRom": "kono chikaku ni ē-tī-emu wa arimasu ka.",
+       "kana": [
+        "コノチカクニATMハアリマスカ",
+        "コノチカクニエエティイエムハアリマスカ"
+       ]
+      },
+      {
+       "base": "この近くにコンビニはありますか。",
+       "baseRom": "kono chikaku ni konbini wa arimasu ka.",
+       "baseEn": "Is there a convenience store near here?",
+       "cue": "薬局",
+       "cueRom": "yakkyoku",
+       "cueEn": "a pharmacy",
+       "answers": [
+        "この近くに薬局はありますか。"
+       ],
+       "answerRom": "kono chikaku ni yakkyoku wa arimasu ka.",
+       "kana": [
+        "コノチカクニヤッキョクハアリマスカ"
+       ]
+      },
+      {
+       "base": "この近くにコンビニはありますか。",
+       "baseRom": "kono chikaku ni konbini wa arimasu ka.",
+       "baseEn": "Is there a convenience store near here?",
+       "cue": "レストラン",
+       "cueRom": "resutoran",
+       "cueEn": "a restaurant",
+       "answers": [
+        "この近くにレストランはありますか。"
+       ],
+       "answerRom": "kono chikaku ni resutoran wa arimasu ka.",
+       "kana": [
+        "コノチカクニレストランハアリマスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "右に曲がってください。",
+       "baseRom": "migi ni magatte kudasai.",
+       "baseEn": "Please turn right.",
+       "cue": "左",
+       "cueRom": "hidari",
+       "cueEn": "left",
+       "answers": [
+        "左に曲がってください。"
+       ],
+       "answerRom": "hidari ni magatte kudasai.",
+       "kana": [
+        "ヒダリニマガッテクダサイ"
+       ]
+      },
+      {
+       "base": "ここで止めてください。",
+       "baseRom": "koko de tomete kudasai.",
+       "baseEn": "Please stop here.",
+       "cue": "あそこ",
+       "cueRom": "asoko",
+       "cueEn": "over there",
+       "answers": [
+        "あそこで止めてください。"
+       ],
+       "answerRom": "asoko de tomete kudasai.",
+       "kana": [
+        "アソコデトメテクダサイ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "Where is the toilet?",
+       "answers": [
+        "トイレはどこですか。"
+       ],
+       "answerRom": "toire wa doko desu ka.",
+       "kana": [
+        "トイレハドコデスカ"
+       ]
+      },
+      {
+       "en": "Is it far?",
+       "answers": [
+        "遠いですか。"
+       ],
+       "answerRom": "tōi desu ka.",
+       "kana": [
+        "トオイデスカ",
+        "トウイデスカ"
+       ]
+      },
+      {
+       "en": "Is there an ATM near here?",
+       "answers": [
+        "この近くにATMはありますか。"
+       ],
+       "answerRom": "kono chikaku ni ē-tī-emu wa arimasu ka.",
+       "kana": [
+        "コノチカクニATMハアリマスカ",
+        "コノチカクニエエティイエムハアリマスカ"
+       ]
+      },
+      {
+       "en": "Please turn left.",
+       "answers": [
+        "左に曲がってください。"
+       ],
+       "answerRom": "hidari ni magatte kudasai.",
+       "kana": [
+        "ヒダリニマガッテクダサイ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u5",
+   "title": "レストランで",
+   "en": "At a restaurant",
+   "note": "Count people with `人`: `一人` (hitori) one, `二人` (futari) two, `三人` (sannin) three. Verbs end in `ます` (masu); the negative ends in `ません` (masen). Say `いただきます` (itadakimasu) before eating and `ごちそうさまでした` (gochisōsama deshita) after. Ask for the bill with `お会計お願いします`.",
+   "dialogue": [
+    {
+     "speaker": "Staff",
+     "target": "いらっしゃいませ。何名様ですか。",
+     "rom": "irasshaimase. nanmei-sama desu ka.",
+     "en": "Welcome. How many people?",
+     "kana": [
+      "イラッシャイマセナニメイサマデスカ",
+      "イラッシャイマセナンメイサマデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "二人です。",
+     "rom": "futari desu.",
+     "en": "Two.",
+     "kana": [
+      "ニニンデス",
+      "フタリデス"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "こちらへどうぞ。",
+     "rom": "kochira e dōzo.",
+     "en": "This way, please.",
+     "kana": [
+      "コチラヘドウゾ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "おすすめは何ですか。",
+     "rom": "osusume wa nan desu ka.",
+     "en": "What do you recommend?",
+     "kana": [
+      "オススメハナニデスカ",
+      "オススメハナンデスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "ラーメンがおすすめです。",
+     "rom": "rāmen ga osusume desu.",
+     "en": "We recommend the ramen.",
+     "kana": [
+      "ラーメンガオススメデス",
+      "ラアメンガオススメデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "じゃあ、ラーメンをふたつお願いします。",
+     "rom": "jā, rāmen o futatsu onegaishimasu.",
+     "en": "Then two ramen, please.",
+     "kana": [
+      "ジャアラーメンヲフタツオネガイシマス",
+      "ジャアラアメンヲフタツオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "すみません、お会計お願いします。",
+     "rom": "sumimasen, o-kaikei onegaishimasu.",
+     "en": "Excuse me, the bill, please.",
+     "kana": [
+      "スミマセンオカイケイオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "ごちそうさまでした。",
+     "rom": "gochisōsama deshita.",
+     "en": "Thank you for the meal.",
+     "kana": [
+      "ゴチソウサマデシタ"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "ラーメンをお願いします。",
+       "baseRom": "rāmen o onegaishimasu.",
+       "baseEn": "Ramen, please.",
+       "cue": "寿司",
+       "cueRom": "sushi",
+       "cueEn": "sushi",
+       "answers": [
+        "寿司をお願いします。",
+        "お寿司をお願いします。"
+       ],
+       "answerRom": "sushi o onegaishimasu.",
+       "kana": [
+        "スシヲオネガイシマス",
+        "オスシヲオネガイシマス"
+       ]
+      },
+      {
+       "base": "ラーメンをお願いします。",
+       "baseRom": "rāmen o onegaishimasu.",
+       "baseEn": "Ramen, please.",
+       "cue": "天ぷら",
+       "cueRom": "tenpura",
+       "cueEn": "tempura",
+       "answers": [
+        "天ぷらをお願いします。"
+       ],
+       "answerRom": "tenpura o onegaishimasu.",
+       "kana": [
+        "テンプラヲオネガイシマス"
+       ]
+      },
+      {
+       "base": "ラーメンをお願いします。",
+       "baseRom": "rāmen o onegaishimasu.",
+       "baseEn": "Ramen, please.",
+       "cue": "うどん",
+       "cueRom": "udon",
+       "cueEn": "udon noodles",
+       "answers": [
+        "うどんをお願いします。"
+       ],
+       "answerRom": "udon o onegaishimasu.",
+       "kana": [
+        "ウドンヲオネガイシマス"
+       ]
+      },
+      {
+       "base": "ラーメンをお願いします。",
+       "baseRom": "rāmen o onegaishimasu.",
+       "baseEn": "Ramen, please.",
+       "cue": "焼き鳥",
+       "cueRom": "yakitori",
+       "cueEn": "grilled chicken skewers",
+       "answers": [
+        "焼き鳥をお願いします。"
+       ],
+       "answerRom": "yakitori o onegaishimasu.",
+       "kana": [
+        "ヤキトリヲオネガイシマス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the number of people.",
+     "items": [
+      {
+       "base": "二人です。",
+       "baseRom": "futari desu.",
+       "baseEn": "Two people.",
+       "cue": "一人",
+       "cueRom": "hitori",
+       "cueEn": "one person",
+       "answers": [
+        "一人です。"
+       ],
+       "answerRom": "hitori desu.",
+       "kana": [
+        "イチニンデス",
+        "ヒトリデス"
+       ]
+      },
+      {
+       "base": "二人です。",
+       "baseRom": "futari desu.",
+       "baseEn": "Two people.",
+       "cue": "三人",
+       "cueRom": "sannin",
+       "cueEn": "three people",
+       "answers": [
+        "三人です。"
+       ],
+       "answerRom": "sannin desu.",
+       "kana": [
+        "サンニンデス"
+       ]
+      },
+      {
+       "base": "二人です。",
+       "baseRom": "futari desu.",
+       "baseEn": "Two people.",
+       "cue": "四人",
+       "cueRom": "yonin",
+       "cueEn": "four people",
+       "answers": [
+        "四人です。"
+       ],
+       "answerRom": "yonin desu.",
+       "kana": [
+        "ヨンニンデス",
+        "ヨニンデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it negative: ます (masu) becomes ません (masen).",
+     "items": [
+      {
+       "base": "食べます。",
+       "baseRom": "tabemasu.",
+       "baseEn": "I eat.",
+       "answers": [
+        "食べません。"
+       ],
+       "answerRom": "tabemasen.",
+       "kana": [
+        "タベマセン"
+       ]
+      },
+      {
+       "base": "飲みます。",
+       "baseRom": "nomimasu.",
+       "baseEn": "I drink.",
+       "answers": [
+        "飲みません。"
+       ],
+       "answerRom": "nomimasen.",
+       "kana": [
+        "ノミマセン"
+       ]
+      },
+      {
+       "base": "分かります。",
+       "baseRom": "wakarimasu.",
+       "baseEn": "I understand.",
+       "answers": [
+        "分かりません。",
+        "わかりません。"
+       ],
+       "answerRom": "wakarimasen.",
+       "kana": [
+        "ワカリマセン"
+       ]
+      },
+      {
+       "base": "行きます。",
+       "baseRom": "ikimasu.",
+       "baseEn": "I go.",
+       "answers": [
+        "行きません。"
+       ],
+       "answerRom": "ikimasen.",
+       "kana": [
+        "イキマセン"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "The bill, please.",
+       "answers": [
+        "お会計お願いします。",
+        "お会計をお願いします。",
+        "お勘定お願いします。"
+       ],
+       "answerRom": "o-kaikei onegaishimasu.",
+       "kana": [
+        "オカイケイオネガイシマス",
+        "オカイケイヲオネガイシマス",
+        "オカンジョウオネガイシマス"
+       ]
+      },
+      {
+       "en": "Two people.",
+       "answers": [
+        "二人です。"
+       ],
+       "answerRom": "futari desu.",
+       "kana": [
+        "ニニンデス",
+        "フタリデス"
+       ]
+      },
+      {
+       "en": "What do you recommend?",
+       "answers": [
+        "おすすめは何ですか。"
+       ],
+       "answerRom": "osusume wa nan desu ka.",
+       "kana": [
+        "オススメハナニデスカ",
+        "オススメハナンデスカ"
+       ]
+      },
+      {
+       "en": "I don't eat meat.",
+       "answers": [
+        "肉は食べません。",
+        "肉を食べません。"
+       ],
+       "answerRom": "niku wa tabemasen.",
+       "kana": [
+        "ニクハタベマセン",
+        "ニクヲタベマセン"
+       ]
+      },
+      {
+       "en": "Thank you for the meal.",
+       "answers": [
+        "ごちそうさまでした。"
+       ],
+       "answerRom": "gochisōsama deshita.",
+       "kana": [
+        "ゴチソウサマデシタ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u6",
+   "title": "電車で",
+   "en": "Trains",
+   "note": "`～まで` (made) means \"to\" or \"as far as\". `何時` (nanji) asks \"what time?\"; `～時` (ji) is o'clock and `半` (han) half past. `片道` (katamichi) is one way, `往復` (ōfuku) round trip. Prepaid IC cards such as Suica work on most city trains and buses.",
+   "dialogue": [
+    {
+     "speaker": "Sam",
+     "target": "すみません、京都までいくらですか。",
+     "rom": "sumimasen, Kyōto made ikura desu ka.",
+     "en": "Excuse me, how much is it to Kyoto?",
+     "kana": [
+      "スミマセンキョウトマデイクラデスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "片道ですか、往復ですか。",
+     "rom": "katamichi desu ka, ōfuku desu ka.",
+     "en": "One way or round trip?",
+     "kana": [
+      "カタミチデスカオウフクデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "片道でお願いします。",
+     "rom": "katamichi de onegaishimasu.",
+     "en": "One way, please.",
+     "kana": [
+      "カタミチデオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "次の電車は十時半です。",
+     "rom": "tsugi no densha wa jūji han desu.",
+     "en": "The next train is at half past ten.",
+     "kana": [
+      "ツギノデンシャハジュウジハンデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "何番線ですか。",
+     "rom": "nanbansen desu ka.",
+     "en": "Which platform?",
+     "kana": [
+      "ナンバンセンデスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "十四番線です。",
+     "rom": "jūyonbansen desu.",
+     "en": "Platform fourteen.",
+     "kana": [
+      "ジュウヨンバンセンデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "ありがとうございます。",
+     "rom": "arigatō gozaimasu.",
+     "en": "Thank you.",
+     "kana": [
+      "アリガトウゴザイマス"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "京都まで行きます。",
+       "baseRom": "Kyōto made ikimasu.",
+       "baseEn": "I'm going to Kyoto.",
+       "cue": "大阪",
+       "cueRom": "Ōsaka",
+       "cueEn": "Osaka",
+       "answers": [
+        "大阪まで行きます。"
+       ],
+       "answerRom": "Ōsaka made ikimasu.",
+       "kana": [
+        "オオサカマデイキマス",
+        "オウサカマデイキマス"
+       ]
+      },
+      {
+       "base": "京都まで行きます。",
+       "baseRom": "Kyōto made ikimasu.",
+       "baseEn": "I'm going to Kyoto.",
+       "cue": "東京",
+       "cueRom": "Tōkyō",
+       "cueEn": "Tokyo",
+       "answers": [
+        "東京まで行きます。"
+       ],
+       "answerRom": "Tōkyō made ikimasu.",
+       "kana": [
+        "トウキョウマデイキマス"
+       ]
+      },
+      {
+       "base": "京都まで行きます。",
+       "baseRom": "Kyōto made ikimasu.",
+       "baseEn": "I'm going to Kyoto.",
+       "cue": "空港",
+       "cueRom": "kūkō",
+       "cueEn": "the airport",
+       "answers": [
+        "空港まで行きます。"
+       ],
+       "answerRom": "kūkō made ikimasu.",
+       "kana": [
+        "クウコウマデイキマス"
+       ]
+      },
+      {
+       "base": "京都まで行きます。",
+       "baseRom": "Kyōto made ikimasu.",
+       "baseEn": "I'm going to Kyoto.",
+       "cue": "新宿",
+       "cueRom": "Shinjuku",
+       "cueEn": "Shinjuku",
+       "answers": [
+        "新宿まで行きます。"
+       ],
+       "answerRom": "Shinjuku made ikimasu.",
+       "kana": [
+        "シンジュクマデイキマス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new time.",
+     "items": [
+      {
+       "base": "十時です。",
+       "baseRom": "jūji desu.",
+       "baseEn": "It's ten o'clock.",
+       "cue": "十一時",
+       "cueRom": "jūichiji",
+       "cueEn": "eleven o'clock",
+       "answers": [
+        "十一時です。"
+       ],
+       "answerRom": "jūichiji desu.",
+       "kana": [
+        "ジュウイチジデス"
+       ]
+      },
+      {
+       "base": "十時です。",
+       "baseRom": "jūji desu.",
+       "baseEn": "It's ten o'clock.",
+       "cue": "一時",
+       "cueRom": "ichiji",
+       "cueEn": "one o'clock",
+       "answers": [
+        "一時です。"
+       ],
+       "answerRom": "ichiji desu.",
+       "kana": [
+        "イチジデス"
+       ]
+      },
+      {
+       "base": "十時です。",
+       "baseRom": "jūji desu.",
+       "baseEn": "It's ten o'clock.",
+       "cue": "十時半",
+       "cueRom": "jūji han",
+       "cueEn": "half past ten",
+       "answers": [
+        "十時半です。"
+       ],
+       "answerRom": "jūji han desu.",
+       "kana": [
+        "ジュウジハンデス"
+       ]
+      },
+      {
+       "base": "十時です。",
+       "baseRom": "jūji desu.",
+       "baseEn": "It's ten o'clock.",
+       "cue": "三時半",
+       "cueRom": "sanji han",
+       "cueEn": "half past three",
+       "answers": [
+        "三時半です。"
+       ],
+       "answerRom": "sanji han desu.",
+       "kana": [
+        "サンジハンデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Ask what time with は何時ですか (wa nanji desu ka).",
+     "items": [
+      {
+       "base": "次の電車",
+       "baseRom": "tsugi no densha",
+       "baseEn": "the next train",
+       "answers": [
+        "次の電車は何時ですか。"
+       ],
+       "answerRom": "tsugi no densha wa nanji desu ka.",
+       "kana": [
+        "ツギノデンシャハナンジデスカ"
+       ]
+      },
+      {
+       "base": "出発",
+       "baseRom": "shuppatsu",
+       "baseEn": "departure",
+       "answers": [
+        "出発は何時ですか。"
+       ],
+       "answerRom": "shuppatsu wa nanji desu ka.",
+       "kana": [
+        "シュッパツハナンジデスカ"
+       ]
+      },
+      {
+       "base": "チェックアウト",
+       "baseRom": "chekkuauto",
+       "baseEn": "check-out",
+       "answers": [
+        "チェックアウトは何時ですか。"
+       ],
+       "answerRom": "chekkuauto wa nanji desu ka.",
+       "kana": [
+        "チェックアウトハナンジデスカ"
+       ]
+      },
+      {
+       "base": "朝ごはん",
+       "baseRom": "asagohan",
+       "baseEn": "breakfast",
+       "answers": [
+        "朝ごはんは何時ですか。"
+       ],
+       "answerRom": "asagohan wa nanji desu ka.",
+       "kana": [
+        "アサゴハンハナンジデスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "How much is it to Osaka?",
+       "answers": [
+        "大阪までいくらですか。"
+       ],
+       "answerRom": "Ōsaka made ikura desu ka.",
+       "kana": [
+        "オオサカマデイクラデスカ",
+        "オウサカマデイクラデスカ"
+       ]
+      },
+      {
+       "en": "One way, please.",
+       "answers": [
+        "片道でお願いします。"
+       ],
+       "answerRom": "katamichi de onegaishimasu.",
+       "kana": [
+        "カタミチデオネガイシマス"
+       ]
+      },
+      {
+       "en": "What time is the next train?",
+       "answers": [
+        "次の電車は何時ですか。"
+       ],
+       "answerRom": "tsugi no densha wa nanji desu ka.",
+       "kana": [
+        "ツギノデンシャハナンジデスカ"
+       ]
+      },
+      {
+       "en": "Which platform?",
+       "answers": [
+        "何番線ですか。"
+       ],
+       "answerRom": "nanbansen desu ka.",
+       "kana": [
+        "ナンバンセンデスカ"
+       ]
+      },
+      {
+       "en": "I'm going to the airport.",
+       "answers": [
+        "空港まで行きます。",
+        "空港に行きます。",
+        "空港へ行きます。"
+       ],
+       "answerRom": "kūkō made ikimasu.",
+       "kana": [
+        "クウコウマデイキマス",
+        "クウコウニイキマス",
+        "クウコウヘイキマス"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u7",
+   "title": "買い物",
+   "en": "Shopping",
+   "note": "`これ` (kore) this, `それ` (sore) that one near you, `あれ` (are) that one over there. `いくらですか` (ikura desu ka) asks \"how much?\". `～はありますか` asks \"do you have ...?\". `これをください` (kore o kudasai) means \"I'll take this\". Watch the sound change in `三千` (sanzen, 3,000).",
+   "dialogue": [
+    {
+     "speaker": "Staff",
+     "target": "いらっしゃいませ。",
+     "rom": "irasshaimase.",
+     "en": "Welcome.",
+     "kana": [
+      "イラッシャイマセ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "すみません、これはいくらですか。",
+     "rom": "sumimasen, kore wa ikura desu ka.",
+     "en": "Excuse me, how much is this?",
+     "kana": [
+      "スミマセンコレハイクラデスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "三千円です。",
+     "rom": "sanzen en desu.",
+     "en": "It's 3,000 yen.",
+     "kana": [
+      "サンセンエンデス",
+      "サンゼンエンデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "もう少し大きいサイズはありますか。",
+     "rom": "mō sukoshi ōkii saizu wa arimasu ka.",
+     "en": "Do you have a slightly bigger size?",
+     "kana": [
+      "モウスコシオオキイサイズハアリマスカ",
+      "モウスコシオウキイサイズハアリマスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "はい、こちらです。",
+     "rom": "hai, kochira desu.",
+     "en": "Yes, here you are.",
+     "kana": [
+      "ハイコチラデス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "黒はありますか。",
+     "rom": "kuro wa arimasu ka.",
+     "en": "Do you have it in black?",
+     "kana": [
+      "クロハアリマスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "はい、あります。",
+     "rom": "hai, arimasu.",
+     "en": "Yes, we do.",
+     "kana": [
+      "ハイアリマス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "じゃあ、これをください。",
+     "rom": "jā, kore o kudasai.",
+     "en": "Then I'll take this.",
+     "kana": [
+      "ジャアコレヲクダサイ"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "これはいくらですか。",
+       "baseRom": "kore wa ikura desu ka.",
+       "baseEn": "How much is this?",
+       "cue": "それ",
+       "cueRom": "sore",
+       "cueEn": "that (near you)",
+       "answers": [
+        "それはいくらですか。"
+       ],
+       "answerRom": "sore wa ikura desu ka.",
+       "kana": [
+        "ソレハイクラデスカ"
+       ]
+      },
+      {
+       "base": "これはいくらですか。",
+       "baseRom": "kore wa ikura desu ka.",
+       "baseEn": "How much is this?",
+       "cue": "あれ",
+       "cueRom": "are",
+       "cueEn": "that (over there)",
+       "answers": [
+        "あれはいくらですか。"
+       ],
+       "answerRom": "are wa ikura desu ka.",
+       "kana": [
+        "アレハイクラデスカ"
+       ]
+      },
+      {
+       "base": "これはいくらですか。",
+       "baseRom": "kore wa ikura desu ka.",
+       "baseEn": "How much is this?",
+       "cue": "このシャツ",
+       "cueRom": "kono shatsu",
+       "cueEn": "this shirt",
+       "answers": [
+        "このシャツはいくらですか。"
+       ],
+       "answerRom": "kono shatsu wa ikura desu ka.",
+       "kana": [
+        "コノシャツハイクラデスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "黒はありますか。",
+       "baseRom": "kuro wa arimasu ka.",
+       "baseEn": "Do you have black?",
+       "cue": "白",
+       "cueRom": "shiro",
+       "cueEn": "white",
+       "answers": [
+        "白はありますか。"
+       ],
+       "answerRom": "shiro wa arimasu ka.",
+       "kana": [
+        "シロハアリマスカ"
+       ]
+      },
+      {
+       "base": "黒はありますか。",
+       "baseRom": "kuro wa arimasu ka.",
+       "baseEn": "Do you have black?",
+       "cue": "青",
+       "cueRom": "ao",
+       "cueEn": "blue",
+       "answers": [
+        "青はありますか。"
+       ],
+       "answerRom": "ao wa arimasu ka.",
+       "kana": [
+        "アオハアリマスカ"
+       ]
+      },
+      {
+       "base": "黒はありますか。",
+       "baseRom": "kuro wa arimasu ka.",
+       "baseEn": "Do you have black?",
+       "cue": "Mサイズ",
+       "cueRom": "emu saizu",
+       "cueEn": "size M",
+       "answers": [
+        "Mサイズはありますか。"
+       ],
+       "answerRom": "emu saizu wa arimasu ka.",
+       "kana": [
+        "Mサイズハアリマスカ",
+        "エムサイズハアリマスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the number of thousands.",
+     "items": [
+      {
+       "base": "千円です。",
+       "baseRom": "sen en desu.",
+       "baseEn": "It's 1,000 yen.",
+       "cue": "二",
+       "cueRom": "ni",
+       "cueEn": "two",
+       "answers": [
+        "二千円です。"
+       ],
+       "answerRom": "nisen en desu.",
+       "kana": [
+        "ニセンエンデス"
+       ]
+      },
+      {
+       "base": "千円です。",
+       "baseRom": "sen en desu.",
+       "baseEn": "It's 1,000 yen.",
+       "cue": "三",
+       "cueRom": "san",
+       "cueEn": "three",
+       "answers": [
+        "三千円です。"
+       ],
+       "answerRom": "sanzen en desu.",
+       "kana": [
+        "サンセンエンデス",
+        "サンゼンエンデス"
+       ]
+      },
+      {
+       "base": "千円です。",
+       "baseRom": "sen en desu.",
+       "baseEn": "It's 1,000 yen.",
+       "cue": "五",
+       "cueRom": "go",
+       "cueEn": "five",
+       "answers": [
+        "五千円です。"
+       ],
+       "answerRom": "gosen en desu.",
+       "kana": [
+        "ゴセンエンデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "How much is this?",
+       "answers": [
+        "これはいくらですか。"
+       ],
+       "answerRom": "kore wa ikura desu ka.",
+       "kana": [
+        "コレハイクラデスカ"
+       ]
+      },
+      {
+       "en": "Do you have a bigger size?",
+       "answers": [
+        "大きいサイズはありますか。",
+        "もう少し大きいサイズはありますか。"
+       ],
+       "answerRom": "ōkii saizu wa arimasu ka.",
+       "kana": [
+        "オオキイサイズハアリマスカ",
+        "モウスコシオオキイサイズハアリマスカ",
+        "オウキイサイズハアリマスカ"
+       ]
+      },
+      {
+       "en": "I'll take this.",
+       "answers": [
+        "これをください。",
+        "これにします。"
+       ],
+       "answerRom": "kore o kudasai.",
+       "kana": [
+        "コレヲクダサイ",
+        "コレニシマス"
+       ]
+      },
+      {
+       "en": "I'm just looking.",
+       "answers": [
+        "見ているだけです。",
+        "見てるだけです。"
+       ],
+       "answerRom": "mite iru dake desu.",
+       "kana": [
+        "ミテイルダケデス",
+        "ミテルダケデス"
+       ]
+      },
+      {
+       "en": "Can I pay by card?",
+       "answers": [
+        "カードで払えますか。",
+        "カードは使えますか。",
+        "カード使えますか。"
+       ],
+       "answerRom": "kādo de haraemasu ka.",
+       "kana": [
+        "カードデハラエマスカ",
+        "カードハツカエマスカ",
+        "カードツカエマスカ",
+        "カアドデハラエマスカ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u8",
+   "title": "雑談",
+   "en": "Small talk",
+   "note": "`好きです` (suki desu) means \"I like it\"; the thing you like takes `が` (ga): `ラーメンが好きです`. `大好き` (daisuki) is \"really like, love\". `～ね` (ne) at the end invites agreement, like \"isn't it?\".",
+   "dialogue": [
+    {
+     "speaker": "Yuki",
+     "target": "日本の食べ物は好きですか。",
+     "rom": "Nihon no tabemono wa suki desu ka.",
+     "en": "Do you like Japanese food?",
+     "kana": [
+      "ニッポンノタベモノハスキデスカ",
+      "ニホンノタベモノハスキデスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "はい、大好きです。特にラーメンが好きです。",
+     "rom": "hai, daisuki desu. toku ni rāmen ga suki desu.",
+     "en": "Yes, I love it. I especially like ramen.",
+     "kana": [
+      "ハイダイスキデストクニラーメンガスキデス",
+      "ハイダイスキデストクニラアメンガスキデス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "どのくらい日本にいますか。",
+     "rom": "dono kurai Nihon ni imasu ka.",
+     "en": "How long are you in Japan?",
+     "kana": [
+      "ドノクライニッポンニイマスカ",
+      "ドノクライニホンニイマスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "二週間です。",
+     "rom": "nishūkan desu.",
+     "en": "Two weeks.",
+     "kana": [
+      "ニシュウカンデス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "週末は何をしますか。",
+     "rom": "shūmatsu wa nani o shimasu ka.",
+     "en": "What are you doing this weekend?",
+     "kana": [
+      "シュウマツハナニヲシマスカ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "友達と京都に行きます。",
+     "rom": "tomodachi to Kyōto ni ikimasu.",
+     "en": "I'm going to Kyoto with a friend.",
+     "kana": [
+      "トモダチトキョウトニイキマス"
+     ]
+    },
+    {
+     "speaker": "Yuki",
+     "target": "いいですね。",
+     "rom": "ii desu ne.",
+     "en": "That sounds nice.",
+     "kana": [
+      "イイデスネ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "はい、楽しみです。",
+     "rom": "hai, tanoshimi desu.",
+     "en": "Yes, I'm looking forward to it.",
+     "kana": [
+      "ハイタノシミデス"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "ラーメンが好きです。",
+       "baseRom": "rāmen ga suki desu.",
+       "baseEn": "I like ramen.",
+       "cue": "寿司",
+       "cueRom": "sushi",
+       "cueEn": "sushi",
+       "answers": [
+        "寿司が好きです。",
+        "お寿司が好きです。"
+       ],
+       "answerRom": "sushi ga suki desu.",
+       "kana": [
+        "スシガスキデス",
+        "オスシガスキデス"
+       ]
+      },
+      {
+       "base": "ラーメンが好きです。",
+       "baseRom": "rāmen ga suki desu.",
+       "baseEn": "I like ramen.",
+       "cue": "日本",
+       "cueRom": "Nihon",
+       "cueEn": "Japan",
+       "answers": [
+        "日本が好きです。"
+       ],
+       "answerRom": "Nihon ga suki desu.",
+       "kana": [
+        "ニッポンガスキデス",
+        "ニホンガスキデス"
+       ]
+      },
+      {
+       "base": "ラーメンが好きです。",
+       "baseRom": "rāmen ga suki desu.",
+       "baseEn": "I like ramen.",
+       "cue": "音楽",
+       "cueRom": "ongaku",
+       "cueEn": "music",
+       "answers": [
+        "音楽が好きです。"
+       ],
+       "answerRom": "ongaku ga suki desu.",
+       "kana": [
+        "オンガクガスキデス"
+       ]
+      },
+      {
+       "base": "ラーメンが好きです。",
+       "baseRom": "rāmen ga suki desu.",
+       "baseEn": "I like ramen.",
+       "cue": "サッカー",
+       "cueRom": "sakkā",
+       "cueEn": "football",
+       "answers": [
+        "サッカーが好きです。"
+       ],
+       "answerRom": "sakkā ga suki desu.",
+       "kana": [
+        "サッカーガスキデス",
+        "サッカアガスキデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new length of time.",
+     "items": [
+      {
+       "base": "二週間です。",
+       "baseRom": "nishūkan desu.",
+       "baseEn": "Two weeks.",
+       "cue": "一週間",
+       "cueRom": "isshūkan",
+       "cueEn": "one week",
+       "answers": [
+        "一週間です。"
+       ],
+       "answerRom": "isshūkan desu.",
+       "kana": [
+        "イチシュウカンデス",
+        "イッシュウカンデス"
+       ]
+      },
+      {
+       "base": "二週間です。",
+       "baseRom": "nishūkan desu.",
+       "baseEn": "Two weeks.",
+       "cue": "三日",
+       "cueRom": "mikka",
+       "cueEn": "three days",
+       "answers": [
+        "三日です。"
+       ],
+       "answerRom": "mikka desu.",
+       "kana": [
+        "サンニチデス",
+        "ミッカデス"
+       ]
+      },
+      {
+       "base": "二週間です。",
+       "baseRom": "nishūkan desu.",
+       "baseEn": "Two weeks.",
+       "cue": "十日",
+       "cueRom": "tōka",
+       "cueEn": "ten days",
+       "answers": [
+        "十日です。"
+       ],
+       "answerRom": "tōka desu.",
+       "kana": [
+        "ジュウニチデス",
+        "トウカデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Turn it into a question by adding か (ka).",
+     "items": [
+      {
+       "base": "ラーメンが好きです。",
+       "baseRom": "rāmen ga suki desu.",
+       "baseEn": "I like ramen.",
+       "answers": [
+        "ラーメンが好きですか。",
+        "ラーメンは好きですか。"
+       ],
+       "answerRom": "rāmen ga suki desu ka.",
+       "kana": [
+        "ラーメンガスキデスカ",
+        "ラーメンハスキデスカ",
+        "ラアメンガスキデスカ"
+       ]
+      },
+      {
+       "base": "京都に行きます。",
+       "baseRom": "Kyōto ni ikimasu.",
+       "baseEn": "I'm going to Kyoto.",
+       "answers": [
+        "京都に行きますか。"
+       ],
+       "answerRom": "Kyōto ni ikimasu ka.",
+       "kana": [
+        "キョウトニイキマスカ"
+       ]
+      },
+      {
+       "base": "日本語を話します。",
+       "baseRom": "Nihongo o hanashimasu.",
+       "baseEn": "I speak Japanese.",
+       "answers": [
+        "日本語を話しますか。"
+       ],
+       "answerRom": "Nihongo o hanashimasu ka.",
+       "kana": [
+        "ニホンゴヲハナシマスカ"
+       ]
+      },
+      {
+       "base": "寿司を食べます。",
+       "baseRom": "sushi o tabemasu.",
+       "baseEn": "I eat sushi.",
+       "answers": [
+        "寿司を食べますか。",
+        "お寿司を食べますか。"
+       ],
+       "answerRom": "sushi o tabemasu ka.",
+       "kana": [
+        "スシヲタベマスカ",
+        "オスシヲタベマスカ"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "I love Japan.",
+       "answers": [
+        "日本が大好きです。"
+       ],
+       "answerRom": "Nihon ga daisuki desu.",
+       "kana": [
+        "ニッポンガダイスキデス",
+        "ニホンガダイスキデス"
+       ]
+      },
+      {
+       "en": "I speak a little Japanese.",
+       "answers": [
+        "日本語を少し話します。",
+        "日本語が少し話せます。",
+        "日本語を少し話せます。"
+       ],
+       "answerRom": "Nihongo o sukoshi hanashimasu.",
+       "kana": [
+        "ニホンゴヲスコシハナシマス",
+        "ニホンゴガスコシハナセマス",
+        "ニホンゴヲスコシハナセマス"
+       ]
+      },
+      {
+       "en": "Do you like sushi?",
+       "answers": [
+        "寿司が好きですか。",
+        "お寿司が好きですか。",
+        "寿司は好きですか。",
+        "お寿司は好きですか。"
+       ],
+       "answerRom": "sushi ga suki desu ka.",
+       "kana": [
+        "スシガスキデスカ",
+        "オスシガスキデスカ",
+        "スシハスキデスカ",
+        "オスシハスキデスカ"
+       ]
+      },
+      {
+       "en": "I'm going to Kyoto with a friend.",
+       "answers": [
+        "友達と京都に行きます。"
+       ],
+       "answerRom": "tomodachi to Kyōto ni ikimasu.",
+       "kana": [
+        "トモダチトキョウトニイキマス"
+       ]
+      },
+      {
+       "en": "That sounds nice.",
+       "answers": [
+        "いいですね。"
+       ],
+       "answerRom": "ii desu ne.",
+       "kana": [
+        "イイデスネ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u9",
+   "title": "困ったとき",
+   "en": "Getting help",
+   "note": "`分かりません` (wakarimasen) means \"I don't understand\". `もう一度` (mō ichido) is \"once more\" and `ゆっくり` (yukkuri) \"slowly\". `～が痛いです` (ga itai desu) says what hurts. Emergency numbers in Japan: 110 for police, 119 for an ambulance or fire.",
+   "dialogue": [
+    {
+     "speaker": "Sam",
+     "target": "すみません、分かりません。",
+     "rom": "sumimasen, wakarimasen.",
+     "en": "Sorry, I don't understand.",
+     "kana": [
+      "スミマセンワカリマセン"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "大丈夫ですよ。",
+     "rom": "daijōbu desu yo.",
+     "en": "That's OK.",
+     "kana": [
+      "ダイジョウブデスヨ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "もう一度お願いします。",
+     "rom": "mō ichido onegaishimasu.",
+     "en": "Once more, please.",
+     "kana": [
+      "モウイチドオネガイシマス"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "ゆっくり話してください。",
+     "rom": "yukkuri hanashite kudasai.",
+     "en": "Please speak slowly.",
+     "kana": [
+      "ユックリハナシテクダサイ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "英語を話せますか。",
+     "rom": "eigo o hanasemasu ka.",
+     "en": "Can you speak English?",
+     "kana": [
+      "エイゴヲハナセマスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "少しだけ。",
+     "rom": "sukoshi dake.",
+     "en": "Just a little.",
+     "kana": [
+      "スコシダケ"
+     ]
+    },
+    {
+     "speaker": "Sam",
+     "target": "頭が痛いです。薬局はどこですか。",
+     "rom": "atama ga itai desu. yakkyoku wa doko desu ka.",
+     "en": "I have a headache. Where is a pharmacy?",
+     "kana": [
+      "アタマガイタイデスヤッキョクハドコデスカ"
+     ]
+    },
+    {
+     "speaker": "Staff",
+     "target": "駅の前にあります。",
+     "rom": "eki no mae ni arimasu.",
+     "en": "There's one in front of the station.",
+     "kana": [
+      "エキノマエニアリマス"
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say it again with the new word swapped in.",
+     "items": [
+      {
+       "base": "頭が痛いです。",
+       "baseRom": "atama ga itai desu.",
+       "baseEn": "My head hurts.",
+       "cue": "お腹",
+       "cueRom": "onaka",
+       "cueEn": "stomach",
+       "answers": [
+        "お腹が痛いです。",
+        "おなかが痛いです。"
+       ],
+       "answerRom": "onaka ga itai desu.",
+       "kana": [
+        "オナカガイタイデス"
+       ]
+      },
+      {
+       "base": "頭が痛いです。",
+       "baseRom": "atama ga itai desu.",
+       "baseEn": "My head hurts.",
+       "cue": "歯",
+       "cueRom": "ha",
+       "cueEn": "tooth",
+       "answers": [
+        "歯が痛いです。"
+       ],
+       "answerRom": "ha ga itai desu.",
+       "kana": [
+        "ハガイタイデス"
+       ]
+      },
+      {
+       "base": "頭が痛いです。",
+       "baseRom": "atama ga itai desu.",
+       "baseEn": "My head hurts.",
+       "cue": "喉",
+       "cueRom": "nodo",
+       "cueEn": "throat",
+       "answers": [
+        "喉が痛いです。",
+        "のどが痛いです。"
+       ],
+       "answerRom": "nodo ga itai desu.",
+       "kana": [
+        "ノドガイタイデス"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Japanese.",
+     "items": [
+      {
+       "en": "I don't understand.",
+       "answers": [
+        "分かりません。",
+        "わかりません。"
+       ],
+       "answerRom": "wakarimasen.",
+       "kana": [
+        "ワカリマセン"
+       ]
+      },
+      {
+       "en": "Once more, please.",
+       "answers": [
+        "もう一度お願いします。"
+       ],
+       "answerRom": "mō ichido onegaishimasu.",
+       "kana": [
+        "モウイチドオネガイシマス"
+       ]
+      },
+      {
+       "en": "Please speak slowly.",
+       "answers": [
+        "ゆっくり話してください。"
+       ],
+       "answerRom": "yukkuri hanashite kudasai.",
+       "kana": [
+        "ユックリハナシテクダサイ"
+       ]
+      },
+      {
+       "en": "Can you speak English?",
+       "answers": [
+        "英語を話せますか。",
+        "英語は話せますか。"
+       ],
+       "answerRom": "eigo o hanasemasu ka.",
+       "kana": [
+        "エイゴヲハナセマスカ",
+        "エイゴハハナセマスカ"
+       ]
+      },
+      {
+       "en": "Please call the police.",
+       "answers": [
+        "警察を呼んでください。"
+       ],
+       "answerRom": "keisatsu o yonde kudasai.",
+       "kana": [
+        "ケイサツヲヨンデクダサイ"
+       ]
+      },
+      {
+       "en": "I'm lost.",
+       "answers": [
+        "道に迷いました。"
+       ],
+       "answerRom": "michi ni mayoimashita.",
+       "kana": [
+        "ミチニマヨイマシタ"
+       ]
+      },
+      {
+       "en": "Help!",
+       "answers": [
+        "助けて！",
+        "助けてください。"
+       ],
+       "answerRom": "tasukete!",
+       "kana": [
+        "タスケテ",
+        "タスケテクダサイ"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

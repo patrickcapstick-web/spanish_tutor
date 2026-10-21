@@ -37,14 +37,14 @@ function buildCards(course) {
   U.forEach((u, ui) => {
     const add = (c) => { c.u = ui; CARDS.push(c); BY[c.id] = c; };
     u.dialogue.forEach((l, i) => add({
-      id: `${u.id}.d${i}`, kind: 'line', who: l.speaker, target: l.target, rom: l.rom || '', en: l.en, alts: [l.target],
+      id: `${u.id}.d${i}`, kind: 'line', who: l.speaker, target: l.target, rom: l.rom || '', en: l.en, alts: [l.target], kana: l.kana || null,
       base: '', cue: '', how: C.sayIt, label: `Dialogue ${ui + 1}.${i + 1}`,
     }));
     u.drills.forEach((g, gi) => g.items.forEach((it, i) => add({
       id: `${u.id}.g${gi}.${i}`, kind: g.kind, how: g.instruction,
       base: g.kind === 'tr' ? '' : it.base, baseRom: it.baseRom || '', baseEn: it.baseEn || '',
       en: g.kind === 'tr' ? it.en : '', cue: it.cue || '', cueRom: it.cueRom || '', cueEn: it.cueEn || '',
-      target: it.answers[0], rom: it.answerRom || '', alts: it.answers, label: `${g.type} ${ui + 1}.${gi + 1}.${i + 1}`,
+      target: it.answers[0], rom: it.answerRom || '', alts: it.answers, kana: it.kana || null, label: `${g.type} ${ui + 1}.${gi + 1}.${i + 1}`,
     })));
   });
 }
@@ -74,9 +74,15 @@ function norm(s) {
   return C.noSpaces ? n.replace(/\s/g, '') : n;
 }
 function bare(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, ''); }
-function check(card, input) {
+function check(card, input, reading) {
   const n = norm(input);
   if (!n) return 'no';
+  if (card.kana) {
+    // Japanese: also accept an answer whose pronunciation matches, typed in kana or heard in speech.
+    const k = card.kana.map((x) => phon(norm(x)));
+    if (/^[\u3041-\u30ffー]+$/.test(n) && k.includes(phon(n))) return 'ok';
+    if (reading && k.includes(phon(norm(reading)))) return 'ok';
+  }
   const alts = card.alts.map(R);
   const c = alts.map(norm);
   const pron = C.pronouns || [];
@@ -125,6 +131,16 @@ function frNum(n) {
   if (n < 100) return `quatre-vingt-${frNum(n - 80)}`;
   return String(n);
 }
+const JA_D = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+function jaNum(n) {
+  n = +n;
+  if (!Number.isInteger(n) || n > 99999) return String(n);
+  if (!n) return '零';
+  let out = '';
+  if (n >= 10000) { out += JA_D[Math.floor(n / 10000)] + '万'; n %= 10000; }
+  [[1000, '千'], [100, '百'], [10, '十']].forEach(([v, u]) => { const d = Math.floor(n / v); if (d) out += (d === 1 ? '' : JA_D[d]) + u; n %= v; });
+  return out + JA_D[n];
+}
 function frHour(h) { h = +h; return h === 1 ? 'une heure' : `${frNum(h)} heures`; }
 function spokenToText(s) {
   s = String(s).replace(/(\d),(\d{3})/g, '$1$2');
@@ -133,6 +149,7 @@ function spokenToText(s) {
       .replace(/€/g, ' euros ').replace(/\d+/g, (d) => esNum(d)).replace(/\b(la) uno\b/gi, '$1 una');
   }
   if (C.numbers === 'th') return s.replace(/\d+/g, (d) => thNum(d));
+  if (C.numbers === 'ja') return s.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0)).replace(/\d+/g, (d) => jaNum(d));
   if (C.numbers === 'fr') {
     return s.replace(/(\d{1,2})\s?[h:]\s?(\d{2})?\b/gi, (m, h, mm) => { mm = +(mm || 0); return frHour(h) + (mm === 30 ? ' et demie' : mm === 15 ? ' et quart' : mm === 0 ? '' : ` ${frNum(mm)}`); })
       .replace(/(\d+),(\d{2})\s?€/g, (m, e, c) => `${frNum(e)} euros ${frNum(c)}`).replace(/€/g, ' euros ').replace(/\d+/g, (d) => frNum(d)).replace(/\bun heure/g, 'une heure');
@@ -143,7 +160,22 @@ function spokenToText(s) {
   }
   return s;
 }
-function checkSpoken(card, text) { return check(card, spokenToText(text)) === 'no' ? 'no' : 'ok'; }
+// Japanese readings: katakana with long vowels collapsed and particle spellings merged (は/わ, を/お, へ/え),
+// so とおい, トーイ and 遠い (read トオイ) all compare equal.
+const ROWS = { a: 'アカサタナハマヤラワガザダバパャァ', i: 'イキシチニヒミリギジヂビピィ', u: 'ウクスツヌフムユルグズヅブプュゥ', e: 'エケセテネヘメレゲゼデベペェ', o: 'オコソトノホモヨロヲゴゾドボポョォ' };
+const vowelOf = (ch) => Object.keys(ROWS).find((v) => ROWS[v].includes(ch));
+const LONG = { a: 'ア', i: 'イ', u: 'ウ', e: 'エイ', o: 'オウ' };
+function phon(s) {
+  const k = String(s).replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60)).replace(/[ー\s・]/g, '');
+  let out = '';
+  for (const ch of k) {
+    const v = vowelOf(out.slice(-1));
+    if (v && LONG[v].includes(ch)) continue;
+    out += ch;
+  }
+  return out.replace(/ハ/g, 'ワ').replace(/ヲ/g, 'オ').replace(/ヘ/g, 'エ').replace(/ヂ/g, 'ジ').replace(/ヅ/g, 'ズ');
+}
+function checkSpoken(card, text, reading) { return check(card, spokenToText(text), reading) === 'no' ? 'no' : 'ok'; }
 
 /* ---------- state (per language, this device) ---------- */
 function clean(r) {
@@ -281,7 +313,7 @@ async function transcribe(blob) {
     if (!r.ok) throw new Error(String(r.status));
     const j = await r.json();
     sess.heard = j.text || '';
-    sess.res = sess.heard ? checkSpoken(BY[id], sess.heard) : 'no';
+    sess.res = sess.heard ? checkSpoken(BY[id], sess.heard, j.reading) : 'no';
     sess.shown = true;
     sess.phase = null;
     render();
