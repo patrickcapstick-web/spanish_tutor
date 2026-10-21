@@ -9,6 +9,14 @@
    "units": 9
   },
   {
+   "id": "it",
+   "name": "Italian",
+   "variety": "Standard Italian",
+   "nativeName": "Italiano",
+   "description": "Conversational Italian for travel and everyday life: cafés, trains, restaurants and small talk.",
+   "units": 9
+  },
+  {
    "id": "th",
    "name": "Thai",
    "variety": "Central Thai",
