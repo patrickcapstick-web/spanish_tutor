@@ -18,7 +18,7 @@ A full 8-unit course needs roughly 3,000 to 6,000 characters of audio, a small p
 2. Click **Use this template**, then **Create a new repository**.
 3. Give it a name, for example `my-language-app`, and click **Create repository**.
 
-Your copy includes the Spanish and Thai courses and their recordings.
+Your copy includes the Spanish, Italian and Thai courses and their recordings.
 
 ## 2. Get an ElevenLabs API key
 
