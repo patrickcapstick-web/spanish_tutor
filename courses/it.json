@@ -1,0 +1,1828 @@
+{
+ "id": "it",
+ "name": "Italian",
+ "variety": "Standard Italian",
+ "nativeName": "Italiano",
+ "description": "Conversational Italian for travel and everyday life: cafés, trains, restaurants and small talk.",
+ "lang": "it-IT",
+ "speechLanguage": "it",
+ "voice": "uV2Bhcm1HwmAqPqkbjfl",
+ "model": "eleven_multilingual_v2",
+ "sayIt": "Say it in Italian.",
+ "doneMessage": "Fatto. A domani!",
+ "pronouns": [
+  "io",
+  "tu",
+  "lui",
+  "lei",
+  "Lei",
+  "noi",
+  "voi",
+  "loro"
+ ],
+ "keys": [
+  "à",
+  "è",
+  "é",
+  "ì",
+  "ò",
+  "ù"
+ ],
+ "noSpaces": false,
+ "optionalWords": [],
+ "numbers": "it",
+ "units": [
+  {
+   "id": "u1",
+   "title": "Saluti",
+   "en": "Greetings",
+   "note": "`Come stai?` is for one person you know. `Come sta?` is the polite form for a stranger (`Lei`). `Come state?` is for a group. `Ciao` means both hello and bye among friends; say `Buongiorno` until mid-afternoon and `Buonasera` after that.",
+   "dialogue": [
+    {
+     "speaker": "Giulia",
+     "target": "Ciao, buongiorno.",
+     "en": "Hi, good morning."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Buongiorno. Come stai?",
+     "en": "Good morning. How are you?"
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Bene, grazie. E tu?",
+     "en": "Fine, thanks. And you?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Anch'io bene. Come ti chiami?",
+     "en": "I'm fine too. What's your name?"
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Mi chiamo Giulia. E tu?",
+     "en": "My name is Giulia. And you?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Mi chiamo Leo. Piacere.",
+     "en": "My name is Leo. Nice to meet you."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Piacere mio. A dopo!",
+     "en": "The pleasure is mine. See you later!"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Ciao, a dopo.",
+     "en": "Bye, see you later."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Buongiorno.",
+       "cue": "sera",
+       "answers": [
+        "Buonasera."
+       ]
+      },
+      {
+       "base": "Buongiorno.",
+       "cue": "notte",
+       "answers": [
+        "Buonanotte."
+       ]
+      },
+      {
+       "base": "A dopo.",
+       "cue": "domani",
+       "answers": [
+        "A domani."
+       ]
+      },
+      {
+       "base": "A dopo.",
+       "cue": "presto",
+       "answers": [
+        "A presto."
+       ]
+      },
+      {
+       "base": "Mi chiamo Giulia.",
+       "cue": "Leo",
+       "answers": [
+        "Mi chiamo Leo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Come stai?",
+       "cue": "Lei",
+       "answers": [
+        "Come sta?",
+        "Come sta Lei?"
+       ]
+      },
+      {
+       "base": "Come stai?",
+       "cue": "voi",
+       "answers": [
+        "Come state?",
+        "Come state voi?"
+       ]
+      },
+      {
+       "base": "Come ti chiami?",
+       "cue": "Lei",
+       "answers": [
+        "Come si chiama?",
+        "Come si chiama Lei?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "Good evening. How are you?",
+       "answers": [
+        "Buonasera. Come stai?"
+       ]
+      },
+      {
+       "en": "Very well, and you?",
+       "answers": [
+        "Molto bene, e tu?"
+       ]
+      },
+      {
+       "en": "Good night, see you tomorrow.",
+       "answers": [
+        "Buonanotte, a domani."
+       ]
+      },
+      {
+       "en": "Hello, my name is Leo.",
+       "answers": [
+        "Ciao, mi chiamo Leo."
+       ]
+      },
+      {
+       "en": "Thanks, see you soon.",
+       "answers": [
+        "Grazie, a presto."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u2",
+   "title": "Di dove sei?",
+   "en": "Where are you from?",
+   "note": "The verb `essere` (to be): `sono, sei, è, siamo, siete, sono`. Italian usually drops the pronoun because the verb ending already says who. Say where you're from with `di` + city: `Sono di Roma`.",
+   "dialogue": [
+    {
+     "speaker": "Giulia",
+     "target": "Di dove sei, Leo?",
+     "en": "Where are you from, Leo?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sono di Chicago. E tu?",
+     "en": "I'm from Chicago. And you?"
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Sono di Roma. Sei studente?",
+     "en": "I'm from Rome. Are you a student?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "No, sono ingegnere.",
+     "en": "No, I'm an engineer."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "E i tuoi amici? Sono di qui?",
+     "en": "And your friends? Are they from here?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "No, sono di Londra.",
+     "en": "No, they're from London."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Siete turisti?",
+     "en": "Are you all tourists?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sì, siamo turisti.",
+     "en": "Yes, we're tourists."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Sono di Roma.",
+       "cue": "tu",
+       "answers": [
+        "Sei di Roma."
+       ]
+      },
+      {
+       "base": "Sono di Roma.",
+       "cue": "lei",
+       "answers": [
+        "È di Roma."
+       ]
+      },
+      {
+       "base": "Sono di Roma.",
+       "cue": "noi",
+       "answers": [
+        "Siamo di Roma."
+       ]
+      },
+      {
+       "base": "Sono di Roma.",
+       "cue": "voi",
+       "answers": [
+        "Siete di Roma."
+       ]
+      },
+      {
+       "base": "Sono di Roma.",
+       "cue": "loro",
+       "answers": [
+        "Sono di Roma."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Sono di Roma.",
+       "cue": "Milano",
+       "answers": [
+        "Sono di Milano."
+       ]
+      },
+      {
+       "base": "Sono studente.",
+       "cue": "turista",
+       "answers": [
+        "Sono turista."
+       ]
+      },
+      {
+       "base": "Siamo turisti.",
+       "cue": "studenti",
+       "answers": [
+        "Siamo studenti."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it negative.",
+     "items": [
+      {
+       "base": "Sono studente.",
+       "answers": [
+        "Non sono studente."
+       ]
+      },
+      {
+       "base": "È di qui.",
+       "answers": [
+        "Non è di qui."
+       ]
+      },
+      {
+       "base": "Siamo turisti.",
+       "answers": [
+        "Non siamo turisti."
+       ]
+      },
+      {
+       "base": "Sono di Londra.",
+       "answers": [
+        "Non sono di Londra."
+       ]
+      },
+      {
+       "base": "Siete di Roma.",
+       "answers": [
+        "Non siete di Roma."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "She is from London.",
+       "answers": [
+        "È di Londra.",
+        "Lei è di Londra."
+       ]
+      },
+      {
+       "en": "Are you from here? (one friend)",
+       "answers": [
+        "Sei di qui?",
+        "Tu sei di qui?"
+       ]
+      },
+      {
+       "en": "We are not students.",
+       "answers": [
+        "Non siamo studenti.",
+        "Noi non siamo studenti."
+       ]
+      },
+      {
+       "en": "Where are you all from?",
+       "answers": [
+        "Di dove siete?",
+        "Voi di dove siete?"
+       ]
+      },
+      {
+       "en": "Your friends are tourists.",
+       "answers": [
+        "I tuoi amici sono turisti."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u3",
+   "title": "Al bar",
+   "en": "At the café",
+   "note": "`volere` (to want): `voglio, vuoi, vuole, vogliamo, volete, vogliono`. To order politely, say `vorrei` (I'd like). Use `un` with masculine nouns, `una` with feminine ones and `un'` before a feminine noun starting with a vowel. In many Italian bars you pay at the `cassa` first, then order at the counter.",
+   "dialogue": [
+    {
+     "speaker": "Barista",
+     "target": "Buongiorno, cosa prende?",
+     "en": "Good morning, what will you have?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Un cappuccino, per favore.",
+     "en": "A cappuccino, please."
+    },
+    {
+     "speaker": "Barista",
+     "target": "Altro?",
+     "en": "Anything else?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sì, un cornetto.",
+     "en": "Yes, a croissant."
+    },
+    {
+     "speaker": "Barista",
+     "target": "Ecco a lei.",
+     "en": "Here you are."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Quanto le devo?",
+     "en": "How much do I owe you?"
+    },
+    {
+     "speaker": "Barista",
+     "target": "Sono tre euro e cinquanta.",
+     "en": "That's three euros fifty."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Ecco. Grazie.",
+     "en": "Here you go. Thanks."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Vorrei un caffè.",
+       "cue": "una birra",
+       "answers": [
+        "Vorrei una birra."
+       ]
+      },
+      {
+       "base": "Vorrei un caffè.",
+       "cue": "un'acqua minerale",
+       "answers": [
+        "Vorrei un'acqua minerale."
+       ]
+      },
+      {
+       "base": "Vorrei un caffè.",
+       "cue": "uno spritz",
+       "answers": [
+        "Vorrei uno spritz."
+       ]
+      },
+      {
+       "base": "Vorrei un caffè.",
+       "cue": "un panino",
+       "answers": [
+        "Vorrei un panino."
+       ]
+      },
+      {
+       "base": "Vorrei un caffè.",
+       "cue": "una spremuta d'arancia",
+       "answers": [
+        "Vorrei una spremuta d'arancia."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Voglio un caffè.",
+       "cue": "tu",
+       "answers": [
+        "Vuoi un caffè."
+       ]
+      },
+      {
+       "base": "Voglio un caffè.",
+       "cue": "lei",
+       "answers": [
+        "Vuole un caffè."
+       ]
+      },
+      {
+       "base": "Voglio un caffè.",
+       "cue": "noi",
+       "answers": [
+        "Vogliamo un caffè."
+       ]
+      },
+      {
+       "base": "Voglio un caffè.",
+       "cue": "voi",
+       "answers": [
+        "Volete un caffè."
+       ]
+      },
+      {
+       "base": "Voglio un caffè.",
+       "cue": "loro",
+       "answers": [
+        "Vogliono un caffè."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Add the right article: un, una or un'.",
+     "items": [
+      {
+       "base": "caffè",
+       "answers": [
+        "un caffè"
+       ]
+      },
+      {
+       "base": "birra",
+       "answers": [
+        "una birra"
+       ]
+      },
+      {
+       "base": "cornetto",
+       "answers": [
+        "un cornetto"
+       ]
+      },
+      {
+       "base": "pizza",
+       "answers": [
+        "una pizza"
+       ]
+      },
+      {
+       "base": "aranciata",
+       "answers": [
+        "un'aranciata"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "We'd like two beers, please.",
+       "answers": [
+        "Vorremmo due birre, per favore."
+       ]
+      },
+      {
+       "en": "A coffee and a croissant.",
+       "answers": [
+        "Un caffè e un cornetto."
+       ]
+      },
+      {
+       "en": "Do you want anything else? (one friend)",
+       "answers": [
+        "Vuoi altro?",
+        "Vuoi qualcos'altro?"
+       ]
+      },
+      {
+       "en": "It's two euros.",
+       "answers": [
+        "Sono due euro."
+       ]
+      },
+      {
+       "en": "No milk, thanks.",
+       "answers": [
+        "Senza latte, grazie.",
+        "Niente latte, grazie."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u4",
+   "title": "Dov'è?",
+   "en": "Where is it?",
+   "note": "Use `essere` to say where something is: `Dov'è la stazione?` `C'è` means \"there is\" and `ci sono` \"there are\". Directions: `a destra` right, `a sinistra` left, `dritto` straight on.",
+   "dialogue": [
+    {
+     "speaker": "Leo",
+     "target": "Scusi, dov'è la stazione?",
+     "en": "Excuse me, where is the station?"
+    },
+    {
+     "speaker": "Giulia",
+     "target": "È vicino. Sempre dritto e poi a destra.",
+     "en": "It's nearby. Straight on, then right."
+    },
+    {
+     "speaker": "Leo",
+     "target": "È lontano da qui?",
+     "en": "Is it far from here?"
+    },
+    {
+     "speaker": "Giulia",
+     "target": "No, sono cinque minuti a piedi.",
+     "en": "No, it's five minutes on foot."
+    },
+    {
+     "speaker": "Leo",
+     "target": "C'è una farmacia qui vicino?",
+     "en": "Is there a pharmacy near here?"
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Sì, c'è una farmacia a sinistra, accanto alla banca.",
+     "en": "Yes, there's a pharmacy on the left, next to the bank."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Grazie mille.",
+     "en": "Thanks a lot."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Prego.",
+     "en": "You're welcome."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Dov'è la stazione?",
+       "cue": "il bagno",
+       "answers": [
+        "Dov'è il bagno?"
+       ]
+      },
+      {
+       "base": "Dov'è la stazione?",
+       "cue": "la farmacia",
+       "answers": [
+        "Dov'è la farmacia?"
+       ]
+      },
+      {
+       "base": "Dov'è la stazione?",
+       "cue": "l'albergo",
+       "answers": [
+        "Dov'è l'albergo?"
+       ]
+      },
+      {
+       "base": "Dov'è la stazione?",
+       "cue": "la fermata dell'autobus",
+       "answers": [
+        "Dov'è la fermata dell'autobus?"
+       ]
+      },
+      {
+       "base": "Dov'è la stazione?",
+       "cue": "i bagni",
+       "answers": [
+        "Dove sono i bagni?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Sono a Roma.",
+       "cue": "tu",
+       "answers": [
+        "Sei a Roma."
+       ]
+      },
+      {
+       "base": "Sono a Roma.",
+       "cue": "lei",
+       "answers": [
+        "È a Roma."
+       ]
+      },
+      {
+       "base": "Sono a Roma.",
+       "cue": "noi",
+       "answers": [
+        "Siamo a Roma."
+       ]
+      },
+      {
+       "base": "Sono a Roma.",
+       "cue": "voi",
+       "answers": [
+        "Siete a Roma."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "È a destra.",
+       "cue": "sinistra",
+       "answers": [
+        "È a sinistra."
+       ]
+      },
+      {
+       "base": "È a destra.",
+       "cue": "vicino",
+       "answers": [
+        "È vicino."
+       ]
+      },
+      {
+       "base": "È a destra.",
+       "cue": "lontano",
+       "answers": [
+        "È lontano."
+       ]
+      },
+      {
+       "base": "È a destra.",
+       "cue": "accanto all'albergo",
+       "answers": [
+        "È accanto all'albergo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "The hotel is far from here.",
+       "answers": [
+        "L'albergo è lontano da qui."
+       ]
+      },
+      {
+       "en": "Is there a bank near here?",
+       "answers": [
+        "C'è una banca qui vicino?"
+       ]
+      },
+      {
+       "en": "The pharmacy is on the right.",
+       "answers": [
+        "La farmacia è a destra."
+       ]
+      },
+      {
+       "en": "We are in Rome.",
+       "answers": [
+        "Siamo a Roma.",
+        "Noi siamo a Roma."
+       ]
+      },
+      {
+       "en": "Excuse me, where are the toilets?",
+       "answers": [
+        "Scusi, dove sono i bagni?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u5",
+   "title": "Al ristorante",
+   "en": "At a restaurant",
+   "note": "`avere` (to have): `ho, hai, ha, abbiamo, avete, hanno`. An Italian meal runs `antipasto`, `primo` (pasta or risotto), `secondo` (meat or fish) and `dolce`; nobody expects you to order every course. Ask for the bill with `Il conto, per favore`.",
+   "dialogue": [
+    {
+     "speaker": "Cameriere",
+     "target": "Buonasera. Quanti siete?",
+     "en": "Good evening. How many of you are there?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Siamo in due. C'è un tavolo?",
+     "en": "There are two of us. Is there a table?"
+    },
+    {
+     "speaker": "Cameriere",
+     "target": "Sì, prego. Ecco il menù.",
+     "en": "Yes, this way. Here's the menu."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Cosa ci consiglia?",
+     "en": "What do you recommend?"
+    },
+    {
+     "speaker": "Cameriere",
+     "target": "Le tagliatelle al ragù sono molto buone.",
+     "en": "The tagliatelle with ragù are very good."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Va bene. Per primo le tagliatelle e per secondo il pollo.",
+     "en": "OK. The tagliatelle first, then the chicken."
+    },
+    {
+     "speaker": "Cameriere",
+     "target": "E da bere?",
+     "en": "And to drink?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Acqua naturale, per favore.",
+     "en": "Still water, please."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Per primo le tagliatelle.",
+       "cue": "il risotto",
+       "answers": [
+        "Per primo il risotto."
+       ]
+      },
+      {
+       "base": "Per primo le tagliatelle.",
+       "cue": "gli spaghetti",
+       "answers": [
+        "Per primo gli spaghetti."
+       ]
+      },
+      {
+       "base": "Per secondo il pollo.",
+       "cue": "il pesce",
+       "answers": [
+        "Per secondo il pesce."
+       ]
+      },
+      {
+       "base": "Per secondo il pollo.",
+       "cue": "la bistecca",
+       "answers": [
+        "Per secondo la bistecca."
+       ]
+      },
+      {
+       "base": "Acqua naturale, per favore.",
+       "cue": "frizzante",
+       "answers": [
+        "Acqua frizzante, per favore."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Ho una prenotazione.",
+       "cue": "tu",
+       "answers": [
+        "Hai una prenotazione."
+       ]
+      },
+      {
+       "base": "Ho una prenotazione.",
+       "cue": "lei",
+       "answers": [
+        "Ha una prenotazione."
+       ]
+      },
+      {
+       "base": "Ho una prenotazione.",
+       "cue": "noi",
+       "answers": [
+        "Abbiamo una prenotazione."
+       ]
+      },
+      {
+       "base": "Ho una prenotazione.",
+       "cue": "voi",
+       "answers": [
+        "Avete una prenotazione."
+       ]
+      },
+      {
+       "base": "Ho una prenotazione.",
+       "cue": "loro",
+       "answers": [
+        "Hanno una prenotazione."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Make it plural.",
+     "items": [
+      {
+       "base": "la pizza",
+       "answers": [
+        "le pizze"
+       ]
+      },
+      {
+       "base": "il piatto",
+       "answers": [
+        "i piatti"
+       ]
+      },
+      {
+       "base": "la birra",
+       "answers": [
+        "le birre"
+       ]
+      },
+      {
+       "base": "il bicchiere",
+       "answers": [
+        "i bicchieri"
+       ]
+      },
+      {
+       "base": "il tavolo",
+       "answers": [
+        "i tavoli"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "The bill, please.",
+       "answers": [
+        "Il conto, per favore."
+       ]
+      },
+      {
+       "en": "We have a reservation.",
+       "answers": [
+        "Abbiamo una prenotazione."
+       ]
+      },
+      {
+       "en": "A table for two, please.",
+       "answers": [
+        "Un tavolo per due, per favore."
+       ]
+      },
+      {
+       "en": "No dessert, thanks.",
+       "answers": [
+        "Niente dolce, grazie."
+       ]
+      },
+      {
+       "en": "Is the fish fresh?",
+       "answers": [
+        "Il pesce è fresco?",
+        "È fresco il pesce?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u6",
+   "title": "In giro",
+   "en": "Getting around",
+   "note": "`andare` (to go): `vado, vai, va, andiamo, andate, vanno`. Use `a` with cities (`a Firenze`); with places it joins the article: `a + il = al`, `a + la = alla`, `a + l' = all'`. Times: `all'una`, `alle due`, `e mezza` (half past), `e un quarto` (quarter past).",
+   "dialogue": [
+    {
+     "speaker": "Leo",
+     "target": "Buongiorno, un biglietto per Firenze, per favore.",
+     "en": "Good morning, a ticket to Florence, please."
+    },
+    {
+     "speaker": "Impiegata",
+     "target": "Solo andata o andata e ritorno?",
+     "en": "One way or return?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Andata e ritorno, per favore.",
+     "en": "Return, please."
+    },
+    {
+     "speaker": "Impiegata",
+     "target": "Sono quaranta euro.",
+     "en": "That's forty euros."
+    },
+    {
+     "speaker": "Leo",
+     "target": "A che ora parte il treno?",
+     "en": "What time does the train leave?"
+    },
+    {
+     "speaker": "Impiegata",
+     "target": "Parte alle dieci e mezza.",
+     "en": "It leaves at half past ten."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Da quale binario?",
+     "en": "From which platform?"
+    },
+    {
+     "speaker": "Impiegata",
+     "target": "Dal binario cinque. Buon viaggio.",
+     "en": "From platform five. Have a good trip."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Vado a Firenze.",
+       "cue": "tu",
+       "answers": [
+        "Vai a Firenze."
+       ]
+      },
+      {
+       "base": "Vado a Firenze.",
+       "cue": "lei",
+       "answers": [
+        "Va a Firenze."
+       ]
+      },
+      {
+       "base": "Vado a Firenze.",
+       "cue": "noi",
+       "answers": [
+        "Andiamo a Firenze."
+       ]
+      },
+      {
+       "base": "Vado a Firenze.",
+       "cue": "voi",
+       "answers": [
+        "Andate a Firenze."
+       ]
+      },
+      {
+       "base": "Vado a Firenze.",
+       "cue": "loro",
+       "answers": [
+        "Vanno a Firenze."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Parte alle dieci.",
+       "cue": "le undici",
+       "answers": [
+        "Parte alle undici."
+       ]
+      },
+      {
+       "base": "Parte alle dieci.",
+       "cue": "l'una",
+       "answers": [
+        "Parte all'una."
+       ]
+      },
+      {
+       "base": "Parte alle dieci.",
+       "cue": "le dieci e mezza",
+       "answers": [
+        "Parte alle dieci e mezza."
+       ]
+      },
+      {
+       "base": "Parte alle dieci.",
+       "cue": "le tre e un quarto",
+       "answers": [
+        "Parte alle tre e un quarto."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the place. Remember a + il becomes al and a + la becomes alla.",
+     "items": [
+      {
+       "base": "Vado a Roma.",
+       "cue": "l'aeroporto",
+       "answers": [
+        "Vado all'aeroporto."
+       ]
+      },
+      {
+       "base": "Vado a Roma.",
+       "cue": "la stazione",
+       "answers": [
+        "Vado alla stazione."
+       ]
+      },
+      {
+       "base": "Vado a Roma.",
+       "cue": "il museo",
+       "answers": [
+        "Vado al museo."
+       ]
+      },
+      {
+       "base": "Vado a Roma.",
+       "cue": "la spiaggia",
+       "answers": [
+        "Vado alla spiaggia."
+       ]
+      },
+      {
+       "base": "Vado a Roma.",
+       "cue": "il mercato",
+       "answers": [
+        "Vado al mercato."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "A one-way ticket to Venice, please.",
+       "answers": [
+        "Un biglietto di sola andata per Venezia, per favore.",
+        "Un biglietto solo andata per Venezia, per favore."
+       ]
+      },
+      {
+       "en": "What time does the bus leave?",
+       "answers": [
+        "A che ora parte l'autobus?"
+       ]
+      },
+      {
+       "en": "We're going to the airport.",
+       "answers": [
+        "Andiamo all'aeroporto."
+       ]
+      },
+      {
+       "en": "The train leaves at one.",
+       "answers": [
+        "Il treno parte all'una."
+       ]
+      },
+      {
+       "en": "Where are you going? (one friend)",
+       "answers": [
+        "Dove vai?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u7",
+   "title": "Fare spese",
+   "en": "Shopping",
+   "note": "`questo` and `questa` mean \"this\" or \"this one\". Most colours agree with the noun: `un maglione nero`, `una maglietta nera`; `blu` and `rosa` never change. Ask `Quanto costa?` for one thing and `Quanto costano?` for several. `Lo prendo` or `La prendo` means \"I'll take it\".",
+   "dialogue": [
+    {
+     "speaker": "Commessa",
+     "target": "Buongiorno, posso aiutarla?",
+     "en": "Good morning, can I help you?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sì, cerco una maglietta.",
+     "en": "Yes, I'm looking for a T-shirt."
+    },
+    {
+     "speaker": "Commessa",
+     "target": "Che taglia porta?",
+     "en": "What size are you?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Media. Ce l'avete in blu?",
+     "en": "Medium. Do you have it in blue?"
+    },
+    {
+     "speaker": "Commessa",
+     "target": "Sì, questa è blu.",
+     "en": "Yes, this one is blue."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Quanto costa?",
+     "en": "How much is it?"
+    },
+    {
+     "speaker": "Commessa",
+     "target": "Costa quindici euro.",
+     "en": "It's fifteen euros."
+    },
+    {
+     "speaker": "Leo",
+     "target": "Perfetto, la prendo.",
+     "en": "Perfect, I'll take it."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Cerco una maglietta.",
+       "cue": "un maglione",
+       "answers": [
+        "Cerco un maglione."
+       ]
+      },
+      {
+       "base": "Cerco una maglietta.",
+       "cue": "delle scarpe",
+       "answers": [
+        "Cerco delle scarpe."
+       ]
+      },
+      {
+       "base": "Cerco una maglietta.",
+       "cue": "una giacca",
+       "answers": [
+        "Cerco una giacca."
+       ]
+      },
+      {
+       "base": "Cerco una maglietta.",
+       "cue": "un regalo",
+       "answers": [
+        "Cerco un regalo."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new item and make the colour agree.",
+     "items": [
+      {
+       "base": "Vorrei la maglietta nera.",
+       "cue": "il maglione",
+       "answers": [
+        "Vorrei il maglione nero."
+       ]
+      },
+      {
+       "base": "Vorrei la maglietta nera.",
+       "cue": "la giacca",
+       "answers": [
+        "Vorrei la giacca nera."
+       ]
+      },
+      {
+       "base": "Vorrei la maglietta nera.",
+       "cue": "le scarpe",
+       "answers": [
+        "Vorrei le scarpe nere."
+       ]
+      },
+      {
+       "base": "Vorrei la maglietta nera.",
+       "cue": "i pantaloni",
+       "answers": [
+        "Vorrei i pantaloni neri."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Ask the price. Use costa for one thing and costano for several.",
+     "items": [
+      {
+       "base": "la maglietta",
+       "answers": [
+        "Quanto costa la maglietta?"
+       ]
+      },
+      {
+       "base": "le scarpe",
+       "answers": [
+        "Quanto costano le scarpe?"
+       ]
+      },
+      {
+       "base": "il maglione",
+       "answers": [
+        "Quanto costa il maglione?"
+       ]
+      },
+      {
+       "base": "gli occhiali",
+       "answers": [
+        "Quanto costano gli occhiali?"
+       ]
+      },
+      {
+       "base": "questa giacca",
+       "answers": [
+        "Quanto costa questa giacca?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "Do you have it in black? (a T-shirt)",
+       "answers": [
+        "Ce l'avete in nero?",
+        "Ce l'ha in nero?"
+       ]
+      },
+      {
+       "en": "This one is very expensive. (a T-shirt)",
+       "answers": [
+        "Questa è molto cara."
+       ]
+      },
+      {
+       "en": "I'll take it. (a sweater)",
+       "answers": [
+        "Lo prendo."
+       ]
+      },
+      {
+       "en": "I'm just looking, thanks.",
+       "answers": [
+        "Sto solo guardando, grazie.",
+        "Do solo un'occhiata, grazie."
+       ]
+      },
+      {
+       "en": "Can I pay by card?",
+       "answers": [
+        "Posso pagare con la carta?",
+        "Posso pagare con carta?"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u8",
+   "title": "Due chiacchiere",
+   "en": "Small talk",
+   "note": "`mi piace` + one thing, `mi piacciono` + several. `ti piace` asks a friend and `vi piace` asks a group. Regular -are verbs like `parlare`: `parlo, parli, parla, parliamo, parlate, parlano`.",
+   "dialogue": [
+    {
+     "speaker": "Giulia",
+     "target": "Cosa fai questo fine settimana?",
+     "en": "What are you doing this weekend?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Vado a Villa Borghese con degli amici.",
+     "en": "I'm going to Villa Borghese with some friends."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Che bello! Ti piace Roma?",
+     "en": "How nice! Do you like Rome?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sì, mi piace molto.",
+     "en": "Yes, I like it a lot."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "E il cibo?",
+     "en": "And the food?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Lo adoro. Mi piacciono molto i supplì.",
+     "en": "I love it. I really like supplì."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Parli italiano al lavoro?",
+     "en": "Do you speak Italian at work?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Un po'. Quasi sempre parlo inglese.",
+     "en": "A little. I almost always speak English."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Swap in the new thing. Use piace for one thing and piacciono for several.",
+     "items": [
+      {
+       "base": "Mi piace Roma.",
+       "cue": "la pizza",
+       "answers": [
+        "Mi piace la pizza."
+       ]
+      },
+      {
+       "base": "Mi piace Roma.",
+       "cue": "i musei",
+       "answers": [
+        "Mi piacciono i musei."
+       ]
+      },
+      {
+       "base": "Mi piace Roma.",
+       "cue": "il caffè",
+       "answers": [
+        "Mi piace il caffè."
+       ]
+      },
+      {
+       "base": "Mi piace Roma.",
+       "cue": "le lasagne",
+       "answers": [
+        "Mi piacciono le lasagne."
+       ]
+      },
+      {
+       "base": "Mi piace Roma.",
+       "cue": "il calcio",
+       "answers": [
+        "Mi piace il calcio."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Parlo italiano.",
+       "cue": "tu",
+       "answers": [
+        "Parli italiano."
+       ]
+      },
+      {
+       "base": "Parlo italiano.",
+       "cue": "lei",
+       "answers": [
+        "Parla italiano."
+       ]
+      },
+      {
+       "base": "Parlo italiano.",
+       "cue": "noi",
+       "answers": [
+        "Parliamo italiano."
+       ]
+      },
+      {
+       "base": "Parlo italiano.",
+       "cue": "voi",
+       "answers": [
+        "Parlate italiano."
+       ]
+      },
+      {
+       "base": "Parlo italiano.",
+       "cue": "loro",
+       "answers": [
+        "Parlano italiano."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Transformation",
+     "kind": "xf",
+     "instruction": "Turn it into a question for a friend.",
+     "items": [
+      {
+       "base": "Mi piace il calcio.",
+       "answers": [
+        "Ti piace il calcio?"
+       ]
+      },
+      {
+       "base": "Mi piacciono i supplì.",
+       "answers": [
+        "Ti piacciono i supplì?"
+       ]
+      },
+      {
+       "base": "Parlo inglese.",
+       "answers": [
+        "Parli inglese?"
+       ]
+      },
+      {
+       "base": "Vado al museo.",
+       "answers": [
+        "Vai al museo?"
+       ]
+      },
+      {
+       "base": "Sono di Roma.",
+       "answers": [
+        "Sei di Roma?"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "I don't like football.",
+       "answers": [
+        "Non mi piace il calcio."
+       ]
+      },
+      {
+       "en": "We speak a little Italian.",
+       "answers": [
+        "Parliamo un po' di italiano.",
+        "Parliamo un po' italiano."
+       ]
+      },
+      {
+       "en": "I love the food here.",
+       "answers": [
+        "Adoro il cibo qui.",
+        "Adoro il cibo di qui."
+       ]
+      },
+      {
+       "en": "Do you all like Rome?",
+       "answers": [
+        "Vi piace Roma?"
+       ]
+      },
+      {
+       "en": "I'm going to the museum with some friends.",
+       "answers": [
+        "Vado al museo con degli amici.",
+        "Vado al museo con alcuni amici."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "u9",
+   "title": "Il lavoro",
+   "en": "Work",
+   "note": "`lavorare`: `lavoro, lavori, lavora, lavoriamo, lavorate, lavorano`. `il lunedì` means \"on Mondays\". `cominciare` (to start): `comincio, cominci, comincia, cominciamo, cominciate, cominciano`.",
+   "dialogue": [
+    {
+     "speaker": "Giulia",
+     "target": "Che lavoro fai?",
+     "en": "What do you do for work?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sono ingegnere. Lavoro in un'azienda di tecnologia.",
+     "en": "I'm an engineer. I work at a tech company."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Lavori in ufficio?",
+     "en": "Do you work in the office?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "No, il lunedì e il venerdì lavoro da casa.",
+     "en": "No, on Mondays and Fridays I work from home."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "Che fortuna! Ti piace il tuo lavoro?",
+     "en": "Lucky you! Do you like your job?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Sì, ma ho molte riunioni.",
+     "en": "Yes, but I have a lot of meetings."
+    },
+    {
+     "speaker": "Giulia",
+     "target": "A che ora cominci?",
+     "en": "What time do you start?"
+    },
+    {
+     "speaker": "Leo",
+     "target": "Comincio alle nove e finisco alle sei.",
+     "en": "I start at nine and finish at six."
+    }
+   ],
+   "drills": [
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Lavoro da casa.",
+       "cue": "tu",
+       "answers": [
+        "Lavori da casa."
+       ]
+      },
+      {
+       "base": "Lavoro da casa.",
+       "cue": "lei",
+       "answers": [
+        "Lavora da casa."
+       ]
+      },
+      {
+       "base": "Lavoro da casa.",
+       "cue": "noi",
+       "answers": [
+        "Lavoriamo da casa."
+       ]
+      },
+      {
+       "base": "Lavoro da casa.",
+       "cue": "voi",
+       "answers": [
+        "Lavorate da casa."
+       ]
+      },
+      {
+       "base": "Lavoro da casa.",
+       "cue": "loro",
+       "answers": [
+        "Lavorano da casa."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Say the sentence again with the new word swapped in.",
+     "items": [
+      {
+       "base": "Il lunedì lavoro da casa.",
+       "cue": "il venerdì",
+       "answers": [
+        "Il venerdì lavoro da casa."
+       ]
+      },
+      {
+       "base": "Il lunedì lavoro da casa.",
+       "cue": "il martedì",
+       "answers": [
+        "Il martedì lavoro da casa."
+       ]
+      },
+      {
+       "base": "Il lunedì lavoro da casa.",
+       "cue": "il mercoledì",
+       "answers": [
+        "Il mercoledì lavoro da casa."
+       ]
+      },
+      {
+       "base": "Il lunedì lavoro da casa.",
+       "cue": "il giovedì",
+       "answers": [
+        "Il giovedì lavoro da casa."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Substitution",
+     "kind": "sub",
+     "instruction": "Change the sentence to fit the new person.",
+     "items": [
+      {
+       "base": "Comincio alle nove.",
+       "cue": "tu",
+       "answers": [
+        "Cominci alle nove."
+       ]
+      },
+      {
+       "base": "Comincio alle nove.",
+       "cue": "noi",
+       "answers": [
+        "Cominciamo alle nove."
+       ]
+      },
+      {
+       "base": "Comincio alle nove.",
+       "cue": "voi",
+       "answers": [
+        "Cominciate alle nove."
+       ]
+      },
+      {
+       "base": "Comincio alle nove.",
+       "cue": "loro",
+       "answers": [
+        "Cominciano alle nove."
+       ]
+      }
+     ]
+    },
+    {
+     "type": "Translation",
+     "kind": "tr",
+     "instruction": "Say it in Italian.",
+     "items": [
+      {
+       "en": "I work at a bank.",
+       "answers": [
+        "Lavoro in banca."
+       ]
+      },
+      {
+       "en": "We have a meeting at ten.",
+       "answers": [
+        "Abbiamo una riunione alle dieci."
+       ]
+      },
+      {
+       "en": "She works from home on Fridays.",
+       "answers": [
+        "Il venerdì lavora da casa.",
+        "Lavora da casa il venerdì."
+       ]
+      },
+      {
+       "en": "What time do you finish? (one friend)",
+       "answers": [
+        "A che ora finisci?"
+       ]
+      },
+      {
+       "en": "I don't like meetings.",
+       "answers": [
+        "Non mi piacciono le riunioni."
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

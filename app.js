@@ -105,6 +105,14 @@ function thNum(n) {
   }
   return out;
 }
+const IT_NUM = ['zero', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove', 'dieci', 'undici', 'dodici', 'tredici', 'quattordici', 'quindici', 'sedici', 'diciassette', 'diciotto', 'diciannove'];
+const IT_TENS = ['', '', 'venti', 'trenta', 'quaranta', 'cinquanta', 'sessanta', 'settanta', 'ottanta', 'novanta'];
+function itNum(n) {
+  n = +n;
+  if (n < 20) return IT_NUM[n];
+  if (n < 100) { const t = IT_TENS[Math.floor(n / 10)]; const u = n % 10; if (!u) return t; return (u === 1 || u === 8 ? t.slice(0, -1) : t) + (u === 3 ? 'tré' : IT_NUM[u]); }
+  return String(n);
+}
 function spokenToText(s) {
   s = String(s).replace(/(\d),(\d{3})/g, '$1$2');
   if (C.numbers === 'es') {
@@ -112,6 +120,10 @@ function spokenToText(s) {
       .replace(/€/g, ' euros ').replace(/\d+/g, (d) => esNum(d)).replace(/\b(la) uno\b/gi, '$1 una');
   }
   if (C.numbers === 'th') return s.replace(/\d+/g, (d) => thNum(d));
+  if (C.numbers === 'it') {
+    return s.replace(/(\d{1,2})[:.](\d{2})/g, (m, h, mm) => { mm = +mm; const hw = +h === 1 ? "l'una" : `le ${itNum(h)}`; return hw + (mm === 30 ? ' e mezza' : mm === 15 ? ' e un quarto' : mm === 0 ? '' : ` e ${itNum(mm)}`); })
+      .replace(/\balle le /g, 'alle ').replace(/\balle l'una/g, "all'una").replace(/\ba l'una/g, "all'una").replace(/€/g, ' euro ').replace(/\d+/g, (d) => itNum(d)).replace(/\balle uno\b/g, "all'una");
+  }
   return s;
 }
 function checkSpoken(card, text) { return check(card, spokenToText(text)) === 'no' ? 'no' : 'ok'; }
