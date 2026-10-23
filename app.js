@@ -571,9 +571,12 @@ function togglePause() {
   if (!sess.shown && !sess.phase && cur().phase !== 'listen') afterPrompt(sess.tok)();
 }
 
-/* ---------- conversation practice ---------- */
+/* ---------- conversation practice (DORMANT) ---------- */
+// DORMANT (October 2026): switched off on purpose because it needs a paid Claude API key, and the
+// owner chose not to add a cost beyond the existing ElevenLabs plan. checkChat() asks the server
+// whether a key is set; without one, chatOn stays false, so the Talk tab and its Guide section never
+// appear and nothing here runs. Kept so it can be turned on later (see api/chat.js and SETUP.md).
 // A short role-play with an AI partner (Claude, via /api/chat) that only uses what you have studied.
-// Hidden unless the server has an Anthropic key.
 let chatOn = false;
 let talk = null;      // { u, msgs: [{ role: 'ai'|'me', text, en, rom, showEn }], phase, done, fb, fbBusy, err, micErr, typing, tok }
 let talkUnit = null;  // unit chosen on the Talk screen
@@ -911,9 +914,9 @@ function vGuide() {
 <li><b>Listening</b> cards: hear a line you already know, with the text hidden. Tap <b>Understood</b> if you followed it, or <b>Reveal the text</b> to look. There is no wrong answer; lines you reveal just come back a little sooner. The end of each session shows how many times you revealed the text.</li>
 <li>Speed counts. A spoken answer is <b>automatic</b> only if you start talking within about 2.5 seconds of the prompt (3.5 seconds when you have to read English first). Correct but slower answers come back tomorrow so they get faster.</li>
 </ol>
-<h2>Talk</h2>
+${chatOn ? `<h2>Talk</h2>
 <p>The <b>Talk</b> tab is a short role-play with an AI partner who only uses what you have studied so far. Answer out loud (or type), tap any of its lines to see the English, and get a few friendly pointers at the end. It's practice for real conversation, so don't worry about mistakes.</p>
-<h2>Make it fit you</h2>
+` : ''}<h2>Make it fit you</h2>
 <ul>
 <li><b>Language:</b> pick it from the menu at the top right. Each language keeps its own progress.</li>
 <li><b>Answer by:</b> Speaking (the app listens and checks you) or Typing.</li>

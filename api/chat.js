@@ -1,7 +1,12 @@
+// DORMANT (October 2026): this feature is switched off on purpose.
+// Why: it needs a paid Claude API key (ANTHROPIC_API_KEY), and the app's owner chose not to add a
+// cost beyond the existing ElevenLabs plan. The code is kept so it can be turned on later.
+// While no key is set, GET answers 503, the app never shows the Talk tab and no calls are made,
+// so it costs nothing. To turn it on: add ANTHROPIC_API_KEY in Vercel and redeploy (see SETUP.md).
+//
 // Conversation practice: a short role-play with Claude that sticks to what the learner has studied,
 // then English feedback at the end. Replies come back with ElevenLabs audio in the course voice when
-// possible. Needs ANTHROPIC_API_KEY in Vercel; without it, GET answers 503 and the app hides the feature.
-// Uses the same optional APP_PASSCODE as speech checking.
+// possible. Uses the same optional APP_PASSCODE as speech checking.
 import { timingSafeEqual } from 'node:crypto';
 
 const CLAUDE_URL = 'https://api.anthropic.com/v1/messages';
