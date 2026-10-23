@@ -161,6 +161,30 @@ nav{align-self:flex-start}
 .guide a{color:var(--accent-text)}
 .guide code{font-family:var(--f-mono);font-size:.88rem;background:var(--bg);padding:1px 6px;border-radius:6px}
 a.btn{text-decoration:none}
+/* Listening card: grey bars stand in for the hidden sentence. */
+.concealed{display:flex;flex-direction:column;gap:8px;padding:6px 0}
+.concealed span{display:block;height:14px;border-radius:999px;background:var(--line)}
+.concealed span:nth-child(1){width:88%}.concealed span:nth-child(2){width:64%}.concealed span:nth-child(3){width:40%;opacity:.6}
+/* Conversation */
+.sel{appearance:none;-webkit-appearance:none;font:inherit;font-weight:600;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 14px;width:100%}
+.chat{gap:12px}
+.bub{display:flex;gap:10px;align-items:flex-start;max-width:92%}
+.bub.ai{align-self:flex-start}
+.bub.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);padding:10px 14px;border-radius:18px 18px 4px 18px;font-weight:500}
+.bub-body{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--bg);border:0;border-radius:18px 18px 18px 4px;padding:10px 14px}
+.bub-body .l-es{font-weight:600;font-size:1.05rem;line-height:1.3}
+.bub-body .l-en{color:var(--muted);font-size:.9rem}
+.bub-body .tap{color:var(--muted);font-size:.75rem}
+.bub.typing{background:var(--bg);padding:14px 16px;border-radius:18px 18px 18px 4px;gap:5px}
+.bub.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite ease-in-out}
+.bub.typing i:nth-child(2){animation-delay:.2s}.bub.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.bub.typing i{animation:none;opacity:.6}}
+.fixes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.fixes li{display:flex;flex-direction:column;gap:2px;background:var(--bg);border-radius:14px;padding:10px 14px}
+.fixes .muted{text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--miss) 60%,transparent)}
+.fixes .better{font-weight:600;color:var(--good)}
+.fixes .small.muted{text-decoration:none}
 </style>
 </head>
 <body>

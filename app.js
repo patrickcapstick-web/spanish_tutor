@@ -50,8 +50,15 @@ function buildCards(course) {
       en: g.kind === 'tr' ? it.en : '', cue: it.cue || '', cueRom: it.cueRom || '', cueEn: it.cueEn || '',
       target: it.answers[0], rom: it.answerRom || '', alts: it.answers, kana: it.kana || null, label: `${g.type} ${ui + 1}.${gi + 1}.${i + 1}`,
     })));
+    // Listening cards: each dialogue line again, audio only. Unlocked once you have learned the line.
+    u.dialogue.forEach((l, i) => add({
+      id: `${u.id}.d${i}.l`, src: `${u.id}.d${i}`, kind: 'listen', who: l.speaker, target: l.target, rom: l.rom || '', en: l.en, alts: [l.target],
+      base: '', cue: '', how: '', label: `Listening ${ui + 1}.${i + 1}`,
+    }));
   });
 }
+const newLeft = () => CARDS.filter((c) => !S.cards[c.id] && c.kind !== 'listen').length;
+const LISTEN_NEW = 3; // new listening cards per session, on top of the daily new items
 
 /* Variant tokens such as {p} are filled in from the learner's chosen option. */
 function variant() {
@@ -183,7 +190,7 @@ function checkSpoken(card, text, reading) { return check(card, spokenToText(text
 
 /* ---------- state (per language, this device) ---------- */
 function clean(r) {
-  const s = { cards: {}, streak: 0, last: 0, mode: 'speak', slow: false, hands: false, perDay: 10, showRom: true, variant: '', newDay: 0, newCount: 0, t: 0 };
+  const s = { cards: {}, streak: 0, last: 0, mode: 'speak', slow: false, hands: false, listen: true, perDay: 10, showRom: true, variant: '', newDay: 0, newCount: 0, t: 0 };
   if (!r || typeof r !== 'object') return s;
   if (r.cards && typeof r.cards === 'object') {
     for (const k in r.cards) {
@@ -195,6 +202,7 @@ function clean(r) {
   if (r.mode === 'type') s.mode = 'type';
   s.slow = !!r.slow;
   s.hands = r.hands === true;
+  s.listen = r.listen !== false;
   if ([5, 10, 15, 20].includes(r.perDay)) s.perDay = r.perDay;
   if (r.showRom === false) s.showRom = false;
   if (typeof r.variant === 'string') s.variant = r.variant;
@@ -236,11 +244,12 @@ function playNow(t) {
   let fired = false;
   const done = () => { if (fired || g !== playGen) return; fired = true; playNext(); };
   const f = audioFile(t);
+  const src = talkAudio.get(t) || (f && `/audio/${C.id}/${f}`);
   const rate = S.slow ? 0.75 : 1;
-  if (f) {
+  if (src) {
     player.onended = done;
     player.onerror = done;
-    player.src = `/audio/${C.id}/${f}`;
+    player.src = src;
     player.defaultPlaybackRate = rate;
     player.playbackRate = rate;
     const p = player.play();
@@ -301,21 +310,22 @@ function unlockAudio() {
     if (actx.state === 'suspended') actx.resume().catch(() => {});
   } catch {}
 }
-function listen(stream, card, tok) {
+// wait: give up if nothing is said by then. pauseMs: how long a silence ends the answer.
+// alive(): false once the recording is no longer wanted. onOnset(t): called when speech starts.
+function listen(stream, { wait, pauseMs = 900, alive, onOnset, stopFn }) {
   if (!actx) return null;
   let src;
   let an;
   try { src = actx.createMediaStreamSource(stream); an = actx.createAnalyser(); an.fftSize = 1024; src.connect(an); } catch { return null; }
   const buf = new Float32Array(an.fftSize);
   const t1 = performance.now();
-  const wait = card.base ? 7000 : 9000; // give up if nothing is said by then
   const v = { ok: true, heard: false, stop };
   let noise = 0.004; // running estimate of background noise
   let loud = 0;
   let first = 0;
   let quiet = 0;
   const iv = setInterval(() => {
-    if (!live(tok) || !rec) { stop(); return; }
+    if (!alive()) { stop(); return; }
     if (actx.state !== 'running') { if (performance.now() - t1 > 400) { v.ok = false; stop(); } return; }
     an.getFloatTimeDomainData(buf);
     let sum = 0;
@@ -325,12 +335,12 @@ function listen(stream, card, tok) {
     if (!v.heard) {
       if (rms > Math.max(0.02, noise * 4)) {
         if (!loud++) first = now;
-        if (loud >= 2) { v.heard = true; sess.onset = first; }
+        if (loud >= 2) { v.heard = true; if (onOnset) onOnset(first); }
       } else { loud = 0; noise = noise * 0.9 + rms * 0.1; }
-      if (!v.heard && now - t1 > wait) { stop(); stopRec(); }
+      if (!v.heard && now - t1 > wait) { stop(); stopFn(); }
     } else if (rms < Math.max(0.012, noise * 2.5)) {
       if (!quiet) quiet = now;
-      else if (now - quiet > 900) { stop(); stopRec(); }
+      else if (now - quiet > pauseMs) { stop(); stopFn(); }
     } else quiet = 0;
   }, 50);
   function stop() { clearInterval(iv); try { src.disconnect(); } catch {} }
@@ -338,7 +348,7 @@ function listen(stream, card, tok) {
 }
 function afterPrompt(tok) {
   return () => {
-    if (!live(tok) || sess.shown || sess.phase) return;
+    if (!live(tok) || sess.shown || sess.phase || (cur().phase === 'learn' && sess.res === 'ok')) return;
     sess.t0 = performance.now(); // speed is measured from here
     if (handsOn()) setTimeout(() => { if (live(tok) && !sess.shown && !sess.phase && handsOn()) startRec(true); }, 150);
   };
@@ -378,7 +388,12 @@ async function startRec(auto = false) {
   };
   r.start();
   Object.assign(sess, { phase: 'rec', micErr: '', onset: 0, handsRec: auto });
-  r.vad = listen(stream, card, tok);
+  r.vad = listen(stream, {
+    wait: card.base || cur().phase === 'learn' ? 7000 : 9000,
+    alive: () => live(tok) && rec === r,
+    onOnset: (t) => { sess.onset = t; },
+    stopFn: () => stopRec(),
+  });
   render();
   recTimer = setTimeout(() => stopRec(), 12000);
 }
@@ -389,9 +404,20 @@ function stopRec(discard) {
   if (discard && sess && sess.phase === 'rec') sess.phase = null;
 }
 function nothingHeard() {
+  if (cur().phase === 'learn') { learnResult('no', ''); return; }
   Object.assign(sess, { phase: null, heard: '', res: 'no', shown: true });
   render();
   auto();
+}
+// Shadowing a new line: a match moves on (by itself in hands-free); a miss plays the line again
+// so you can retry (hands-free listens again once, then waits for you).
+function learnResult(res, heard) {
+  const tok = sess.tok;
+  const c = BY[cur().id];
+  Object.assign(sess, { phase: null, res, heard, tries: sess.tries + 1 });
+  render();
+  if (res === 'ok') say(c.target, handsOn() ? () => setTimeout(() => { if (live(tok) && handsOn()) learned(); }, 700) : null);
+  else say(c.target, handsOn() && sess.tries < 2 ? afterPrompt(tok) : null);
 }
 async function transcribe(blob) {
   if (!sess || sess.end) return;
@@ -415,6 +441,7 @@ async function transcribe(blob) {
     if (r.status === 400) { sess.phase = null; sess.micErr = 'That recording was too short. Tap and speak again.'; render(); return; }
     if (!r.ok) throw new Error(String(r.status));
     const j = await r.json();
+    if (cur().phase === 'learn') { learnResult(j.text ? checkSpoken(BY[id], j.text, j.reading) : 'no', j.text || ''); return; }
     sess.heard = j.text || '';
     sess.res = sess.heard ? checkSpoken(BY[id], sess.heard, j.reading) : 'no';
     if (sess.res === 'ok') {
@@ -439,7 +466,7 @@ async function savePasscode(v) {
   passErr = '';
   try {
     const r = await fetch('/api/stt', { headers: { 'x-passcode': v } });
-    if (r.status === 204) { PASS = v; store.set(PASS_KEY, v); micBlocked = false; needPass = false; }
+    if (r.status === 204) { PASS = v; store.set(PASS_KEY, v); micBlocked = false; needPass = false; checkChat(); }
     else if (r.status === 401) passErr = 'That passcode is not right. Ask the person who shared the app with you.';
     else passErr = `The server answered with an error (${r.status}). Try again later.`;
   } catch {
@@ -454,25 +481,31 @@ let sess = null;
 let confirmReset = false;
 let copied = false;
 function allowance() { return Math.max(0, S.perDay - (S.newDay === today() ? S.newCount : 0)); }
+const listenOn = () => S.listen !== false;
+const phaseOf = (c, fresh) => (c.kind === 'listen' ? 'listen' : fresh && c.kind === 'line' ? 'learn' : 'test');
 function plan(nNew) {
   const t = today();
-  const due = CARDS.filter((c) => S.cards[c.id] && S.cards[c.id].d <= t)
+  const due = CARDS.filter((c) => S.cards[c.id] && S.cards[c.id].d <= t && (c.kind !== 'listen' || listenOn()))
     .sort((a, b) => S.cards[a.id].d - S.cards[b.id].d).slice(0, REVIEW_CAP);
-  const fresh = CARDS.filter((c) => !S.cards[c.id]).slice(0, nNew);
-  return { due, fresh };
+  const fresh = CARDS.filter((c) => !S.cards[c.id] && c.kind !== 'listen').slice(0, nNew);
+  // New listening cards come from lines you have already been tested on, so the sound is familiar but not fresh.
+  const ear = listenOn() ? CARDS.filter((c) => c.kind === 'listen' && !S.cards[c.id] && S.cards[c.src] && S.cards[c.src].n > 0).slice(0, LISTEN_NEW) : [];
+  return { due, fresh, ear };
 }
 function start(nNew) {
   const p = plan(nNew);
-  if (!p.due.length && !p.fresh.length) return;
-  const q = p.due.map((c) => ({ id: c.id, phase: 'test' }))
-    .concat(p.fresh.map((c) => ({ id: c.id, phase: c.kind === 'line' ? 'learn' : 'test' })));
-  sess = { q, i: 0, total: q.length, done: new Set(), missed: new Set(), rev: p.due.length, neu: p.fresh.length, lats: [], paused: false, tok: 0 };
+  if (!p.due.length && !p.fresh.length && !p.ear.length) return;
+  // Listening cards are spread through the session rather than bunched at the end.
+  const q = p.due.map((c) => ({ id: c.id, phase: phaseOf(c, false) }))
+    .concat(p.fresh.map((c) => ({ id: c.id, phase: phaseOf(c, true) })));
+  p.ear.forEach((c, k) => q.splice(Math.round(((k + 1) * q.length) / (p.ear.length + 1)), 0, { id: c.id, phase: 'listen' }));
+  sess = { q, i: 0, total: q.length, done: new Set(), missed: new Set(), rev: p.due.length, neu: p.fresh.length + p.ear.length, lats: [], paused: false, tok: 0, listens: 0, peeks: 0 };
   resetCard();
   render();
   auto();
 }
 function resetCard() {
-  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, tok: sess.tok + 1 });
+  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, tries: 0, revealed: false, tok: sess.tok + 1 });
 }
 function cur() { return sess.q[sess.i]; }
 function countNew() { const t = today(); if (S.newDay !== t) { S.newDay = t; S.newCount = 0; } S.newCount++; }
@@ -495,7 +528,9 @@ function grade(g) {
   const id = cur().id;
   const t = today();
   let c = S.cards[id];
-  if (!c) { c = { b: 0, d: t, n: 0 }; countNew(); }
+  const listening = BY[id].kind === 'listen';
+  if (!c) { c = { b: 0, d: t, n: 0 }; if (!listening) countNew(); } // listening cards don't use up new items
+  if (listening) sess.listens++;
   c.n++;
   if (g === 'miss') {
     c.b = 0; c.d = t; sess.missed.add(id);
@@ -515,7 +550,8 @@ function auto() {
   const tok = sess.tok;
   const nx = sess.q[sess.i + 1];
   if (nx) warm(BY[nx.id]);
-  if (st.phase === 'learn') { say(c.target); return; }
+  if (st.phase === 'learn') { say(c.target, afterPrompt(tok)); return; }
+  if (st.phase === 'listen') { say(c.target); return; }
   if (sess.shown) {
     // Hands-free: after a correct answer, play it once more, then move on (a little later if it was slow,
     // so there is time to tap "Count as automatic").
@@ -532,7 +568,156 @@ function togglePause() {
   if (sess.paused) { stopRec(true); stopAll(); render(); return; }
   unlockAudio();
   render();
-  if (!sess.shown && !sess.phase && cur().phase === 'test') afterPrompt(sess.tok)();
+  if (!sess.shown && !sess.phase && cur().phase !== 'listen') afterPrompt(sess.tok)();
+}
+
+/* ---------- conversation practice ---------- */
+// A short role-play with an AI partner (Claude, via /api/chat) that only uses what you have studied.
+// Hidden unless the server has an Anthropic key.
+let chatOn = false;
+let talk = null;      // { u, msgs: [{ role: 'ai'|'me', text, en, rom, showEn }], phase, done, fb, fbBusy, err, micErr, typing, tok }
+let talkUnit = null;  // unit chosen on the Talk screen
+let talkSeq = 0;
+let trec = null;
+let trecTimer = 0;
+const talkAudio = new Map(); // partner line -> recorded audio (data URL)
+const TALK_TURNS = 6;
+
+function checkChat() {
+  fetch('/api/chat', { headers: PASS ? { 'x-passcode': PASS } : {} })
+    .then((r) => { const on = r.status === 204; if (on !== chatOn) { chatOn = on; render(); } })
+    .catch(() => {});
+}
+const startedUnits = () => U.map((u, ui) => ui).filter((ui) => CARDS.some((c) => c.u === ui && S.cards[c.id]));
+const talkHands = () => !!(S.hands && talk && !talk.done && tab === 'talk' && speechOn() && document.visibilityState !== 'hidden');
+const talkLive = (tok) => !!(talk && talk.tok === tok && !talk.done);
+function talkVocab(u) {
+  const out = [];
+  U.slice(0, u + 1).forEach((unit) => {
+    unit.dialogue.forEach((l) => out.push(R(l.target)));
+    unit.drills.forEach((g) => g.items.forEach((it) => out.push(R(it.answers[0]))));
+  });
+  return [...new Set(out)].slice(-150);
+}
+async function chatCall(body) {
+  const r = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-passcode': PASS },
+    body: JSON.stringify({
+      ...body,
+      course: { name: C.name, variety: C.variety || '', rom: hasRom() },
+      unit: { title: U[talk.u].title, en: U[talk.u].en || '' },
+      vocab: talkVocab(talk.u),
+      messages: talk.msgs.map((m) => ({ role: m.role, text: m.text })),
+    }),
+  });
+  if (r.status === 401) { PASS = ''; store.set(PASS_KEY, null); needPass = true; throw new Error('passcode'); }
+  if (!r.ok) throw new Error(String(r.status));
+  return r.json();
+}
+function startTalk(u) {
+  unlockAudio();
+  stopAll();
+  talk = { u, msgs: [], phase: null, done: false, fb: null, fbBusy: false, err: '', micErr: '', typing: S.mode === 'type' || !speechOn(), tok: ++talkSeq };
+  talkTurn();
+}
+async function talkTurn() {
+  const tok = talk.tok;
+  Object.assign(talk, { phase: 'ai', err: '' });
+  render();
+  try {
+    const j = await chatCall({ mode: 'turn', voice: C.voice || '' });
+    if (!talk || talk.tok !== tok) return;
+    if (j.audio) talkAudio.set(j.say, `data:audio/mpeg;base64,${j.audio}`);
+    talk.msgs.push({ role: 'ai', text: j.say, en: j.en || '', rom: j.rom || '', showEn: false });
+    talk.phase = null;
+    if (j.done) endTalk();
+    render();
+    say(j.say, () => { if (talkLive(tok) && talkHands() && !talk.phase) setTimeout(() => { if (talkLive(tok) && talkHands() && !talk.phase) startTalkRec(true); }, 150); });
+  } catch (e) {
+    if (!talk || talk.tok !== tok) return;
+    talk.phase = null;
+    talk.err = e.message === 'passcode' ? 'This app needs a passcode. Enter it on the Today screen under Settings.' : 'Your partner could not answer just now.';
+    render();
+  }
+}
+function addMine(text) {
+  if (!talk || talk.done || talk.phase === 'ai') return;
+  talk.msgs.push({ role: 'me', text });
+  talk.micErr = '';
+  talkTurn();
+}
+function endTalk() {
+  stopTalkRec(true);
+  talk.done = true;
+  if (!talk.msgs.some((m) => m.role === 'me')) return;
+  const tok = talk.tok;
+  talk.fbBusy = true;
+  chatCall({ mode: 'feedback' })
+    .then((j) => { if (talk && talk.tok === tok) { talk.fb = j; talk.fbBusy = false; render(); } })
+    .catch(() => { if (talk && talk.tok === tok) { talk.fbBusy = false; talk.fb = { error: true }; render(); } });
+}
+async function startTalkRec(auto = false) {
+  if (!talk || talk.done || talk.phase || starting) return;
+  const tok = talk.tok;
+  starting = true;
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch {
+    starting = false;
+    if (auto && talkLive(tok)) { talk.micErr = 'Tap the mic to answer.'; render(); return; }
+    micBlocked = true; render(); return;
+  }
+  starting = false;
+  if (!talkLive(tok) || talk.phase || tab !== 'talk') { stream.getTracks().forEach((t) => t.stop()); return; }
+  stopAll();
+  const type = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm', 'audio/aac'].find((t) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+  const chunks = [];
+  let r;
+  try { r = new MediaRecorder(stream, type ? { mimeType: type } : undefined); } catch {
+    stream.getTracks().forEach((t) => t.stop()); micBlocked = true; render(); return;
+  }
+  trec = r;
+  r.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+  r.onstop = () => {
+    stream.getTracks().forEach((t) => t.stop());
+    if (r.vad) r.vad.stop();
+    if (trec === r) trec = null;
+    if (r.discard || !talkLive(tok)) return;
+    if (r.vad && r.vad.ok && !r.vad.heard) { talk.phase = null; talk.micErr = 'Nothing was heard. Tap the mic and try again.'; render(); return; }
+    talkTranscribe(new Blob(chunks, { type: r.mimeType || type || 'audio/mp4' }), tok);
+  };
+  r.start();
+  Object.assign(talk, { phase: 'rec', micErr: '' });
+  // Longer limits than drills: a conversational answer can take a moment to plan.
+  r.vad = listen(stream, { wait: 12000, pauseMs: 1300, alive: () => talkLive(tok) && trec === r, stopFn: () => stopTalkRec() });
+  render();
+  trecTimer = setTimeout(() => stopTalkRec(), 20000);
+}
+function stopTalkRec(discard) {
+  clearTimeout(trecTimer);
+  if (trec && trec.state !== 'inactive') { if (discard) trec.discard = true; trec.stop(); }
+  if (discard && talk && talk.phase === 'rec') talk.phase = null;
+}
+async function talkTranscribe(blob, tok) {
+  talk.phase = 'busy';
+  render();
+  try {
+    const r = await fetch(`/api/stt?lang=${encodeURIComponent(C.speechLanguage)}`, {
+      method: 'POST', headers: { 'Content-Type': blob.type || 'application/octet-stream', 'x-passcode': PASS }, body: blob,
+    });
+    if (!talkLive(tok)) return;
+    if (r.status === 401) { PASS = ''; store.set(PASS_KEY, null); needPass = true; throw new Error('passcode'); }
+    if (!r.ok) throw new Error(String(r.status));
+    const j = await r.json();
+    talk.phase = null;
+    if (!j.text) { talk.micErr = 'Nothing was heard. Tap the mic and try again.'; render(); return; }
+    addMine(j.text);
+  } catch {
+    if (!talkLive(tok)) return;
+    talk.phase = null;
+    talk.micErr = 'Could not check that recording. Try again, or type your reply.';
+    render();
+  }
 }
 
 /* ---------- views ---------- */
@@ -546,6 +731,7 @@ function options() {
     + `<div class="opt"><span class="lbl">Voice speed</span>${seg('slow', [['false', 'Normal'], ['true', 'Slow']], S.slow)}</div>`;
   if (C.variants) h += `<div class="opt"><span class="lbl">${esc(C.variants.label || 'Form')}</span>${seg('variant', C.variants.options.map((o) => [o.id, o.label]), variant().id)}</div>`;
   if (hasRom()) h += `<div class="opt"><span class="lbl">${esc(C.romanization || 'Pronunciation')}</span>${seg('showRom', [['true', 'Show'], ['false', 'Hide']], showRom())}</div>`;
+  h += `<div class="opt"><span class="lbl">Listening cards</span>${seg('listen', [['true', 'On'], ['false', 'Off']], listenOn())}</div>`;
   h += `<div class="opt"><span class="lbl">New items a day</span>${seg('perDay', [[5, '5'], [10, '10'], [15, '15'], [20, '20']], S.perDay)}</div>`;
   return h + '</div>';
 }
@@ -560,13 +746,13 @@ function vSpeech() {
 }
 function vHome() {
   const p = plan(allowance());
-  const n = p.due.length + p.fresh.length;
-  const left = CARDS.filter((c) => !S.cards[c.id]).length;
-  const mins = Math.max(1, Math.round((p.due.length * 15 + p.fresh.length * 40) / 60));
+  const n = p.due.length + p.fresh.length + p.ear.length;
+  const left = newLeft();
+  const mins = Math.max(1, Math.round((p.due.length * 15 + p.fresh.length * 40 + p.ear.length * 20) / 60));
   let h = `<section class="sheet"><p class="lbl">Today · ${esc(C.name)}</p>`;
   if (n) {
     h += `<h1>${p.due.length ? 'Review, then new material' : 'Start with the next dialogue'}</h1>`
-      + `<div class="stats"><div><b>${p.due.length}</b><span>reviews due</span></div><div><b>${p.fresh.length}</b><span>new items</span></div><div><b>${mins}</b><span>minutes, roughly</span></div></div>`
+      + `<div class="stats"><div><b>${p.due.length}</b><span>reviews due</span></div><div><b>${p.fresh.length + p.ear.length}</b><span>new items</span></div><div><b>${mins}</b><span>minutes, roughly</span></div></div>`
       + '<button class="btn wide" data-act="start" data-primary>Start session</button>';
   } else {
     h += `<h1>Nothing is due right now</h1><p class="muted">${left ? "You have done today's new items. Reviews come back tomorrow." : 'You have learned every item in the course. Reviews keep coming back on schedule.'}</p>`
@@ -581,16 +767,50 @@ function vCue(c) {
   const extra = [c.cueRom && showRom() ? RR(c.cueRom) : '', c.cueEn].filter(Boolean).join(' · ');
   return `<p class="cue"><span>${esc(R(c.cue))}</span>${extra ? `<em>${esc(extra)}</em>` : ''}</p>`;
 }
+// The round record button. ph: null (ready), 'rec' (listening) or 'busy' (checking).
+function micHtml(ph = sess.phase, err = sess.micErr, idle = handsOn() ? 'Get ready. Listening starts on its own.' : 'Tap and speak', act = 'mic') {
+  return '<div class="mic-wrap">'
+    + (ph === 'busy'
+      ? `<button class="mic busy" disabled aria-label="Checking">${SPIN}</button><p class="mic-label muted">Checking…</p>`
+      : `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="${act}" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label">${ph === 'rec' ? 'Listening… stops when you pause' : idle}</p>`)
+    + '</div>' + (err ? `<p class="err">${esc(err)}</p>` : '');
+}
 function vSession() {
   const st = cur();
   const c = BY[st.id];
   const u = U[c.u];
   let h = `<div class="bar"><i style="width:${Math.round((sess.done.size / sess.total) * 100)}%"></i></div>`
     + `<div class="meta"><span>${esc(c.label)} · ${esc(u.en || u.title)}</span><span>${sess.done.size} / ${sess.total}</span></div><section class="sheet">`;
-  if (st.phase === 'learn') {
+  const listenBtn = `<button class="btn ghost" data-act="say" data-t="${esc(c.target)}">${PLAY} Listen</button>`;
+  if (st.phase === 'learn' && speechOn()) {
+    // Shadowing: say the new line and the app checks it.
+    h += `<p class="how">New line. Listen, then say it. Copy the rhythm as closely as you can.</p><p class="who">${esc(c.who)}</p>`
+      + `<p class="es" lang="${esc(C.lang)}">${esc(R(c.target))}</p>${romLine(c.rom)}<p class="en">${esc(c.en)}</p>`;
+    if (sess.res === 'ok') {
+      h += '<div class="answer"><p class="verdict v-ok">Matches</p><p class="muted small">Say it a couple more times on your own to lock it in.</p></div>'
+        + `<div class="row">${listenBtn}<button class="btn" data-act="learned" data-primary>Next</button></div>`;
+    } else {
+      if (sess.res === 'no') {
+        h += `<div class="answer"><p class="verdict v-no">Not quite</p><p class="muted">You said: ${sess.heard ? esc(sess.heard) : '(nothing was heard)'}</p>`
+          + '<p class="muted small">Listen again and have another go.</p></div>';
+      }
+      h += micHtml() + `<div class="row" style="justify-content:center">${sess.phase ? '' : listenBtn}<button class="btn link" data-act="learned">Continue without checking</button></div>`;
+    }
+  } else if (st.phase === 'learn') {
     h += `<p class="how">New line. Listen, then say it aloud three times.</p><p class="who">${esc(c.who)}</p>`
       + `<p class="es" lang="${esc(C.lang)}">${esc(R(c.target))}</p>${romLine(c.rom)}<p class="en">${esc(c.en)}</p>`
-      + `<div class="row"><button class="btn ghost" data-act="say" data-t="${esc(c.target)}">${PLAY} Listen</button><button class="btn" data-act="learned" data-primary>I said it three times</button></div>`;
+      + `<div class="row">${listenBtn}<button class="btn" data-act="learned" data-primary>I said it three times</button></div>`;
+  } else if (st.phase === 'listen') {
+    // Listening card: audio only, text hidden until you choose to look. No right or wrong.
+    h += '<p class="how">Listening. Try to follow it before you look. Replay as often as you like.</p>'
+      + `<div class="row"><button class="btn ghost" data-act="say" data-t="${esc(c.target)}">${PLAY} Play again</button><button class="btn ghost" data-act="sayslow" data-t="${esc(c.target)}">${PLAY} Slowly</button></div>`;
+    if (sess.revealed) {
+      h += `<div class="answer"><p class="who">${esc(c.who)}</p><p class="es" lang="${esc(C.lang)}">${esc(R(c.target))}</p>${romLine(c.rom)}<p class="en">${esc(c.en)}</p></div>`
+        + '<button class="btn wide" data-act="grade" data-g="slow" data-primary>Next</button>';
+    } else {
+      h += '<div class="concealed" aria-hidden="true"><span></span><span></span><span></span></div>'
+        + '<div class="row"><button class="btn" data-act="grade" data-g="good" data-primary>Understood</button><button class="btn ghost" data-act="reveal-text">Reveal the text</button></div>';
+    }
   } else {
     h += `<p class="how">${esc(c.kind === 'line' ? C.sayIt : c.how)}</p>`;
     if (c.base) {
@@ -607,14 +827,7 @@ function vSession() {
           + (C.noSpaces || !keys.length ? `<p class="muted small">Type in ${esc(C.name)} script. If your keyboard can't, add a ${esc(C.name)} keyboard in your device settings or switch to Speaking.</p>` : '')
           + '<div class="row"><button class="btn" type="submit">Check</button><button class="btn link" type="button" data-act="reveal">I do not know</button></div></form>';
       } else if (speechOn()) {
-        const ph = sess.phase;
-        const idle = handsOn() ? 'Get ready. Listening starts on its own.' : 'Tap and say your answer';
-        h += '<div class="mic-wrap">'
-          + (ph === 'busy'
-            ? `<button class="mic busy" disabled aria-label="Checking your answer">${SPIN}</button><p class="mic-label muted">Checking…</p>`
-            : `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="mic" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record your answer'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label">${ph === 'rec' ? 'Listening… stops when you pause' : idle}</p>`)
-          + '</div>';
-        if (sess.micErr) h += `<p class="err">${esc(sess.micErr)}</p>`;
+        h += micHtml();
         if (!sess.phase) h += '<div class="row" style="justify-content:center"><button class="btn link" data-act="reveal">Show answer instead</button></div>';
       } else {
         const why = sess.micErr || speechWhy();
@@ -647,11 +860,12 @@ function vSession() {
   return h;
 }
 function vEnd() {
-  const left = CARDS.filter((c) => !S.cards[c.id]).length;
+  const left = newLeft();
   const t = today();
   const tom = CARDS.filter((c) => S.cards[c.id] && S.cards[c.id].d <= t + 1).length;
   return `<section class="sheet"><p class="lbl">Session complete</p><h1>${esc(C.doneMessage || 'Well done. See you tomorrow.')}</h1>`
     + `<div class="stats"><div><b>${sess.rev}</b><span>reviews</span></div><div><b>${sess.neu}</b><span>new items</span></div><div><b>${sess.missed.size}</b><span>needed a repeat</span></div></div>`
+    + (sess.listens ? `<p class="muted">Listening cards: ${sess.listens}. Times you revealed the text: ${sess.peeks}.</p>` : '')
     + `<p class="muted">${tom} items will be due by tomorrow. Streak: ${S.streak}${S.streak === 1 ? ' day' : ' days'}.</p>`
     + (sess.lats.length ? `<p class="muted">Average time to start answering: ${(sess.lats.reduce((a, b) => a + b, 0) / sess.lats.length / 1000).toFixed(1)} s across ${sess.lats.length} spoken answers.</p>` : '')
     + `<div class="row"><button class="btn" data-act="home" data-primary>Done</button>${left ? '<button class="btn ghost" data-act="more">Add 5 more new items</button>' : ''}</div></section>`;
@@ -691,11 +905,14 @@ function vGuide() {
 <h2>Your daily session</h2>
 <ol>
 <li><b>Start session</b> on the Today screen. It mixes reviews that are due with a few new items.</li>
-<li><b>New line</b> cards: listen, then say the line out loud three times.</li>
+<li><b>New line</b> cards: listen, then say the line. In Speaking mode the app checks it; if it doesn't match, listen again and have another go.</li>
 <li><b>Drill</b> cards: change a sentence (swap in a word, make it negative) or translate from English. Answer out loud before you check.</li>
 <li>Items you miss come back a few cards later. Items you know come back in 1, 3, 7, 14, 30 and 60 days.</li>
+<li><b>Listening</b> cards: hear a line you already know, with the text hidden. Tap <b>Understood</b> if you followed it, or <b>Reveal the text</b> to look. There is no wrong answer; lines you reveal just come back a little sooner. The end of each session shows how many times you revealed the text.</li>
 <li>Speed counts. A spoken answer is <b>automatic</b> only if you start talking within about 2.5 seconds of the prompt (3.5 seconds when you have to read English first). Correct but slower answers come back tomorrow so they get faster.</li>
 </ol>
+<h2>Talk</h2>
+<p>The <b>Talk</b> tab is a short role-play with an AI partner who only uses what you have studied so far. Answer out loud (or type), tap any of its lines to see the English, and get a few friendly pointers at the end. It's practice for real conversation, so don't worry about mistakes.</p>
 <h2>Make it fit you</h2>
 <ul>
 <li><b>Language:</b> pick it from the menu at the top right. Each language keeps its own progress.</li>
@@ -704,6 +921,7 @@ function vGuide() {
 <li><b>Voice speed:</b> Slow plays everything at three-quarter speed.</li>
 <li><b>Polite form</b> (Thai): pick Male (khráp) or Female (khâ). Every sentence and recording switches to match.</li>
 <li><b>Pronunciation:</b> show or hide the spelling in Latin letters under each sentence. Hide it once you can read the script.</li>
+<li><b>Listening cards:</b> turn them off if you only want speaking drills.</li>
 <li><b>New items a day:</b> 5 for a light pace, 20 if your trip is soon.</li>
 </ul>
 <h2>Speech checking</h2>
@@ -721,8 +939,66 @@ function vGuide() {
 <p class="muted small">Courses are written with AI help and have not all been checked by native speakers. If a sentence sounds wrong to a native speaker, trust them.</p>
 </section>`;
 }
+function vTalk() {
+  if (!talk) {
+    const avail = startedUnits();
+    let h = '<section class="sheet"><p class="lbl">Conversation practice</p><h1>Talk it through</h1>'
+      + `<p class="muted">A short role-play with an AI partner who only uses what you have studied. About ${TALK_TURNS} replies from you, then a few friendly pointers. Tap any line to see the English.</p>`;
+    if (!avail.length) return `${h}<p>Learn the first dialogue on the Today screen to unlock this.</p></section>`;
+    const u = avail.includes(talkUnit) ? talkUnit : avail[avail.length - 1];
+    h += '<label class="opt"><span class="lbl">Scene</span><select id="tunit" class="sel">'
+      + avail.map((ui) => `<option value="${ui}"${ui === u ? ' selected' : ''}>Unit ${ui + 1} · ${esc(U[ui].en || U[ui].title)}</option>`).join('')
+      + `</select></label><p class="muted small">Uses everything from Unit 1 to Unit ${u + 1}.${speechOn() ? (S.hands ? ' Hands-free is on, so just talk.' : ' Tap the mic to answer, or type.') : ' You will type your replies.'}</p>`
+      + `<button class="btn wide" data-act="talk-start" data-u="${u}" data-primary>Start the conversation</button></section>`;
+    return h;
+  }
+  const mine = talk.msgs.filter((m) => m.role === 'me').length;
+  let h = `<div class="meta"><span>Unit ${talk.u + 1} · ${esc(U[talk.u].en || U[talk.u].title)}</span><span>${talk.done ? 'Finished' : `Reply ${Math.min(mine + 1, TALK_TURNS)} of ${TALK_TURNS}`}</span></div><section class="sheet chat">`;
+  talk.msgs.forEach((m, i) => {
+    if (m.role === 'ai') {
+      h += `<div class="bub ai"><button class="play" data-act="say" data-t="${esc(m.text)}" aria-label="Play this line">${PLAY}</button>`
+        + `<button class="bub-body" data-act="talk-en" data-i="${i}" aria-expanded="${m.showEn}"><span class="l-es" lang="${esc(C.lang)}">${esc(m.text)}</span>`
+        + (m.rom && showRom() ? `<span class="l-rom">${esc(m.rom)}</span>` : '')
+        + (m.showEn ? `<span class="l-en">${esc(m.en || '(no translation)')}</span>` : '<span class="tap">Tap for English</span>')
+        + '</button></div>';
+    } else {
+      h += `<div class="bub me"><span lang="${esc(C.lang)}">${esc(m.text)}</span></div>`;
+    }
+  });
+  if (talk.phase === 'ai') h += `<div class="bub ai typing" aria-label="Your partner is answering"><i></i><i></i><i></i></div>`;
+  if (talk.err) h += `<p class="err">${esc(talk.err)}</p><div class="row"><button class="btn" data-act="talk-retry">Try again</button></div>`;
+  if (!talk.done && !talk.err) {
+    if (talk.typing) {
+      const keys = C.keys || [];
+      h += `<form id="tf" autocomplete="off"><input type="text" id="tans" aria-label="Your reply" autocapitalize="off" spellcheck="false" lang="${esc(C.lang)}"${talk.phase === 'ai' ? ' disabled' : ''}>`
+        + (keys.length ? `<div class="keys">${keys.map((k) => `<button type="button" data-act="key" data-t="${esc(k)}">${esc(k)}</button>`).join('')}</div>` : '')
+        + `<div class="row"><button class="btn" type="submit"${talk.phase === 'ai' ? ' disabled' : ''}>Send</button>${speechOn() ? '<button class="btn link" type="button" data-act="talk-type">Speak instead</button>' : ''}</div></form>`;
+    } else if (talk.phase !== 'ai') {
+      h += micHtml(talk.phase, talk.micErr, talkHands() ? 'Listening starts after your partner speaks.' : 'Tap and answer', 'talk-mic')
+        + (talk.phase ? '' : '<div class="row" style="justify-content:center"><button class="btn link" data-act="talk-type">Type instead</button></div>');
+    }
+  }
+  h += '</section>';
+  if (talk.done) {
+    h += '<section class="sheet"><p class="lbl">How it went</p>';
+    if (!mine) h += '<p class="muted">No replies this time.</p>';
+    else if (talk.fbBusy) h += '<p class="muted">Putting your feedback together…</p>';
+    else if (!talk.fb || talk.fb.error) h += '<p class="muted">Feedback is not available right now, but the practice still counts.</p>';
+    else {
+      if (talk.fb.good) h += `<p><b>Nice:</b> ${esc(talk.fb.good)}</p>`;
+      if (talk.fb.fixes && talk.fb.fixes.length) {
+        h += '<ul class="fixes">' + talk.fb.fixes.map((f) => `<li><span class="muted">${esc(f.said)}</span><span class="better" lang="${esc(C.lang)}">${esc(f.better)}</span>${f.why ? `<span class="small muted">${esc(f.why)}</span>` : ''}</li>`).join('') + '</ul>';
+      } else h += '<p class="muted">No mistakes worth flagging.</p>';
+      if (talk.fb.tip) h += `<p><b>Next time:</b> ${esc(talk.fb.tip)}</p>`;
+    }
+    h += `<div class="row"><button class="btn" data-act="talk-start" data-u="${talk.u}" data-primary>Talk again</button><button class="btn ghost" data-act="talk-close">Done</button></div></section>`;
+  } else {
+    h += `<div class="row"><button class="btn link" data-act="talk-finish">${mine ? 'Finish and get feedback' : 'End'}</button></div>`;
+  }
+  return h;
+}
 function vHeader() {
-  const nav = [['today', 'Today'], ['course', 'Course'], ['guide', 'Guide']]
+  const nav = [['today', 'Today'], ['course', 'Course'], ...(chatOn && C ? [['talk', 'Talk']] : []), ['guide', 'Guide']]
     .map(([k, l]) => `<button data-tab="${k}" aria-current="${tab === k ? 'page' : 'false'}">${l}</button>`).join('');
   $('#nav').innerHTML = nav;
   const sel = $('#langsel');
@@ -735,10 +1011,17 @@ function render() {
   if (tab === 'guide') html = vGuide();
   else if (tab === 'pick' || !C) html = vPick();
   else if (tab === 'course') html = vCourse();
+  else if (tab === 'talk') html = chatOn ? vTalk() : vHome();
   else html = !sess ? vHome() : sess.end ? vEnd() : vSession();
   $('#view').innerHTML = html;
   const f = $('#ans') || $('[data-primary]');
   if (f && sess && tab === 'today') { try { f.focus({ preventScroll: true }); } catch {} }
+  if (tab === 'talk' && talk) {
+    const t = $('#tans');
+    if (t && !t.disabled) { try { t.focus({ preventScroll: true }); } catch {} }
+    const last = $('#view .chat .bub:last-of-type');
+    if (last) last.scrollIntoView({ block: 'nearest' });
+  }
 }
 
 /* ---------- switching language ---------- */
@@ -748,7 +1031,8 @@ async function openCourse(id) {
       fetch(`/courses/${id}.json`, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
       fetch(`/audio/${id}/manifest.json`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { files: {} })).catch(() => ({ files: {} })),
     ]);
-    stopRec(true); stopAll();
+    stopRec(true); stopTalkRec(true); stopAll();
+    talk = null; talkUnit = null; talkAudio.clear();
     buildCards(course);
     AUDIO = manifest && manifest.files ? manifest : { files: {} };
     S = loadState(id);
@@ -770,7 +1054,7 @@ async function openCourse(id) {
 /* ---------- events ---------- */
 document.addEventListener('click', async (e) => {
   const tb = e.target.closest('[data-tab]');
-  if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(true); stopAll(); } render(); window.scrollTo(0, 0); return; }
+  if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(true); stopAll(); } if (talk && tab !== 'talk') { stopTalkRec(true); stopAll(); } render(); window.scrollTo(0, 0); return; }
   const b = e.target.closest('[data-act]');
   if (!b) return;
   const a = b.dataset.act;
@@ -779,10 +1063,19 @@ document.addEventListener('click', async (e) => {
   else if (a === 'more') { unlockAudio(); start(5); }
   else if (a === 'say') {
     // Replaying the prompt restarts the speed clock (and hands-free listening) once it ends.
-    const waiting = sess && !sess.end && tab === 'today' && !sess.shown && !sess.phase && cur().phase === 'test';
+    const waiting = sess && !sess.end && tab === 'today' && !sess.shown && !sess.phase && cur().phase !== 'listen';
     say(b.dataset.t, waiting ? afterPrompt(sess.tok) : null);
   }
   else if (a === 'pause') togglePause();
+  else if (a === 'talk-start') startTalk(+b.dataset.u);
+  else if (a === 'talk-mic') { unlockAudio(); if (talk.phase === 'rec') stopTalkRec(); else if (!talk.phase) startTalkRec(); }
+  else if (a === 'talk-en') { const m = talk.msgs[+b.dataset.i]; m.showEn = !m.showEn; render(); }
+  else if (a === 'talk-type') { stopTalkRec(true); talk.typing = !talk.typing; talk.micErr = ''; render(); }
+  else if (a === 'talk-retry') talkTurn();
+  else if (a === 'talk-finish') { stopAll(); if (talk.msgs.some((m) => m.role === 'me')) endTalk(); else talk = null; render(); }
+  else if (a === 'talk-close') { stopAll(); talk = null; render(); }
+  else if (a === 'sayslow') { const was = S.slow; S.slow = true; say(b.dataset.t); S.slow = was; }
+  else if (a === 'reveal-text') { sess.revealed = true; sess.peeks++; render(); say(BY[cur().id].target); }
   else if (a === 'dlg') sayAll(U[+b.dataset.u].dialogue.map((l) => l.target));
   else if (a === 'learned') learned();
   else if (a === 'mic') { unlockAudio(); if (sess.phase === 'rec') stopRec(); else if (!sess.phase) startRec(); }
@@ -793,6 +1086,7 @@ document.addEventListener('click', async (e) => {
     const k = b.dataset.k; const v = b.dataset.v;
     if (k === 'mode') S.mode = v;
     else if (k === 'hands') { S.hands = v === 'true'; unlockAudio(); }
+    else if (k === 'listen') S.listen = v === 'true';
     else if (k === 'slow') S.slow = v === 'true';
     else if (k === 'showRom') S.showRom = v === 'true';
     else if (k === 'perDay') S.perDay = +v;
@@ -807,7 +1101,7 @@ document.addEventListener('click', async (e) => {
     } catch { window.open('/course-prompt.txt', '_blank'); }
   }
   else if (a === 'key') {
-    const i = $('#ans');
+    const i = $('#ans') || $('#tans');
     if (i) {
       const s = i.selectionStart ?? i.value.length;
       const x = i.selectionEnd ?? s;
@@ -818,11 +1112,13 @@ document.addEventListener('click', async (e) => {
   }
   else if (a === 'askreset') { confirmReset = true; render(); }
   else if (a === 'noreset') { confirmReset = false; render(); }
-  else if (a === 'reset') { S = clean({ mode: S.mode, slow: S.slow, perDay: S.perDay, showRom: S.showRom, variant: S.variant }); sess = null; confirmReset = false; save(); render(); }
+  else if (a === 'reset') { S = clean({ mode: S.mode, slow: S.slow, hands: S.hands, listen: S.listen, perDay: S.perDay, showRom: S.showRom, variant: S.variant }); sess = null; confirmReset = false; save(); render(); }
 });
 // Leaving the app mid-session (phone call, switching apps): stop listening and pause hands-free.
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState !== 'hidden' || !sess || sess.end) return;
+  if (document.visibilityState !== 'hidden') return;
+  if (talk) { stopTalkRec(true); stopAll(); render(); }
+  if (!sess || sess.end) return;
   stopRec(true);
   stopAll();
   if (S.hands) sess.paused = true;
@@ -830,10 +1126,12 @@ document.addEventListener('visibilitychange', () => {
 });
 document.addEventListener('change', (e) => {
   if (e.target.id === 'langsel' && e.target.value) openCourse(e.target.value);
+  if (e.target.id === 'tunit') { talkUnit = +e.target.value; render(); }
 });
 document.addEventListener('submit', (e) => {
   e.preventDefault();
   if (e.target.id === 'pf') { const v = ($('#pass').value || '').trim(); if (v) savePasscode(v); return; }
+  if (e.target.id === 'tf') { const v = ($('#tans').value || '').trim(); if (v && talk) addMine(v); return; }
   if (!sess || sess.end) return;
   const i = $('#ans');
   if (!i || !i.value.trim()) return;
@@ -864,6 +1162,7 @@ document.addEventListener('keydown', (e) => {
   fetch('/api/stt', { headers: PASS ? { 'x-passcode': PASS } : {} })
     .then((r) => { if (r.status === 401) { needPass = true; if (PASS) { PASS = ''; store.set(PASS_KEY, null); } render(); } })
     .catch(() => {});
+  checkChat();
   const hash = (location.hash || '').replace('#', '');
   let id = INDEX.some((c) => c.id === hash) ? hash : store.get(COURSE_KEY);
   if (!id && store.get(stateKey('es'))) id = 'es'; // people who used the Spanish-only version

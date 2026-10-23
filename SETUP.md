@@ -39,7 +39,10 @@ Your copy includes the Spanish, French, Italian, Japanese and Thai courses and t
 2. Click **Add New → Project** and **Import** your repository.
 3. Open **Environment Variables** and add `ELEVENLABS_API_KEY` with your `sk_` key.
    - Optional: add `APP_PASSCODE` with a passcode you make up, for example `tapas-and-tuk-tuks`. With it, people must enter the passcode before speech checking works. Without it, anyone with your web address can use speech checking, and each answer they say uses a little of your ElevenLabs credits.
+   - Optional: add `ANTHROPIC_API_KEY` to turn on the **Talk** tab (conversation practice with an AI partner). Create the key at [platform.claude.com](https://platform.claude.com/) under **API Keys**; it needs a small amount of prepaid credit. Each conversation costs a fraction of a cent in Claude usage plus a few hundred characters of ElevenLabs voice. Without this key the Talk tab simply doesn't appear. The passcode above protects it too.
 4. Click **Deploy**. After a minute you get a web address like `my-language-app.vercel.app`. That's your app.
+
+If you add an environment variable later, it only takes effect after a new deploy: in Vercel open **Deployments**, click the **⋯** menu on the latest one and choose **Redeploy**.
 
 ## 5. Check it works
 

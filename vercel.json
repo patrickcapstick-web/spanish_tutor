@@ -22,6 +22,9 @@
   "functions": {
     "api/stt.js": {
       "includeFiles": "node_modules/kuromoji/dict/**"
+    },
+    "api/chat.js": {
+      "maxDuration": 30
     }
   }
 }
