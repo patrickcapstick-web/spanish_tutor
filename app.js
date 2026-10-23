@@ -432,8 +432,33 @@ function learnResult(res, heard) {
   const c = BY[cur().id];
   Object.assign(sess, { phase: null, res, heard, tries: sess.tries + 1 });
   render();
-  if (res === 'ok') say(c.target, handsOn() ? () => setTimeout(() => { if (live(tok) && handsOn()) learned(); }, 700) : null);
+  if (res === 'ok') echo(tok, 1);
   else say(c.target, handsOn() && sess.tries < 2 ? afterPrompt(tok) : null);
+}
+// Echo rounds after a correct shadow: the line plays, then a pause sized to the sentence for you to
+// repeat it aloud. Not checked, so no extra speech-checking cost. With the first, checked attempt
+// that makes three repetitions, as in FSI drills. Hands-free moves on when they finish.
+const ECHOES = 2;
+function echo(tok, n) {
+  if (!live(tok)) return;
+  const c = BY[cur().id];
+  sess.echo = { n, turn: false };
+  render();
+  const t0 = performance.now();
+  say(c.target, () => {
+    if (!live(tok) || !sess.echo || sess.echo.n !== n) return;
+    const heard = performance.now() - t0;
+    const gap = Math.min(6000, Math.max(1500, heard * 1.3 + 400)); // time to say it back
+    sess.echo.turn = true;
+    render();
+    setTimeout(() => {
+      if (!live(tok) || !sess.echo || sess.echo.n !== n) return;
+      if (n < ECHOES) { echo(tok, n + 1); return; }
+      sess.echo = 'done';
+      render();
+      if (handsOn()) setTimeout(() => { if (live(tok) && handsOn()) learned(); }, 400);
+    }, gap);
+  });
 }
 async function transcribe(blob) {
   if (!sess || sess.end) return;
@@ -515,7 +540,7 @@ function start(nNew) {
   auto();
 }
 function resetCard() {
-  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, tries: 0, tok: sess.tok + 1 });
+  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, tries: 0, echo: null, tok: sess.tok + 1 });
 }
 function cur() { return sess.q[sess.i]; }
 function countNew() { const t = today(); if (S.newDay !== t) { S.newDay = t; S.newCount = 0; } S.newCount++; }
@@ -799,8 +824,12 @@ function vSession() {
     h += `<p class="how">New line. Listen, then say it. Copy the rhythm as closely as you can.</p><p class="who">${esc(c.who)}</p>`
       + `<p class="es" lang="${esc(C.lang)}">${esc(R(c.target))}</p>${romLine(c.rom)}<p class="en">${esc(c.en)}</p>`;
     if (sess.res === 'ok') {
-      h += '<div class="answer"><p class="verdict v-ok">Matches</p><p class="muted small">Say it a couple more times on your own to lock it in.</p></div>'
-        + `<div class="row">${listenBtn}<button class="btn" data-act="learned" data-primary>Next</button></div>`;
+      const e = sess.echo;
+      const step = e && e !== 'done'
+        ? `<p class="echo${e.turn ? ' turn' : ''}" aria-live="assertive">${e.turn ? 'Your turn: say it' : 'Listen'} <span>${e.n} of ${ECHOES}</span></p>`
+        : '<p class="muted small">Three times. Nicely done.</p>';
+      h += `<div class="answer"><p class="verdict v-ok">Matches</p><p class="muted small">Now repeat after the audio.</p>${step}</div>`
+        + `<div class="row">${e === 'done' ? listenBtn : ''}<button class="btn${e === 'done' ? '' : ' ghost'}" data-act="learned" data-primary>${e === 'done' ? 'Next' : 'Skip'}</button></div>`;
     } else {
       if (sess.res === 'no') {
         h += `<div class="answer"><p class="verdict v-no">Not quite</p><p class="muted">You said: ${sess.heard ? esc(sess.heard) : '(nothing was heard)'}</p>`
@@ -905,7 +934,7 @@ function vGuide() {
 <h2>Your daily session</h2>
 <ol>
 <li><b>Start session</b> on the Today screen. It mixes reviews that are due with a few new items.</li>
-<li><b>New line</b> cards: listen, then say the line. In Speaking mode the app checks it; if it doesn't match, listen again and have another go.</li>
+<li><b>New line</b> cards: listen, then say the line. In Speaking mode the app checks it; if it doesn't match, listen again and have another go. Once it matches, the line plays twice more with a pause after each for you to repeat it, so you say every new line three times.</li>
 <li><b>Drill</b> cards: change a sentence (swap in a word, make it negative) or translate from English. Answer out loud before you check.</li>
 <li>Items you miss come back a few cards later. Items you know come back in 1, 3, 7, 14, 30 and 60 days.</li>
 <li>Speed counts. In hands-free, a spoken answer is <b>automatic</b> if you start talking within about 1.5 seconds of the countdown ending (starting early is fine). When you tap the mic yourself, the allowance is about 3.5 seconds from the prompt, or 4.5 seconds when you have to read English first. Correct but slower answers come back tomorrow so they get faster.</li>
