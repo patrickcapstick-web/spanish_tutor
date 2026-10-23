@@ -14,6 +14,10 @@ const REVIEW_CAP = 25;
 const FAST_AUDIO = 2500;    // ms after a spoken prompt (substitution and transformation drills) finishes
 const FAST_READ = 3500;     // ms after an English prompt appears, which you have to read first
 const TAP_ALLOWANCE = 1000; // extra ms when you tap the mic yourself instead of using hands-free
+// Hands-free counts down 3, 2, 1 before you speak. Speed is then timed from the end of the countdown,
+// since the countdown itself gives thinking time. Starting to talk during the countdown counts as instant.
+const COUNTDOWN = 3;        // seconds
+const FAST_AFTER_GO = 1500; // ms after the countdown ends
 const REPO = 'https://github.com/patrickcapstick-web/spanish_tutor';
 
 /* ---------- storage ---------- */
@@ -50,15 +54,9 @@ function buildCards(course) {
       en: g.kind === 'tr' ? it.en : '', cue: it.cue || '', cueRom: it.cueRom || '', cueEn: it.cueEn || '',
       target: it.answers[0], rom: it.answerRom || '', alts: it.answers, kana: it.kana || null, label: `${g.type} ${ui + 1}.${gi + 1}.${i + 1}`,
     })));
-    // Listening cards: each dialogue line again, audio only. Unlocked once you have learned the line.
-    u.dialogue.forEach((l, i) => add({
-      id: `${u.id}.d${i}.l`, src: `${u.id}.d${i}`, kind: 'listen', who: l.speaker, target: l.target, rom: l.rom || '', en: l.en, alts: [l.target],
-      base: '', cue: '', how: '', label: `Listening ${ui + 1}.${i + 1}`,
-    }));
   });
 }
-const newLeft = () => CARDS.filter((c) => !S.cards[c.id] && c.kind !== 'listen').length;
-const LISTEN_NEW = 3; // new listening cards per session, on top of the daily new items
+const newLeft = () => CARDS.filter((c) => !S.cards[c.id]).length;
 
 /* Variant tokens such as {p} are filled in from the learner's chosen option. */
 function variant() {
@@ -190,19 +188,21 @@ function checkSpoken(card, text, reading) { return check(card, spokenToText(text
 
 /* ---------- state (per language, this device) ---------- */
 function clean(r) {
-  const s = { cards: {}, streak: 0, last: 0, mode: 'speak', slow: false, hands: false, listen: true, perDay: 10, showRom: true, variant: '', newDay: 0, newCount: 0, t: 0 };
+  const s = { cards: {}, streak: 0, last: 0, mode: 'speak', slow: false, hands: true, hv: 2, perDay: 10, showRom: true, variant: '', newDay: 0, newCount: 0, t: 0 };
   if (!r || typeof r !== 'object') return s;
   if (r.cards && typeof r.cards === 'object') {
     for (const k in r.cards) {
       const c = r.cards[k];
+      if (/\.l$/.test(k)) continue; // listening cards were removed; drop their saved progress
       if (c && typeof c.b === 'number' && typeof c.d === 'number') s.cards[k] = { b: c.b, d: c.d, n: c.n || 0 };
     }
   }
   ['streak', 'last', 'newDay', 'newCount', 't'].forEach((k) => { if (typeof r[k] === 'number') s[k] = r[k]; });
   if (r.mode === 'type') s.mode = 'type';
   s.slow = !!r.slow;
-  s.hands = r.hands === true;
-  s.listen = r.listen !== false;
+  // Hands-free became the default in October 2026; hv marks state saved after that, so earlier
+  // "off" values (the old default) switch to on once, and later choices are kept.
+  s.hands = r.hv === 2 ? r.hands !== false : true;
   if ([5, 10, 15, 20].includes(r.perDay)) s.perDay = r.perDay;
   if (r.showRom === false) s.showRom = false;
   if (typeof r.variant === 'string') s.variant = r.variant;
@@ -296,7 +296,7 @@ function speechWhy() {
 /* Hands-free: after a prompt plays, listening starts on its own, stops when you go quiet,
    and a correct answer moves to the next card by itself. */
 const handsOn = () => !!(S.hands && sess && !sess.end && !sess.paused && tab === 'today' && speechOn() && document.visibilityState !== 'hidden');
-const limitFor = (card, hands) => (card.base ? FAST_AUDIO : FAST_READ) + (hands ? 0 : TAP_ALLOWANCE);
+const limitFor = (card, hands) => (hands ? FAST_AFTER_GO : (card.base ? FAST_AUDIO : FAST_READ) + TAP_ALLOWANCE);
 const live = (tok) => !!(sess && !sess.end && sess.tok === tok);
 
 // One AudioContext, created on a tap so phone browsers let it run. It measures how loud the mic is,
@@ -354,6 +354,7 @@ function afterPrompt(tok) {
   };
 }
 let starting = false;
+let cdTimer = 0;
 async function startRec(auto = false) {
   if (!sess || sess.end || sess.phase || starting) return;
   const tok = sess.tok;
@@ -382,24 +383,39 @@ async function startRec(auto = false) {
     stream.getTracks().forEach((t) => t.stop());
     if (r.vad) r.vad.stop();
     if (rec === r) rec = null;
+    clearInterval(cdTimer);
     if (r.discard || !live(tok)) return;
+    // Finished before the countdown even ended: as fast as it gets.
+    if (sess.count > 0) { sess.t0 = sess.onset || performance.now(); sess.count = 0; }
     if (r.vad && r.vad.ok && !r.vad.heard) { nothingHeard(); return; } // silence: skip the server call
     transcribe(new Blob(chunks, { type: r.mimeType || type || 'audio/mp4' }));
   };
   r.start();
-  Object.assign(sess, { phase: 'rec', micErr: '', onset: 0, handsRec: auto });
+  Object.assign(sess, { phase: 'rec', micErr: '', onset: 0, handsRec: auto, count: auto ? COUNTDOWN : 0 });
+  // Hands-free: the mic is already recording during the 3, 2, 1, so an early start is never cut off.
+  clearInterval(cdTimer);
+  if (auto) {
+    cdTimer = setInterval(() => {
+      if (!live(tok) || rec !== r) { clearInterval(cdTimer); return; }
+      sess.count--;
+      if (sess.count <= 0) { clearInterval(cdTimer); sess.count = 0; sess.t0 = performance.now(); }
+      render();
+    }, 1000);
+  }
+  const extra = auto ? COUNTDOWN * 1000 : 0;
   r.vad = listen(stream, {
-    wait: card.base || cur().phase === 'learn' ? 7000 : 9000,
+    wait: extra + (card.base || cur().phase === 'learn' ? 7000 : 9000),
     alive: () => live(tok) && rec === r,
     onOnset: (t) => { sess.onset = t; },
     stopFn: () => stopRec(),
   });
   render();
-  recTimer = setTimeout(() => stopRec(), 12000);
+  recTimer = setTimeout(() => stopRec(), 12000 + extra);
 }
 // discard: stop without checking the answer (leaving the screen, pausing).
 function stopRec(discard) {
   clearTimeout(recTimer);
+  if (discard) { clearInterval(cdTimer); if (sess) sess.count = 0; }
   if (rec && rec.state !== 'inactive') { if (discard) rec.discard = true; rec.stop(); }
   if (discard && sess && sess.phase === 'rec') sess.phase = null;
 }
@@ -481,31 +497,25 @@ let sess = null;
 let confirmReset = false;
 let copied = false;
 function allowance() { return Math.max(0, S.perDay - (S.newDay === today() ? S.newCount : 0)); }
-const listenOn = () => S.listen !== false;
-const phaseOf = (c, fresh) => (c.kind === 'listen' ? 'listen' : fresh && c.kind === 'line' ? 'learn' : 'test');
 function plan(nNew) {
   const t = today();
-  const due = CARDS.filter((c) => S.cards[c.id] && S.cards[c.id].d <= t && (c.kind !== 'listen' || listenOn()))
+  const due = CARDS.filter((c) => S.cards[c.id] && S.cards[c.id].d <= t)
     .sort((a, b) => S.cards[a.id].d - S.cards[b.id].d).slice(0, REVIEW_CAP);
-  const fresh = CARDS.filter((c) => !S.cards[c.id] && c.kind !== 'listen').slice(0, nNew);
-  // New listening cards come from lines you have already been tested on, so the sound is familiar but not fresh.
-  const ear = listenOn() ? CARDS.filter((c) => c.kind === 'listen' && !S.cards[c.id] && S.cards[c.src] && S.cards[c.src].n > 0).slice(0, LISTEN_NEW) : [];
-  return { due, fresh, ear };
+  const fresh = CARDS.filter((c) => !S.cards[c.id]).slice(0, nNew);
+  return { due, fresh };
 }
 function start(nNew) {
   const p = plan(nNew);
-  if (!p.due.length && !p.fresh.length && !p.ear.length) return;
-  // Listening cards are spread through the session rather than bunched at the end.
-  const q = p.due.map((c) => ({ id: c.id, phase: phaseOf(c, false) }))
-    .concat(p.fresh.map((c) => ({ id: c.id, phase: phaseOf(c, true) })));
-  p.ear.forEach((c, k) => q.splice(Math.round(((k + 1) * q.length) / (p.ear.length + 1)), 0, { id: c.id, phase: 'listen' }));
-  sess = { q, i: 0, total: q.length, done: new Set(), missed: new Set(), rev: p.due.length, neu: p.fresh.length + p.ear.length, lats: [], paused: false, tok: 0, listens: 0, peeks: 0 };
+  if (!p.due.length && !p.fresh.length) return;
+  const q = p.due.map((c) => ({ id: c.id, phase: 'test' }))
+    .concat(p.fresh.map((c) => ({ id: c.id, phase: c.kind === 'line' ? 'learn' : 'test' })));
+  sess = { q, i: 0, total: q.length, done: new Set(), missed: new Set(), rev: p.due.length, neu: p.fresh.length, lats: [], paused: false, tok: 0 };
   resetCard();
   render();
   auto();
 }
 function resetCard() {
-  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, tries: 0, revealed: false, tok: sess.tok + 1 });
+  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, tries: 0, tok: sess.tok + 1 });
 }
 function cur() { return sess.q[sess.i]; }
 function countNew() { const t = today(); if (S.newDay !== t) { S.newDay = t; S.newCount = 0; } S.newCount++; }
@@ -528,9 +538,7 @@ function grade(g) {
   const id = cur().id;
   const t = today();
   let c = S.cards[id];
-  const listening = BY[id].kind === 'listen';
-  if (!c) { c = { b: 0, d: t, n: 0 }; if (!listening) countNew(); } // listening cards don't use up new items
-  if (listening) sess.listens++;
+  if (!c) { c = { b: 0, d: t, n: 0 }; countNew(); }
   c.n++;
   if (g === 'miss') {
     c.b = 0; c.d = t; sess.missed.add(id);
@@ -551,7 +559,6 @@ function auto() {
   const nx = sess.q[sess.i + 1];
   if (nx) warm(BY[nx.id]);
   if (st.phase === 'learn') { say(c.target, afterPrompt(tok)); return; }
-  if (st.phase === 'listen') { say(c.target); return; }
   if (sess.shown) {
     // Hands-free: after a correct answer, play it once more, then move on (a little later if it was slow,
     // so there is time to tap "Count as automatic").
@@ -568,7 +575,7 @@ function togglePause() {
   if (sess.paused) { stopRec(true); stopAll(); render(); return; }
   unlockAudio();
   render();
-  if (!sess.shown && !sess.phase && cur().phase !== 'listen') afterPrompt(sess.tok)();
+  if (!sess.shown && !sess.phase) afterPrompt(sess.tok)();
 }
 
 /* ---------- conversation practice (DORMANT) ---------- */
@@ -734,7 +741,6 @@ function options() {
     + `<div class="opt"><span class="lbl">Voice speed</span>${seg('slow', [['false', 'Normal'], ['true', 'Slow']], S.slow)}</div>`;
   if (C.variants) h += `<div class="opt"><span class="lbl">${esc(C.variants.label || 'Form')}</span>${seg('variant', C.variants.options.map((o) => [o.id, o.label]), variant().id)}</div>`;
   if (hasRom()) h += `<div class="opt"><span class="lbl">${esc(C.romanization || 'Pronunciation')}</span>${seg('showRom', [['true', 'Show'], ['false', 'Hide']], showRom())}</div>`;
-  h += `<div class="opt"><span class="lbl">Listening cards</span>${seg('listen', [['true', 'On'], ['false', 'Off']], listenOn())}</div>`;
   h += `<div class="opt"><span class="lbl">New items a day</span>${seg('perDay', [[5, '5'], [10, '10'], [15, '15'], [20, '20']], S.perDay)}</div>`;
   return h + '</div>';
 }
@@ -749,13 +755,13 @@ function vSpeech() {
 }
 function vHome() {
   const p = plan(allowance());
-  const n = p.due.length + p.fresh.length + p.ear.length;
+  const n = p.due.length + p.fresh.length;
   const left = newLeft();
-  const mins = Math.max(1, Math.round((p.due.length * 15 + p.fresh.length * 40 + p.ear.length * 20) / 60));
+  const mins = Math.max(1, Math.round((p.due.length * 15 + p.fresh.length * 40) / 60));
   let h = `<section class="sheet"><p class="lbl">Today · ${esc(C.name)}</p>`;
   if (n) {
     h += `<h1>${p.due.length ? 'Review, then new material' : 'Start with the next dialogue'}</h1>`
-      + `<div class="stats"><div><b>${p.due.length}</b><span>reviews due</span></div><div><b>${p.fresh.length + p.ear.length}</b><span>new items</span></div><div><b>${mins}</b><span>minutes, roughly</span></div></div>`
+      + `<div class="stats"><div><b>${p.due.length}</b><span>reviews due</span></div><div><b>${p.fresh.length}</b><span>new items</span></div><div><b>${mins}</b><span>minutes, roughly</span></div></div>`
       + '<button class="btn wide" data-act="start" data-primary>Start session</button>';
   } else {
     h += `<h1>Nothing is due right now</h1><p class="muted">${left ? "You have done today's new items. Reviews come back tomorrow." : 'You have learned every item in the course. Reviews keep coming back on schedule.'}</p>`
@@ -771,12 +777,15 @@ function vCue(c) {
   return `<p class="cue"><span>${esc(R(c.cue))}</span>${extra ? `<em>${esc(extra)}</em>` : ''}</p>`;
 }
 // The round record button. ph: null (ready), 'rec' (listening) or 'busy' (checking).
-function micHtml(ph = sess.phase, err = sess.micErr, idle = handsOn() ? 'Get ready. Listening starts on its own.' : 'Tap and speak', act = 'mic') {
-  return '<div class="mic-wrap">'
-    + (ph === 'busy'
-      ? `<button class="mic busy" disabled aria-label="Checking">${SPIN}</button><p class="mic-label muted">Checking…</p>`
-      : `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="${act}" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label">${ph === 'rec' ? 'Listening… stops when you pause' : idle}</p>`)
-    + '</div>' + (err ? `<p class="err">${esc(err)}</p>` : '');
+function micHtml(ph = sess.phase, err = sess.micErr, idle = handsOn() ? 'Listen to the prompt. A countdown follows.' : 'Tap and speak', act = 'mic') {
+  const own = act === 'mic' && sess;
+  const count = own && ph === 'rec' ? sess.count : 0;
+  const recLabel = count ? 'Get ready' : own && sess.handsRec ? 'Speak now' : 'Listening… stops when you pause';
+  let btn;
+  if (ph === 'busy') btn = `<button class="mic busy" disabled aria-label="Checking">${SPIN}</button><p class="mic-label muted">Checking…</p>`;
+  else if (count) btn = `<button class="mic count" data-act="${act}" data-primary aria-label="Starting in ${count}">${count}</button><p class="mic-label" aria-live="assertive">${recLabel}</p>`;
+  else btn = `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="${act}" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label" aria-live="polite">${ph === 'rec' ? recLabel : idle}</p>`;
+  return `<div class="mic-wrap">${btn}</div>${err ? `<p class="err">${esc(err)}</p>` : ''}`;
 }
 function vSession() {
   const st = cur();
@@ -803,17 +812,6 @@ function vSession() {
     h += `<p class="how">New line. Listen, then say it aloud three times.</p><p class="who">${esc(c.who)}</p>`
       + `<p class="es" lang="${esc(C.lang)}">${esc(R(c.target))}</p>${romLine(c.rom)}<p class="en">${esc(c.en)}</p>`
       + `<div class="row">${listenBtn}<button class="btn" data-act="learned" data-primary>I said it three times</button></div>`;
-  } else if (st.phase === 'listen') {
-    // Listening card: audio only, text hidden until you choose to look. No right or wrong.
-    h += '<p class="how">Listening. Try to follow it before you look. Replay as often as you like.</p>'
-      + `<div class="row"><button class="btn ghost" data-act="say" data-t="${esc(c.target)}">${PLAY} Play again</button><button class="btn ghost" data-act="sayslow" data-t="${esc(c.target)}">${PLAY} Slowly</button></div>`;
-    if (sess.revealed) {
-      h += `<div class="answer"><p class="who">${esc(c.who)}</p><p class="es" lang="${esc(C.lang)}">${esc(R(c.target))}</p>${romLine(c.rom)}<p class="en">${esc(c.en)}</p></div>`
-        + '<button class="btn wide" data-act="grade" data-g="slow" data-primary>Next</button>';
-    } else {
-      h += '<div class="concealed" aria-hidden="true"><span></span><span></span><span></span></div>'
-        + '<div class="row"><button class="btn" data-act="grade" data-g="good" data-primary>Understood</button><button class="btn ghost" data-act="reveal-text">Reveal the text</button></div>';
-    }
   } else {
     h += `<p class="how">${esc(c.kind === 'line' ? C.sayIt : c.how)}</p>`;
     if (c.base) {
@@ -868,7 +866,6 @@ function vEnd() {
   const tom = CARDS.filter((c) => S.cards[c.id] && S.cards[c.id].d <= t + 1).length;
   return `<section class="sheet"><p class="lbl">Session complete</p><h1>${esc(C.doneMessage || 'Well done. See you tomorrow.')}</h1>`
     + `<div class="stats"><div><b>${sess.rev}</b><span>reviews</span></div><div><b>${sess.neu}</b><span>new items</span></div><div><b>${sess.missed.size}</b><span>needed a repeat</span></div></div>`
-    + (sess.listens ? `<p class="muted">Listening cards: ${sess.listens}. Times you revealed the text: ${sess.peeks}.</p>` : '')
     + `<p class="muted">${tom} items will be due by tomorrow. Streak: ${S.streak}${S.streak === 1 ? ' day' : ' days'}.</p>`
     + (sess.lats.length ? `<p class="muted">Average time to start answering: ${(sess.lats.reduce((a, b) => a + b, 0) / sess.lats.length / 1000).toFixed(1)} s across ${sess.lats.length} spoken answers.</p>` : '')
     + `<div class="row"><button class="btn" data-act="home" data-primary>Done</button>${left ? '<button class="btn ghost" data-act="more">Add 5 more new items</button>' : ''}</div></section>`;
@@ -911,8 +908,7 @@ function vGuide() {
 <li><b>New line</b> cards: listen, then say the line. In Speaking mode the app checks it; if it doesn't match, listen again and have another go.</li>
 <li><b>Drill</b> cards: change a sentence (swap in a word, make it negative) or translate from English. Answer out loud before you check.</li>
 <li>Items you miss come back a few cards later. Items you know come back in 1, 3, 7, 14, 30 and 60 days.</li>
-<li><b>Listening</b> cards: hear a line you already know, with the text hidden. Tap <b>Understood</b> if you followed it, or <b>Reveal the text</b> to look. There is no wrong answer; lines you reveal just come back a little sooner. The end of each session shows how many times you revealed the text.</li>
-<li>Speed counts. A spoken answer is <b>automatic</b> only if you start talking within about 2.5 seconds of the prompt (3.5 seconds when you have to read English first). Correct but slower answers come back tomorrow so they get faster.</li>
+<li>Speed counts. In hands-free, a spoken answer is <b>automatic</b> if you start talking within about 1.5 seconds of the countdown ending (starting early is fine). When you tap the mic yourself, the allowance is about 3.5 seconds from the prompt, or 4.5 seconds when you have to read English first. Correct but slower answers come back tomorrow so they get faster.</li>
 </ol>
 ${chatOn ? `<h2>Talk</h2>
 <p>The <b>Talk</b> tab is a short role-play with an AI partner who only uses what you have studied so far. Answer out loud (or type), tap any of its lines to see the English, and get a few friendly pointers at the end. It's practice for real conversation, so don't worry about mistakes.</p>
@@ -920,11 +916,10 @@ ${chatOn ? `<h2>Talk</h2>
 <ul>
 <li><b>Language:</b> pick it from the menu at the top right. Each language keeps its own progress.</li>
 <li><b>Answer by:</b> Speaking (the app listens and checks you) or Typing.</li>
-<li><b>Hands-free</b> (Speaking only): the app starts listening when the prompt finishes, stops when you go quiet and moves on after a correct answer. No tapping. Pause it from the bottom of the card.</li>
+<li><b>Hands-free</b> (Speaking only, on by default): after the prompt, a 3, 2, 1 countdown tells you when to speak. The app stops listening when you go quiet and moves on after a correct answer. No tapping. Pause it from the bottom of the card, or turn it off here.</li>
 <li><b>Voice speed:</b> Slow plays everything at three-quarter speed.</li>
 <li><b>Polite form</b> (Thai): pick Male (khráp) or Female (khâ). Every sentence and recording switches to match.</li>
 <li><b>Pronunciation:</b> show or hide the spelling in Latin letters under each sentence. Hide it once you can read the script.</li>
-<li><b>Listening cards:</b> turn them off if you only want speaking drills.</li>
 <li><b>New items a day:</b> 5 for a light pace, 20 if your trip is soon.</li>
 </ul>
 <h2>Speech checking</h2>
@@ -1066,7 +1061,7 @@ document.addEventListener('click', async (e) => {
   else if (a === 'more') { unlockAudio(); start(5); }
   else if (a === 'say') {
     // Replaying the prompt restarts the speed clock (and hands-free listening) once it ends.
-    const waiting = sess && !sess.end && tab === 'today' && !sess.shown && !sess.phase && cur().phase !== 'listen';
+    const waiting = sess && !sess.end && tab === 'today' && !sess.shown && !sess.phase;
     say(b.dataset.t, waiting ? afterPrompt(sess.tok) : null);
   }
   else if (a === 'pause') togglePause();
@@ -1077,8 +1072,6 @@ document.addEventListener('click', async (e) => {
   else if (a === 'talk-retry') talkTurn();
   else if (a === 'talk-finish') { stopAll(); if (talk.msgs.some((m) => m.role === 'me')) endTalk(); else talk = null; render(); }
   else if (a === 'talk-close') { stopAll(); talk = null; render(); }
-  else if (a === 'sayslow') { const was = S.slow; S.slow = true; say(b.dataset.t); S.slow = was; }
-  else if (a === 'reveal-text') { sess.revealed = true; sess.peeks++; render(); say(BY[cur().id].target); }
   else if (a === 'dlg') sayAll(U[+b.dataset.u].dialogue.map((l) => l.target));
   else if (a === 'learned') learned();
   else if (a === 'mic') { unlockAudio(); if (sess.phase === 'rec') stopRec(); else if (!sess.phase) startRec(); }
@@ -1089,7 +1082,6 @@ document.addEventListener('click', async (e) => {
     const k = b.dataset.k; const v = b.dataset.v;
     if (k === 'mode') S.mode = v;
     else if (k === 'hands') { S.hands = v === 'true'; unlockAudio(); }
-    else if (k === 'listen') S.listen = v === 'true';
     else if (k === 'slow') S.slow = v === 'true';
     else if (k === 'showRom') S.showRom = v === 'true';
     else if (k === 'perDay') S.perDay = +v;
@@ -1115,7 +1107,7 @@ document.addEventListener('click', async (e) => {
   }
   else if (a === 'askreset') { confirmReset = true; render(); }
   else if (a === 'noreset') { confirmReset = false; render(); }
-  else if (a === 'reset') { S = clean({ mode: S.mode, slow: S.slow, hands: S.hands, listen: S.listen, perDay: S.perDay, showRom: S.showRom, variant: S.variant }); sess = null; confirmReset = false; save(); render(); }
+  else if (a === 'reset') { S = clean({ mode: S.mode, slow: S.slow, hands: S.hands, hv: 2, perDay: S.perDay, showRom: S.showRom, variant: S.variant }); sess = null; confirmReset = false; save(); render(); }
 });
 // Leaving the app mid-session (phone call, switching apps): stop listening and pause hands-free.
 document.addEventListener('visibilitychange', () => {
