@@ -540,13 +540,14 @@ function start(nNew) {
   auto();
 }
 function resetCard() {
-  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, tries: 0, echo: null, tok: sess.tok + 1 });
+  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, next: 0, tries: 0, echo: null, tok: sess.tok + 1 });
 }
 function cur() { return sess.q[sess.i]; }
 function countNew() { const t = today(); if (S.newDay !== t) { S.newDay = t; S.newCount = 0; } S.newCount++; }
 function touchDay() { const t = today(); if (S.last !== t) { S.streak = S.last === t - 1 ? S.streak + 1 : 1; S.last = t; } }
 function advance() {
   stopRec(true);
+  stopNext();
   sess.i++;
   resetCard();
   if (sess.i >= sess.q.length) sess.end = true;
@@ -587,17 +588,34 @@ function auto() {
   if (sess.shown) {
     // Hands-free: after a correct answer, play it once more, then move on (a little later if it was slow,
     // so there is time to tap "Count as automatic").
+    // Hands-free: after a correct answer the right sentence plays once more, then the Next button counts
+    // down so there is time to repeat it aloud. Tapping Next moves on straight away.
     const go = handsOn() && sess.res === 'ok';
-    say(c.target, go ? () => setTimeout(() => { if (live(tok) && handsOn()) grade(sess.autoG || 'good'); }, sess.autoG === 'slow' ? 1800 : 600) : null);
+    say(c.target, go ? () => nextCountdown(tok) : null);
     return;
   }
   if (c.base) say(c.base, afterPrompt(tok));
   else { stopAll(); afterPrompt(tok)(); }
 }
+const NEXT_WAIT = 10; // seconds before hands-free moves on by itself after a correct answer
+let nextTimer = 0;
+function nextCountdown(tok) {
+  if (!live(tok) || !handsOn()) return;
+  clearInterval(nextTimer);
+  sess.next = NEXT_WAIT;
+  render();
+  nextTimer = setInterval(() => {
+    if (!live(tok) || !handsOn()) { stopNext(); if (live(tok)) render(); return; }
+    sess.next--;
+    if (sess.next <= 0) { stopNext(); grade(sess.autoG || 'good'); return; }
+    render();
+  }, 1000);
+}
+function stopNext() { clearInterval(nextTimer); if (sess) sess.next = 0; }
 function togglePause() {
   sess.paused = !sess.paused;
   sess.micErr = '';
-  if (sess.paused) { stopRec(true); stopAll(); render(); return; }
+  if (sess.paused) { stopRec(true); stopNext(); stopAll(); render(); return; }
   unlockAudio();
   render();
   if (!sess.shown && !sess.phase) afterPrompt(sess.tok)();
@@ -801,6 +819,13 @@ function vCue(c) {
   const extra = [c.cueRom && showRom() ? RR(c.cueRom) : '', c.cueEn].filter(Boolean).join(' · ');
   return `<p class="cue"><span>${esc(R(c.cue))}</span>${extra ? `<em>${esc(extra)}</em>` : ''}</p>`;
 }
+// Next button; in hands-free it shows the seconds left and fills as it counts down.
+function nextBtn(g, cls) {
+  const n = sess.next || 0;
+  const fill = n ? ` style="--fill:${Math.round(((NEXT_WAIT - n) / NEXT_WAIT) * 100)}%"` : '';
+  return `<button class="btn${cls}${n ? ' counting' : ''}" data-act="grade" data-g="${g}" data-primary${fill}>Next${n ? ` <span class="secs">${n}</span>` : ''}</button>`
+    + (n ? '<p class="muted small center">Repeat it aloud. Moving on when the timer ends.</p>' : '');
+}
 // The round record button. ph: null (ready), 'rec' (listening) or 'busy' (checking).
 function micHtml(ph = sess.phase, err = sess.micErr, idle = handsOn() ? 'Listen to the prompt. A countdown follows.' : 'Tap and speak', act = 'mic') {
   const own = act === 'mic' && sess;
@@ -878,8 +903,8 @@ function vSession() {
       h += `<p class="es" lang="${esc(C.lang)}">${esc(R(c.target))} <button class="play" data-act="say" data-t="${esc(c.target)}" aria-label="Play the answer">${PLAY}</button></p>${romLine(c.rom)}`;
       if (c.kind === 'line') h += `<p class="who">${esc(c.who)}</p>`;
       h += '</div>';
-      if (sess.res === 'ok' && sess.autoG === 'slow') h += '<div class="row"><button class="btn" data-act="grade" data-g="slow" data-primary>Next</button><button class="btn link" data-act="grade" data-g="good">Count as automatic</button></div>';
-      else if (sess.res === 'ok' || sess.res === 'accent') h += '<button class="btn wide" data-act="grade" data-g="good" data-primary>Next</button>';
+      if (sess.res === 'ok' && sess.autoG === 'slow') h += `<div class="row">${nextBtn('slow', '')}<button class="btn link" data-act="grade" data-g="good">Count as automatic</button></div>`;
+      else if (sess.res === 'ok' || sess.res === 'accent') h += nextBtn('good', ' wide');
       else if (sess.res === 'no') h += '<div class="row"><button class="btn" data-act="grade" data-g="miss" data-primary>Next</button><button class="btn link" data-act="grade" data-g="good">Count it as correct</button></div>';
       else h += '<div class="grades"><button class="g-miss" data-act="grade" data-g="miss">Missed<small>again today</small></button><button class="g-slow" data-act="grade" data-g="slow">Slow<small>tomorrow</small></button><button class="g-good" data-act="grade" data-g="good">Automatic<small>later</small></button></div>';
     }
@@ -945,7 +970,7 @@ ${chatOn ? `<h2>Talk</h2>
 <ul>
 <li><b>Language:</b> pick it from the menu at the top right. Each language keeps its own progress.</li>
 <li><b>Answer by:</b> Speaking (the app listens and checks you) or Typing.</li>
-<li><b>Hands-free</b> (Speaking only, on by default): after the prompt, a 3, 2, 1 countdown tells you when to speak. The app stops listening when you go quiet and moves on after a correct answer. No tapping. Pause it from the bottom of the card, or turn it off here.</li>
+<li><b>Hands-free</b> (Speaking only, on by default): after the prompt, a 3, 2, 1 countdown tells you when to speak. The app stops listening when you go quiet. After a correct answer it plays the sentence again and gives you 10 seconds to repeat it before moving on; tap Next to go sooner. No tapping. Pause it from the bottom of the card, or turn it off here.</li>
 <li><b>Voice speed:</b> Slow plays everything at three-quarter speed.</li>
 <li><b>Polite form</b> (Thai): pick Male (khráp) or Female (khâ). Every sentence and recording switches to match.</li>
 <li><b>Pronunciation:</b> show or hide the spelling in Latin letters under each sentence. Hide it once you can read the script.</li>
@@ -1145,6 +1170,7 @@ document.addEventListener('visibilitychange', () => {
   if (!sess || sess.end) return;
   stopRec(true);
   stopAll();
+  stopNext();
   if (S.hands) sess.paused = true;
   render();
 });
