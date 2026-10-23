@@ -10,6 +10,10 @@ const SPIN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1
 const CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.4 9.4a1 1 0 0 1 1.4 0L12 12.6l3.2-3.2a1 1 0 1 1 1.4 1.4l-3.9 3.9a1 1 0 0 1-1.4 0L7.4 10.8a1 1 0 0 1 0-1.4z"/></svg>';
 const INT = [0, 1, 3, 7, 14, 30, 60];
 const REVIEW_CAP = 25;
+// Speed grading: a correct spoken answer counts as automatic only if you start talking within this time.
+const FAST_AUDIO = 2500;    // ms after a spoken prompt (substitution and transformation drills) finishes
+const FAST_READ = 3500;     // ms after an English prompt appears, which you have to read first
+const TAP_ALLOWANCE = 1000; // extra ms when you tap the mic yourself instead of using hands-free
 const REPO = 'https://github.com/patrickcapstick-web/spanish_tutor';
 
 /* ---------- storage ---------- */
@@ -179,7 +183,7 @@ function checkSpoken(card, text, reading) { return check(card, spokenToText(text
 
 /* ---------- state (per language, this device) ---------- */
 function clean(r) {
-  const s = { cards: {}, streak: 0, last: 0, mode: 'speak', slow: false, perDay: 10, showRom: true, variant: '', newDay: 0, newCount: 0, t: 0 };
+  const s = { cards: {}, streak: 0, last: 0, mode: 'speak', slow: false, hands: false, perDay: 10, showRom: true, variant: '', newDay: 0, newCount: 0, t: 0 };
   if (!r || typeof r !== 'object') return s;
   if (r.cards && typeof r.cards === 'object') {
     for (const k in r.cards) {
@@ -190,6 +194,7 @@ function clean(r) {
   ['streak', 'last', 'newDay', 'newCount', 't'].forEach((k) => { if (typeof r[k] === 'number') s[k] = r[k]; });
   if (r.mode === 'type') s.mode = 'type';
   s.slow = !!r.slow;
+  s.hands = r.hands === true;
   if ([5, 10, 15, 20].includes(r.perDay)) s.perDay = r.perDay;
   if (r.showRom === false) s.showRom = false;
   if (typeof r.variant === 'string') s.variant = r.variant;
@@ -205,6 +210,8 @@ function loadState(id) { try { return clean(JSON.parse(store.get(stateKey(id))))
 const player = new Audio();
 player.preload = 'auto';
 let queue = [];
+let audioDone = null; // runs once when the current playback (and its queue) finishes
+let playGen = 0;      // bumps on every stop, so events from interrupted audio are ignored
 const warmed = new Set();
 let ttsVoice = null;
 const audioFile = (t) => (t && AUDIO.files && AUDIO.files[t]) || null;
@@ -217,33 +224,43 @@ function pickVoice() {
   ttsVoice = vs.find((v) => v.lang.toLowerCase().replace('_', '-') === lang) || vs.find((v) => v.lang.toLowerCase().startsWith(base)) || null;
 }
 function stopAll() {
+  playGen++;
+  audioDone = null;
   try { player.pause(); } catch {}
   try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch {}
 }
-function playNext() { if (queue.length) setTimeout(() => playNow(queue.shift()), 350); }
-player.addEventListener('ended', playNext);
+function finishAudio() { const f = audioDone; audioDone = null; if (f) f(); }
+function playNext() { if (queue.length) setTimeout(() => playNow(queue.shift()), 350); else finishAudio(); }
 function playNow(t) {
+  const g = playGen;
+  let fired = false;
+  const done = () => { if (fired || g !== playGen) return; fired = true; playNext(); };
   const f = audioFile(t);
   const rate = S.slow ? 0.75 : 1;
   if (f) {
+    player.onended = done;
+    player.onerror = done;
     player.src = `/audio/${C.id}/${f}`;
     player.defaultPlaybackRate = rate;
     player.playbackRate = rate;
     const p = player.play();
-    if (p) p.catch(() => {});
+    if (p) p.catch((e) => { if (e && e.name === 'NotAllowedError') done(); });
     return;
   }
-  if (!('speechSynthesis' in window)) return;
+  if (!('speechSynthesis' in window)) { setTimeout(done, 0); return; }
   try {
     const u = new SpeechSynthesisUtterance(t);
     u.lang = C.lang || C.speechLanguage;
     if (ttsVoice) u.voice = ttsVoice;
     u.rate = S.slow ? 0.7 : 0.95;
-    u.onend = playNext;
+    u.onend = done;
+    u.onerror = done;
     speechSynthesis.speak(u);
-  } catch {}
+    setTimeout(done, 2000 + String(t).length * 120); // some browsers never fire onend
+  } catch { setTimeout(done, 0); }
 }
-function say(t) { if (!t) return; queue = []; stopAll(); playNow(R(t)); }
+// Plays one sentence. cb runs when it has finished playing (used to start listening after a prompt).
+function say(t, cb) { queue = []; stopAll(); audioDone = cb || null; if (!t) { finishAudio(); return; } playNow(R(t)); }
 function sayAll(list) { if (!list.length) return; const l = list.map(R); queue = l.slice(1); stopAll(); playNow(l[0]); }
 function warm(c) {
   if (!c) return;
@@ -267,29 +284,115 @@ function speechWhy() {
   if (needPass && !PASS) return 'This app needs a passcode for speech checking. Enter it on the Today screen under Settings.';
   return '';
 }
-async function startRec() {
+/* Hands-free: after a prompt plays, listening starts on its own, stops when you go quiet,
+   and a correct answer moves to the next card by itself. */
+const handsOn = () => !!(S.hands && sess && !sess.end && !sess.paused && tab === 'today' && speechOn() && document.visibilityState !== 'hidden');
+const limitFor = (card, hands) => (card.base ? FAST_AUDIO : FAST_READ) + (hands ? 0 : TAP_ALLOWANCE);
+const live = (tok) => !!(sess && !sess.end && sess.tok === tok);
+
+// One AudioContext, created on a tap so phone browsers let it run. It measures how loud the mic is,
+// to tell when you start talking (your speed) and when you stop (so recording ends by itself).
+let actx = null;
+function unlockAudio() {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!actx) actx = new AC();
+    if (actx.state === 'suspended') actx.resume().catch(() => {});
+  } catch {}
+}
+function listen(stream, card, tok) {
+  if (!actx) return null;
+  let src;
+  let an;
+  try { src = actx.createMediaStreamSource(stream); an = actx.createAnalyser(); an.fftSize = 1024; src.connect(an); } catch { return null; }
+  const buf = new Float32Array(an.fftSize);
+  const t1 = performance.now();
+  const wait = card.base ? 7000 : 9000; // give up if nothing is said by then
+  const v = { ok: true, heard: false, stop };
+  let noise = 0.004; // running estimate of background noise
+  let loud = 0;
+  let first = 0;
+  let quiet = 0;
+  const iv = setInterval(() => {
+    if (!live(tok) || !rec) { stop(); return; }
+    if (actx.state !== 'running') { if (performance.now() - t1 > 400) { v.ok = false; stop(); } return; }
+    an.getFloatTimeDomainData(buf);
+    let sum = 0;
+    for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+    const rms = Math.sqrt(sum / buf.length);
+    const now = performance.now();
+    if (!v.heard) {
+      if (rms > Math.max(0.02, noise * 4)) {
+        if (!loud++) first = now;
+        if (loud >= 2) { v.heard = true; sess.onset = first; }
+      } else { loud = 0; noise = noise * 0.9 + rms * 0.1; }
+      if (!v.heard && now - t1 > wait) { stop(); stopRec(); }
+    } else if (rms < Math.max(0.012, noise * 2.5)) {
+      if (!quiet) quiet = now;
+      else if (now - quiet > 900) { stop(); stopRec(); }
+    } else quiet = 0;
+  }, 50);
+  function stop() { clearInterval(iv); try { src.disconnect(); } catch {} }
+  return v;
+}
+function afterPrompt(tok) {
+  return () => {
+    if (!live(tok) || sess.shown || sess.phase) return;
+    sess.t0 = performance.now(); // speed is measured from here
+    if (handsOn()) setTimeout(() => { if (live(tok) && !sess.shown && !sess.phase && handsOn()) startRec(true); }, 150);
+  };
+}
+let starting = false;
+async function startRec(auto = false) {
+  if (!sess || sess.end || sess.phase || starting) return;
+  const tok = sess.tok;
+  const card = BY[cur().id];
+  if (!sess.t0) sess.t0 = performance.now();
+  starting = true;
   let stream;
-  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { micBlocked = true; render(); return; }
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch {
+    starting = false;
+    // A browser that refuses to open the mic without a tap: pause hands-free rather than give up on checking.
+    if (auto && live(tok)) { sess.paused = true; sess.micErr = 'Tap the mic to answer. Hands-free is paused.'; render(); return; }
+    micBlocked = true; render(); return;
+  }
+  starting = false;
+  if (!live(tok) || sess.shown || tab !== 'today') { stream.getTracks().forEach((t) => t.stop()); return; }
   stopAll();
   const type = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm', 'audio/aac'].find((t) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
   const chunks = [];
-  try { rec = new MediaRecorder(stream, type ? { mimeType: type } : undefined); } catch {
+  let r;
+  try { r = new MediaRecorder(stream, type ? { mimeType: type } : undefined); } catch {
     stream.getTracks().forEach((t) => t.stop()); micBlocked = true; render(); return;
   }
-  rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
-  rec.onstop = () => {
+  rec = r;
+  r.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+  r.onstop = () => {
     stream.getTracks().forEach((t) => t.stop());
-    const blob = new Blob(chunks, { type: (rec && rec.mimeType) || type || 'audio/mp4' });
-    rec = null;
-    transcribe(blob);
+    if (r.vad) r.vad.stop();
+    if (rec === r) rec = null;
+    if (r.discard || !live(tok)) return;
+    if (r.vad && r.vad.ok && !r.vad.heard) { nothingHeard(); return; } // silence: skip the server call
+    transcribe(new Blob(chunks, { type: r.mimeType || type || 'audio/mp4' }));
   };
-  rec.start();
-  sess.phase = 'rec';
-  sess.micErr = '';
+  r.start();
+  Object.assign(sess, { phase: 'rec', micErr: '', onset: 0, handsRec: auto });
+  r.vad = listen(stream, card, tok);
   render();
-  recTimer = setTimeout(stopRec, 10000);
+  recTimer = setTimeout(() => stopRec(), 12000);
 }
-function stopRec() { clearTimeout(recTimer); if (rec && rec.state !== 'inactive') rec.stop(); }
+// discard: stop without checking the answer (leaving the screen, pausing).
+function stopRec(discard) {
+  clearTimeout(recTimer);
+  if (rec && rec.state !== 'inactive') { if (discard) rec.discard = true; rec.stop(); }
+  if (discard && sess && sess.phase === 'rec') sess.phase = null;
+}
+function nothingHeard() {
+  Object.assign(sess, { phase: null, heard: '', res: 'no', shown: true });
+  render();
+  auto();
+}
 async function transcribe(blob) {
   if (!sess || sess.end) return;
   sess.phase = 'busy';
@@ -314,6 +417,13 @@ async function transcribe(blob) {
     const j = await r.json();
     sess.heard = j.text || '';
     sess.res = sess.heard ? checkSpoken(BY[id], sess.heard, j.reading) : 'no';
+    if (sess.res === 'ok') {
+      // Speed grading: right but slow comes back tomorrow, right and fast moves up the schedule.
+      const lat = sess.onset && sess.t0 ? Math.max(0, sess.onset - sess.t0) : null;
+      sess.lat = lat;
+      sess.autoG = lat != null && lat > limitFor(BY[id], sess.handsRec) ? 'slow' : 'good';
+      if (lat != null) sess.lats.push(lat);
+    }
     sess.shown = true;
     sess.phase = null;
     render();
@@ -356,16 +466,19 @@ function start(nNew) {
   if (!p.due.length && !p.fresh.length) return;
   const q = p.due.map((c) => ({ id: c.id, phase: 'test' }))
     .concat(p.fresh.map((c) => ({ id: c.id, phase: c.kind === 'line' ? 'learn' : 'test' })));
-  sess = { q, i: 0, total: q.length, done: new Set(), missed: new Set(), rev: p.due.length, neu: p.fresh.length };
+  sess = { q, i: 0, total: q.length, done: new Set(), missed: new Set(), rev: p.due.length, neu: p.fresh.length, lats: [], paused: false, tok: 0 };
   resetCard();
   render();
   auto();
 }
-function resetCard() { Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '' }); }
+function resetCard() {
+  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, tok: sess.tok + 1 });
+}
 function cur() { return sess.q[sess.i]; }
 function countNew() { const t = today(); if (S.newDay !== t) { S.newDay = t; S.newCount = 0; } S.newCount++; }
 function touchDay() { const t = today(); if (S.last !== t) { S.streak = S.last === t - 1 ? S.streak + 1 : 1; S.last = t; } }
 function advance() {
+  stopRec(true);
   sess.i++;
   resetCard();
   if (sess.i >= sess.q.length) sess.end = true;
@@ -399,9 +512,27 @@ function auto() {
   if (!sess || sess.end) return;
   const st = cur();
   const c = BY[st.id];
-  if (st.phase === 'learn' || sess.shown) say(c.target); else if (c.base) say(c.base);
+  const tok = sess.tok;
   const nx = sess.q[sess.i + 1];
   if (nx) warm(BY[nx.id]);
+  if (st.phase === 'learn') { say(c.target); return; }
+  if (sess.shown) {
+    // Hands-free: after a correct answer, play it once more, then move on (a little later if it was slow,
+    // so there is time to tap "Count as automatic").
+    const go = handsOn() && sess.res === 'ok';
+    say(c.target, go ? () => setTimeout(() => { if (live(tok) && handsOn()) grade(sess.autoG || 'good'); }, sess.autoG === 'slow' ? 1800 : 600) : null);
+    return;
+  }
+  if (c.base) say(c.base, afterPrompt(tok));
+  else { stopAll(); afterPrompt(tok)(); }
+}
+function togglePause() {
+  sess.paused = !sess.paused;
+  sess.micErr = '';
+  if (sess.paused) { stopRec(true); stopAll(); render(); return; }
+  unlockAudio();
+  render();
+  if (!sess.shown && !sess.phase && cur().phase === 'test') afterPrompt(sess.tok)();
 }
 
 /* ---------- views ---------- */
@@ -411,6 +542,7 @@ function seg(name, opts, val) {
 function options() {
   let h = '<div class="opts">'
     + `<div class="opt"><span class="lbl">Answer by</span>${seg('mode', [['speak', 'Speaking'], ['type', 'Typing']], S.mode)}</div>`
+    + (S.mode === 'speak' ? `<div class="opt"><span class="lbl">Hands-free</span>${seg('hands', [['true', 'On'], ['false', 'Off']], S.hands)}</div>` : '')
     + `<div class="opt"><span class="lbl">Voice speed</span>${seg('slow', [['false', 'Normal'], ['true', 'Slow']], S.slow)}</div>`;
   if (C.variants) h += `<div class="opt"><span class="lbl">${esc(C.variants.label || 'Form')}</span>${seg('variant', C.variants.options.map((o) => [o.id, o.label]), variant().id)}</div>`;
   if (hasRom()) h += `<div class="opt"><span class="lbl">${esc(C.romanization || 'Pronunciation')}</span>${seg('showRom', [['true', 'Show'], ['false', 'Hide']], showRom())}</div>`;
@@ -476,10 +608,11 @@ function vSession() {
           + '<div class="row"><button class="btn" type="submit">Check</button><button class="btn link" type="button" data-act="reveal">I do not know</button></div></form>';
       } else if (speechOn()) {
         const ph = sess.phase;
+        const idle = handsOn() ? 'Get ready. Listening starts on its own.' : 'Tap and say your answer';
         h += '<div class="mic-wrap">'
           + (ph === 'busy'
             ? `<button class="mic busy" disabled aria-label="Checking your answer">${SPIN}</button><p class="mic-label muted">Checking…</p>`
-            : `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="mic" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record your answer'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label">${ph === 'rec' ? 'Listening… tap to stop' : 'Tap and say your answer'}</p>`)
+            : `<button class="mic${ph === 'rec' ? ' rec' : ''}" data-act="mic" data-primary aria-label="${ph === 'rec' ? 'Stop recording' : 'Record your answer'}">${ph === 'rec' ? STOP : MIC}</button><p class="mic-label">${ph === 'rec' ? 'Listening… stops when you pause' : idle}</p>`)
           + '</div>';
         if (sess.micErr) h += `<p class="err">${esc(sess.micErr)}</p>`;
         if (!sess.phase) h += '<div class="row" style="justify-content:center"><button class="btn link" data-act="reveal">Show answer instead</button></div>';
@@ -490,20 +623,27 @@ function vSession() {
     } else {
       h += '<div class="answer">';
       if (sess.res) {
-        const v = { ok: 'Correct', accent: 'Right words. Check the accents.', no: 'Not yet' }[sess.res];
-        h += `<p class="verdict v-${sess.res}">${v}</p>`;
+        const secs = sess.lat != null ? `${(sess.lat / 1000).toFixed(1)} s` : '';
+        const slow = sess.res === 'ok' && sess.autoG === 'slow';
+        const v = slow ? `Correct, but slow · ${secs}`
+          : { ok: `Correct${secs ? ` · ${secs}` : ''}`, accent: 'Right words. Check the accents.', no: 'Not yet' }[sess.res];
+        h += `<p class="verdict v-${slow ? 'accent' : sess.res}">${esc(v)}</p>`;
+        if (slow) h += '<p class="muted small">It comes back tomorrow so it gets faster.</p>';
         if (sess.heard !== null) h += `<p class="muted">You said: ${sess.heard ? esc(sess.heard) : '(nothing was heard)'}</p>`;
         else if (sess.res !== 'ok' && sess.typed) h += `<p class="muted">You wrote: ${esc(sess.typed)}</p>`;
       }
       h += `<p class="es" lang="${esc(C.lang)}">${esc(R(c.target))} <button class="play" data-act="say" data-t="${esc(c.target)}" aria-label="Play the answer">${PLAY}</button></p>${romLine(c.rom)}`;
       if (c.kind === 'line') h += `<p class="who">${esc(c.who)}</p>`;
       h += '</div>';
-      if (sess.res === 'ok' || sess.res === 'accent') h += '<button class="btn wide" data-act="grade" data-g="good" data-primary>Next</button>';
+      if (sess.res === 'ok' && sess.autoG === 'slow') h += '<div class="row"><button class="btn" data-act="grade" data-g="slow" data-primary>Next</button><button class="btn link" data-act="grade" data-g="good">Count as automatic</button></div>';
+      else if (sess.res === 'ok' || sess.res === 'accent') h += '<button class="btn wide" data-act="grade" data-g="good" data-primary>Next</button>';
       else if (sess.res === 'no') h += '<div class="row"><button class="btn" data-act="grade" data-g="miss" data-primary>Next</button><button class="btn link" data-act="grade" data-g="good">Count it as correct</button></div>';
       else h += '<div class="grades"><button class="g-miss" data-act="grade" data-g="miss">Missed<small>again today</small></button><button class="g-slow" data-act="grade" data-g="slow">Slow<small>tomorrow</small></button><button class="g-good" data-act="grade" data-g="good">Automatic<small>later</small></button></div>';
     }
   }
-  h += '</section><div class="row"><button class="btn link" data-act="quit">End session</button></div>';
+  const pause = S.hands && S.mode === 'speak' && speechOn()
+    ? `<button class="btn link" data-act="pause">${sess.paused ? 'Resume hands-free' : 'Pause hands-free'}</button>` : '';
+  h += `</section><div class="row"><button class="btn link" data-act="quit">End session</button>${pause}</div>`;
   return h;
 }
 function vEnd() {
@@ -513,6 +653,7 @@ function vEnd() {
   return `<section class="sheet"><p class="lbl">Session complete</p><h1>${esc(C.doneMessage || 'Well done. See you tomorrow.')}</h1>`
     + `<div class="stats"><div><b>${sess.rev}</b><span>reviews</span></div><div><b>${sess.neu}</b><span>new items</span></div><div><b>${sess.missed.size}</b><span>needed a repeat</span></div></div>`
     + `<p class="muted">${tom} items will be due by tomorrow. Streak: ${S.streak}${S.streak === 1 ? ' day' : ' days'}.</p>`
+    + (sess.lats.length ? `<p class="muted">Average time to start answering: ${(sess.lats.reduce((a, b) => a + b, 0) / sess.lats.length / 1000).toFixed(1)} s across ${sess.lats.length} spoken answers.</p>` : '')
     + `<div class="row"><button class="btn" data-act="home" data-primary>Done</button>${left ? '<button class="btn ghost" data-act="more">Add 5 more new items</button>' : ''}</div></section>`;
 }
 function vCourse() {
@@ -553,11 +694,13 @@ function vGuide() {
 <li><b>New line</b> cards: listen, then say the line out loud three times.</li>
 <li><b>Drill</b> cards: change a sentence (swap in a word, make it negative) or translate from English. Answer out loud before you check.</li>
 <li>Items you miss come back a few cards later. Items you know come back in 1, 3, 7, 14, 30 and 60 days.</li>
+<li>Speed counts. A spoken answer is <b>automatic</b> only if you start talking within about 2.5 seconds of the prompt (3.5 seconds when you have to read English first). Correct but slower answers come back tomorrow so they get faster.</li>
 </ol>
 <h2>Make it fit you</h2>
 <ul>
 <li><b>Language:</b> pick it from the menu at the top right. Each language keeps its own progress.</li>
 <li><b>Answer by:</b> Speaking (the app listens and checks you) or Typing.</li>
+<li><b>Hands-free</b> (Speaking only): the app starts listening when the prompt finishes, stops when you go quiet and moves on after a correct answer. No tapping. Pause it from the bottom of the card.</li>
 <li><b>Voice speed:</b> Slow plays everything at three-quarter speed.</li>
 <li><b>Polite form</b> (Thai): pick Male (khráp) or Female (khâ). Every sentence and recording switches to match.</li>
 <li><b>Pronunciation:</b> show or hide the spelling in Latin letters under each sentence. Hide it once you can read the script.</li>
@@ -605,7 +748,7 @@ async function openCourse(id) {
       fetch(`/courses/${id}.json`, { cache: 'no-cache' }).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
       fetch(`/audio/${id}/manifest.json`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { files: {} })).catch(() => ({ files: {} })),
     ]);
-    stopRec(); stopAll();
+    stopRec(true); stopAll();
     buildCards(course);
     AUDIO = manifest && manifest.files ? manifest : { files: {} };
     S = loadState(id);
@@ -627,23 +770,29 @@ async function openCourse(id) {
 /* ---------- events ---------- */
 document.addEventListener('click', async (e) => {
   const tb = e.target.closest('[data-tab]');
-  if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(); } render(); window.scrollTo(0, 0); return; }
+  if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(true); stopAll(); } render(); window.scrollTo(0, 0); return; }
   const b = e.target.closest('[data-act]');
   if (!b) return;
   const a = b.dataset.act;
   if (a === 'pick') openCourse(b.dataset.id);
-  else if (a === 'start') start(allowance());
-  else if (a === 'more') start(5);
-  else if (a === 'say') say(b.dataset.t);
+  else if (a === 'start') { unlockAudio(); start(allowance()); }
+  else if (a === 'more') { unlockAudio(); start(5); }
+  else if (a === 'say') {
+    // Replaying the prompt restarts the speed clock (and hands-free listening) once it ends.
+    const waiting = sess && !sess.end && tab === 'today' && !sess.shown && !sess.phase && cur().phase === 'test';
+    say(b.dataset.t, waiting ? afterPrompt(sess.tok) : null);
+  }
+  else if (a === 'pause') togglePause();
   else if (a === 'dlg') sayAll(U[+b.dataset.u].dialogue.map((l) => l.target));
   else if (a === 'learned') learned();
-  else if (a === 'mic') { if (sess.phase === 'rec') stopRec(); else if (!sess.phase) startRec(); }
+  else if (a === 'mic') { unlockAudio(); if (sess.phase === 'rec') stopRec(); else if (!sess.phase) startRec(); }
   else if (a === 'reveal') { sess.shown = true; sess.res = S.mode === 'type' ? 'no' : null; sess.typed = ''; render(); auto(); }
   else if (a === 'grade') grade(b.dataset.g);
-  else if (a === 'quit' || a === 'home') { stopRec(); sess = null; render(); }
+  else if (a === 'quit' || a === 'home') { stopRec(true); stopAll(); sess = null; render(); }
   else if (a === 'set') {
     const k = b.dataset.k; const v = b.dataset.v;
     if (k === 'mode') S.mode = v;
+    else if (k === 'hands') { S.hands = v === 'true'; unlockAudio(); }
     else if (k === 'slow') S.slow = v === 'true';
     else if (k === 'showRom') S.showRom = v === 'true';
     else if (k === 'perDay') S.perDay = +v;
@@ -670,6 +819,14 @@ document.addEventListener('click', async (e) => {
   else if (a === 'askreset') { confirmReset = true; render(); }
   else if (a === 'noreset') { confirmReset = false; render(); }
   else if (a === 'reset') { S = clean({ mode: S.mode, slow: S.slow, perDay: S.perDay, showRom: S.showRom, variant: S.variant }); sess = null; confirmReset = false; save(); render(); }
+});
+// Leaving the app mid-session (phone call, switching apps): stop listening and pause hands-free.
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'hidden' || !sess || sess.end) return;
+  stopRec(true);
+  stopAll();
+  if (S.hands) sess.paused = true;
+  render();
 });
 document.addEventListener('change', (e) => {
   if (e.target.id === 'langsel' && e.target.value) openCourse(e.target.value);
