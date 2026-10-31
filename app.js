@@ -312,6 +312,12 @@ function unlockAudio() {
 }
 // wait: give up if nothing is said by then. pauseMs: how long a silence ends the answer.
 // alive(): false once the recording is no longer wanted. onOnset(t): called when speech starts.
+// Real rooms are never silent, so this is deliberately hard to fool: it spends the first moment learning
+// the background noise (and ignoring the pop a phone mic makes when it opens), only counts sound that
+// lasts as speech, and treats a short blip followed by quiet (a cough, a breath, a bump) as not an answer.
+const SETTLE_MS = 450;  // learn the room, ignore the mic-open pop
+const ONSET_MS = 200;   // sound must last this long to count as the start of speech
+const MIN_VOICE = 450;  // speech shorter than this, then quiet, is treated as a blip
 function listen(stream, { wait, pauseMs = 900, alive, onOnset, stopFn }) {
   if (!actx) return null;
   let src;
@@ -320,10 +326,12 @@ function listen(stream, { wait, pauseMs = 900, alive, onOnset, stopFn }) {
   const buf = new Float32Array(an.fftSize);
   const t1 = performance.now();
   const v = { ok: true, heard: false, stop };
-  let noise = 0.004; // running estimate of background noise
-  let loud = 0;
+  let noise = 0;  // running estimate of background noise
+  let cal = [];   // levels heard while settling
+  let loud = 0;   // ms of continuous sound
   let first = 0;
   let quiet = 0;
+  let voiced = 0; // ms of sound since speech started
   const iv = setInterval(() => {
     if (!alive()) { stop(); return; }
     if (actx.state !== 'running') { if (performance.now() - t1 > 400) { v.ok = false; stop(); } return; }
@@ -332,16 +340,29 @@ function listen(stream, { wait, pauseMs = 900, alive, onOnset, stopFn }) {
     for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
     const rms = Math.sqrt(sum / buf.length);
     const now = performance.now();
+    if (now - t1 < SETTLE_MS) { cal.push(rms); return; }
+    if (cal) {
+      // Median of the settling window: a pop or click doesn't skew it.
+      cal.sort((a, b) => a - b);
+      noise = Math.max(0.003, cal.length ? cal[Math.floor(cal.length / 2)] : 0.004);
+      cal = null;
+    }
+    const speechLvl = Math.max(0.02, noise * 3.5);
+    const quietLvl = Math.max(0.012, noise * 2);
     if (!v.heard) {
-      if (rms > Math.max(0.02, noise * 4)) {
-        if (!loud++) first = now;
-        if (loud >= 2) { v.heard = true; if (onOnset) onOnset(first); }
-      } else { loud = 0; noise = noise * 0.9 + rms * 0.1; }
+      if (rms > speechLvl) {
+        if (!loud) first = now;
+        loud += 50;
+        if (loud >= ONSET_MS) { v.heard = true; voiced = loud; quiet = 0; if (onOnset) onOnset(first); }
+      } else { loud = 0; noise = noise * 0.95 + rms * 0.05; }
       if (!v.heard && now - t1 > wait) { stop(); stopFn(); }
-    } else if (rms < Math.max(0.012, noise * 2.5)) {
+    } else if (rms < quietLvl) {
       if (!quiet) quiet = now;
-      else if (now - quiet > pauseMs) { stop(); stopFn(); }
-    } else quiet = 0;
+      else if (now - quiet > pauseMs) {
+        if (voiced < MIN_VOICE) { v.heard = false; loud = 0; quiet = 0; voiced = 0; if (onOnset) onOnset(0); } // a blip: keep waiting
+        else { stop(); stopFn(); }
+      }
+    } else { quiet = 0; voiced += 50; }
   }, 50);
   function stop() { clearInterval(iv); try { src.disconnect(); } catch {} }
   return v;
@@ -355,7 +376,8 @@ function afterPrompt(tok) {
 }
 let starting = false;
 let cdTimer = 0;
-async function startRec(auto = false) {
+// cnt: countdown seconds before "Speak now" (hands-free only; 0 for a quick retry).
+async function startRec(auto = false, cnt = COUNTDOWN) {
   if (!sess || sess.end || sess.phase || starting) return;
   const tok = sess.tok;
   const card = BY[cur().id];
@@ -387,22 +409,27 @@ async function startRec(auto = false) {
     if (r.discard || !live(tok)) return;
     // Finished before the countdown even ended: as fast as it gets.
     if (sess.count > 0) { sess.t0 = sess.onset || performance.now(); sess.count = 0; }
-    if (r.vad && r.vad.ok && !r.vad.heard) { nothingHeard(); return; } // silence: skip the server call
-    transcribe(new Blob(chunks, { type: r.mimeType || type || 'audio/mp4' }));
+    // Silence: skip the server call. But if you tapped stop yourself, let the server listen anyway
+    // (the detector can miss a quiet voice); an empty result asks again rather than grading a miss.
+    if (r.vad && r.vad.ok && !r.vad.heard && !r.manual) { nothingHeard(); return; }
+    transcribe(new Blob(chunks, { type: r.mimeType || type || 'audio/mp4' }), !!r.manual);
   };
   r.start();
-  Object.assign(sess, { phase: 'rec', micErr: '', onset: 0, handsRec: auto, count: auto ? COUNTDOWN : 0 });
+  Object.assign(sess, { phase: 'rec', onset: 0, handsRec: auto, count: auto ? cnt : 0 });
+  if (auto && !cnt) sess.t0 = performance.now();
   // Hands-free: the mic is already recording during the 3, 2, 1, so an early start is never cut off.
   clearInterval(cdTimer);
-  if (auto) {
+  if (auto && cnt) {
     cdTimer = setInterval(() => {
       if (!live(tok) || rec !== r) { clearInterval(cdTimer); return; }
       sess.count--;
-      if (sess.count <= 0) { clearInterval(cdTimer); sess.count = 0; sess.t0 = performance.now(); }
-      render();
+      if (sess.count <= 0) { clearInterval(cdTimer); sess.count = 0; sess.t0 = performance.now(); render(); return; }
+      // Update the number in place: redrawing the screen every second can swallow a tap on a phone.
+      const m = document.querySelector('.mic.count');
+      if (m) { m.textContent = sess.count; m.setAttribute('aria-label', `Starting in ${sess.count}`); } else render();
     }, 1000);
   }
-  const extra = auto ? COUNTDOWN * 1000 : 0;
+  const extra = auto ? cnt * 1000 : 0;
   r.vad = listen(stream, {
     wait: extra + (card.base || cur().phase === 'learn' ? 7000 : 9000),
     alive: () => live(tok) && rec === r,
@@ -413,6 +440,13 @@ async function startRec(auto = false) {
   recTimer = setTimeout(() => stopRec(), 12000 + extra);
 }
 // discard: stop without checking the answer (leaving the screen, pausing).
+// Tapping the countdown skips straight to "Speak now" (it used to stop the recording and grade a miss).
+function goNow() {
+  clearInterval(cdTimer);
+  sess.count = 0;
+  sess.t0 = performance.now();
+  render();
+}
 function stopRec(discard) {
   clearTimeout(recTimer);
   if (discard) { clearInterval(cdTimer); if (sess) sess.count = 0; }
@@ -460,7 +494,7 @@ function echo(tok, n) {
     }, gap);
   });
 }
-async function transcribe(blob) {
+async function transcribe(blob, manual = false) {
   if (!sess || sess.end) return;
   sess.phase = 'busy';
   render();
@@ -482,6 +516,16 @@ async function transcribe(blob) {
     if (r.status === 400) { sess.phase = null; sess.micErr = 'That recording was too short. Tap and speak again.'; render(); return; }
     if (!r.ok) throw new Error(String(r.status));
     const j = await r.json();
+    // Nothing recognisable in the recording (noise rather than words): ask again once instead of a miss.
+    // A tap with nothing said is never a miss; the "Show answer instead" link is there to give up.
+    if (!j.text && (!sess.retried || manual)) {
+      sess.retried = true;
+      sess.phase = null;
+      sess.micErr = "Didn't catch that. Say it again.";
+      render();
+      if (handsOn()) setTimeout(() => { if (sess && !sess.end && cur().id === id && !sess.phase && !sess.shown) startRec(true, 0); }, 300);
+      return;
+    }
     if (cur().phase === 'learn') { learnResult(j.text ? checkSpoken(BY[id], j.text, j.reading) : 'no', j.text || ''); return; }
     sess.heard = j.text || '';
     sess.res = sess.heard ? checkSpoken(BY[id], sess.heard, j.reading) : 'no';
@@ -540,7 +584,7 @@ function start(nNew) {
   auto();
 }
 function resetCard() {
-  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, next: 0, tries: 0, echo: null, tok: sess.tok + 1 });
+  Object.assign(sess, { shown: false, res: null, typed: '', heard: null, phase: null, micErr: '', t0: 0, onset: 0, lat: null, autoG: null, handsRec: false, count: 0, next: 0, tries: 0, echo: null, retried: false, tok: sess.tok + 1 });
 }
 function cur() { return sess.q[sess.i]; }
 function countNew() { const t = today(); if (S.newDay !== t) { S.newDay = t; S.newCount = 0; } S.newCount++; }
@@ -830,7 +874,7 @@ function nextBtn(g, cls) {
 function micHtml(ph = sess.phase, err = sess.micErr, idle = handsOn() ? 'Listen to the prompt. A countdown follows.' : 'Tap and speak', act = 'mic') {
   const own = act === 'mic' && sess;
   const count = own && ph === 'rec' ? sess.count : 0;
-  const recLabel = count ? 'Get ready' : own && sess.handsRec ? 'Speak now' : 'Listening… stops when you pause';
+  const recLabel = count ? 'Get ready · tap to skip' : own && sess.handsRec ? 'Speak now' : 'Listening… stops when you pause';
   let btn;
   if (ph === 'busy') btn = `<button class="mic busy" disabled aria-label="Checking">${SPIN}</button><p class="mic-label muted">Checking…</p>`;
   else if (count) btn = `<button class="mic count" data-act="${act}" data-primary aria-label="Starting in ${count}">${count}</button><p class="mic-label" aria-live="assertive">${recLabel}</p>`;
@@ -1128,7 +1172,7 @@ document.addEventListener('click', async (e) => {
   else if (a === 'talk-close') { stopAll(); talk = null; render(); }
   else if (a === 'dlg') sayAll(U[+b.dataset.u].dialogue.map((l) => l.target));
   else if (a === 'learned') learned();
-  else if (a === 'mic') { unlockAudio(); if (sess.phase === 'rec') stopRec(); else if (!sess.phase) startRec(); }
+  else if (a === 'mic') { unlockAudio(); if (sess.phase === 'rec' && sess.count > 0) goNow(); else if (sess.phase === 'rec') { if (rec) rec.manual = true; stopRec(); } else if (!sess.phase) startRec(); }
   else if (a === 'reveal') { sess.shown = true; sess.res = S.mode === 'type' ? 'no' : null; sess.typed = ''; render(); auto(); }
   else if (a === 'grade') grade(b.dataset.g);
   else if (a === 'quit' || a === 'home') { stopRec(true); stopAll(); sess = null; render(); }
