@@ -46,7 +46,7 @@
     {
      "speaker": "Ana",
      "target": "Hola, buenos días.",
-     "en": "Hello, good morning."
+     "en": "Hi, good morning."
     },
     {
      "speaker": "Leo",
@@ -56,39 +56,39 @@
     {
      "speaker": "Ana",
      "target": "Muy bien, gracias. ¿Y tú?",
-     "en": "Very well, thanks. And you?"
+     "en": "Really good, thanks. And you?"
     },
     {
      "speaker": "Leo",
      "target": "Bien también. ¿Cómo te llamas?",
-     "en": "Fine too. What is your name?"
+     "en": "Good too. What's your name?"
     },
     {
      "speaker": "Ana",
      "target": "Me llamo Ana. ¿Y tú?",
-     "en": "My name is Ana. And you?"
+     "en": "My name's Ana. And you?"
     },
     {
      "speaker": "Leo",
      "target": "Me llamo Leo. Mucho gusto.",
-     "en": "My name is Leo. Nice to meet you."
+     "en": "My name's Leo. Nice to meet you."
     },
     {
      "speaker": "Ana",
      "target": "Encantada. Hasta luego.",
-     "en": "Pleased to meet you. See you later."
+     "en": "Nice to meet you too. See you later."
     },
     {
      "speaker": "Leo",
      "target": "Adiós, hasta luego.",
-     "en": "Goodbye, see you later."
+     "en": "Bye, see you later."
     }
    ],
    "drills": [
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Buenos días.",
@@ -130,7 +130,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "¿Cómo estás?",
@@ -178,7 +178,7 @@
        ]
       },
       {
-       "en": "Very well, and you?",
+       "en": "Really good, and you?",
        "answers": [
         "Muy bien, ¿y tú?"
        ]
@@ -190,7 +190,7 @@
        ]
       },
       {
-       "en": "Hello, my name is Leo.",
+       "en": "Hi, my name's Leo.",
        "answers": [
         "Hola, me llamo Leo."
        ]
@@ -219,17 +219,17 @@
     {
      "speaker": "Leo",
      "target": "Soy de Estados Unidos. ¿Y tú?",
-     "en": "I am from the United States. And you?"
+     "en": "I'm from the US. And you?"
     },
     {
      "speaker": "Ana",
      "target": "Soy de Madrid. ¿Eres estudiante?",
-     "en": "I am from Madrid. Are you a student?"
+     "en": "I'm from Madrid. Are you a student?"
     },
     {
      "speaker": "Leo",
      "target": "No, soy ingeniero.",
-     "en": "No, I am an engineer."
+     "en": "No, I'm an engineer."
     },
     {
      "speaker": "Ana",
@@ -239,24 +239,24 @@
     {
      "speaker": "Leo",
      "target": "No, son de Inglaterra.",
-     "en": "No, they are from England."
+     "en": "No, they're from England."
     },
     {
      "speaker": "Ana",
      "target": "¿Sois turistas?",
-     "en": "Are you all tourists?"
+     "en": "Are you guys tourists?"
     },
     {
      "speaker": "Leo",
      "target": "Sí, somos turistas.",
-     "en": "Yes, we are tourists."
+     "en": "Yeah, we're tourists."
     }
    ],
    "drills": [
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Soy de Madrid.",
@@ -298,7 +298,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Soy de Madrid.",
@@ -366,7 +366,7 @@
      "instruction": "Say it in Spanish.",
      "items": [
       {
-       "en": "She is from England.",
+       "en": "She's from England.",
        "answers": [
         "Es de Inglaterra.",
         "Ella es de Inglaterra."
@@ -380,14 +380,14 @@
        ]
       },
       {
-       "en": "We are not students.",
+       "en": "We're not students.",
        "answers": [
         "No somos estudiantes.",
         "Nosotros no somos estudiantes."
        ]
       },
       {
-       "en": "Where are you all from?",
+       "en": "Where are you guys from?",
        "answers": [
         "¿De dónde sois?",
         "¿De dónde sois vosotros?"
@@ -417,7 +417,7 @@
     {
      "speaker": "Leo",
      "target": "Quiero un café con leche, por favor.",
-     "en": "I want a coffee with milk, please."
+     "en": "I'd like a coffee with milk, please."
     },
     {
      "speaker": "Camarero",
@@ -427,12 +427,12 @@
     {
      "speaker": "Leo",
      "target": "Sí, una tostada con tomate.",
-     "en": "Yes, a toast with tomato."
+     "en": "Yes, some tomato toast."
     },
     {
      "speaker": "Camarero",
      "target": "Muy bien, ahora mismo.",
-     "en": "Very good, right away."
+     "en": "Sure, coming right up."
     },
     {
      "speaker": "Leo",
@@ -442,7 +442,7 @@
     {
      "speaker": "Camarero",
      "target": "Son tres euros con cincuenta.",
-     "en": "It is three euros fifty."
+     "en": "That's three euros fifty."
     },
     {
      "speaker": "Leo",
@@ -454,7 +454,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Quiero un café.",
@@ -496,7 +496,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Quiero un café.",
@@ -584,13 +584,13 @@
      "instruction": "Say it in Spanish.",
      "items": [
       {
-       "en": "We want two beers, please.",
+       "en": "We'd like two beers, please.",
        "answers": [
         "Queremos dos cervezas, por favor."
        ]
       },
       {
-       "en": "A coffee and a toast.",
+       "en": "A coffee and some toast.",
        "answers": [
         "Un café y una tostada."
        ]
@@ -602,13 +602,13 @@
        ]
       },
       {
-       "en": "It is two euros.",
+       "en": "It's two euros.",
        "answers": [
         "Son dos euros."
        ]
       },
       {
-       "en": "I do not want milk, thanks.",
+       "en": "I don't want milk, thanks.",
        "answers": [
         "No quiero leche, gracias."
        ]
@@ -626,12 +626,12 @@
     {
      "speaker": "Leo",
      "target": "Perdona, ¿dónde está la estación de metro?",
-     "en": "Excuse me, where is the metro station?"
+     "en": "Excuse me, where's the metro station?"
     },
     {
      "speaker": "Ana",
      "target": "Está cerca. Todo recto y a la derecha.",
-     "en": "It is nearby. Straight ahead and to the right."
+     "en": "It's close. Go straight, then right."
     },
     {
      "speaker": "Leo",
@@ -641,7 +641,7 @@
     {
      "speaker": "Ana",
      "target": "No, está a cinco minutos.",
-     "en": "No, it is five minutes away."
+     "en": "No, it's five minutes away."
     },
     {
      "speaker": "Leo",
@@ -651,24 +651,24 @@
     {
      "speaker": "Ana",
      "target": "Sí, hay una a la izquierda, al lado del banco.",
-     "en": "Yes, there is one on the left, next to the bank."
+     "en": "Yeah, there's one on the left, next to the bank."
     },
     {
      "speaker": "Leo",
      "target": "Muchas gracias.",
-     "en": "Thank you very much."
+     "en": "Thanks so much."
     },
     {
      "speaker": "Ana",
      "target": "De nada.",
-     "en": "You are welcome."
+     "en": "No problem."
     }
    ],
    "drills": [
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "¿Dónde está la estación?",
@@ -710,7 +710,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Estoy en Madrid.",
@@ -752,7 +752,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Está a la derecha.",
@@ -808,14 +808,14 @@
        ]
       },
       {
-       "en": "We are in Madrid.",
+       "en": "We're in Madrid.",
        "answers": [
         "Estamos en Madrid.",
         "Nosotros estamos en Madrid."
        ]
       },
       {
-       "en": "Excuse me, where are you all?",
+       "en": "Sorry, where are you guys?",
        "answers": [
         "Perdona, ¿dónde estáis?",
         "Perdonad, ¿dónde estáis?"
@@ -829,22 +829,22 @@
    "id": "u5",
    "title": "En el restaurante",
    "en": "At a restaurant",
-   "note": "`tener` (to have): `tengo, tienes, tiene, tenemos, tenéis, tienen`. The `menú del día` is a fixed-price lunch with a `primero` (first course), a `segundo` (main) and a drink. Ask for the bill with `La cuenta, por favor`.",
+   "note": "`tener` (to have): `tengo, tienes, tiene, tenemos, tenéis, tienen`. The `menú del día` is a fixed-price lunch with a `primero` (first course), a `segundo` (main) and a drink. Ask for the check with `La cuenta, por favor`.",
    "dialogue": [
     {
      "speaker": "Camarera",
      "target": "Buenas noches. ¿Cuántos sois?",
-     "en": "Good evening. How many of you are there?"
+     "en": "Good evening. How many of you?"
     },
     {
      "speaker": "Leo",
      "target": "Somos dos. ¿Hay mesa?",
-     "en": "There are two of us. Is there a table?"
+     "en": "Two of us. Do you have a table?"
     },
     {
      "speaker": "Camarera",
      "target": "Sí, por aquí. Aquí tenéis la carta.",
-     "en": "Yes, this way. Here is the menu."
+     "en": "Sure, this way. Here's the menu."
     },
     {
      "speaker": "Leo",
@@ -854,12 +854,12 @@
     {
      "speaker": "Camarera",
      "target": "El menú del día está muy bien.",
-     "en": "The set menu of the day is very good."
+     "en": "The lunch special is really good."
     },
     {
      "speaker": "Leo",
      "target": "Vale. De primero, la sopa, y de segundo, el pollo.",
-     "en": "OK. The soup to start, and the chicken for the main course."
+     "en": "OK. Soup to start, then the chicken."
     },
     {
      "speaker": "Camarera",
@@ -876,7 +876,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "De primero, la sopa.",
@@ -918,7 +918,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Tengo una reserva.",
@@ -1000,7 +1000,7 @@
      "instruction": "Say it in Spanish.",
      "items": [
       {
-       "en": "The bill, please.",
+       "en": "The check, please.",
        "answers": [
         "La cuenta, por favor."
        ]
@@ -1019,7 +1019,7 @@
        ]
       },
       {
-       "en": "I do not want dessert.",
+       "en": "I don't want dessert.",
        "answers": [
         "No quiero postre.",
         "No quiero el postre."
@@ -1045,22 +1045,22 @@
     {
      "speaker": "Leo",
      "target": "Hola, quiero un billete para Toledo.",
-     "en": "Hello, I want a ticket to Toledo."
+     "en": "Hi, I'd like a ticket to Toledo."
     },
     {
      "speaker": "Empleada",
      "target": "¿De ida o de ida y vuelta?",
-     "en": "One way or return?"
+     "en": "One-way or round trip?"
     },
     {
      "speaker": "Leo",
      "target": "De ida y vuelta, por favor.",
-     "en": "Return, please."
+     "en": "Round trip, please."
     },
     {
      "speaker": "Empleada",
      "target": "Muy bien. Son veinte euros.",
-     "en": "Very good. That is twenty euros."
+     "en": "Great. That's twenty euros."
     },
     {
      "speaker": "Leo",
@@ -1070,24 +1070,24 @@
     {
      "speaker": "Empleada",
      "target": "Sale a las diez y media.",
-     "en": "It leaves at half past ten."
+     "en": "It leaves at ten thirty."
     },
     {
      "speaker": "Leo",
      "target": "¿De qué andén?",
-     "en": "From which platform?"
+     "en": "Which platform?"
     },
     {
      "speaker": "Empleada",
      "target": "Del andén cinco. Buen viaje.",
-     "en": "From platform five. Have a good trip."
+     "en": "Platform five. Have a good trip."
     }
    ],
    "drills": [
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Voy a Toledo.",
@@ -1129,7 +1129,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Sale a las diez.",
@@ -1222,7 +1222,7 @@
        ]
       },
       {
-       "en": "We are going to the airport.",
+       "en": "We're going to the airport.",
        "answers": [
         "Vamos al aeropuerto.",
         "Nosotros vamos al aeropuerto."
@@ -1250,7 +1250,7 @@
    "id": "u7",
    "title": "De compras",
    "en": "Shopping",
-   "note": "`este` and `esta` mean \"this\" or \"this one\". Most colours agree with the noun: `un jersey negro`, `una camiseta negra`. `azul` and `verde` stay the same. Ask `¿Cuánto cuesta?` for one thing and `¿Cuánto cuestan?` for several. `caro` means expensive, and `me lo llevo` or `me la llevo` means \"I will take it\".",
+   "note": "`este` and `esta` mean \"this\" or \"this one\". Most colors agree with the noun: `un jersey negro`, `una camiseta negra`. `azul` and `verde` stay the same. Ask `¿Cuánto cuesta?` for one thing and `¿Cuánto cuestan?` for several. `caro` means expensive, and `me lo llevo` or `me la llevo` means \"I will take it\".",
    "dialogue": [
     {
      "speaker": "Dependienta",
@@ -1260,7 +1260,7 @@
     {
      "speaker": "Leo",
      "target": "Sí, busco una camiseta.",
-     "en": "Yes, I am looking for a T-shirt."
+     "en": "Yeah, I'm looking for a T-shirt."
     },
     {
      "speaker": "Dependienta",
@@ -1275,29 +1275,29 @@
     {
      "speaker": "Dependienta",
      "target": "Sí, esta es azul.",
-     "en": "Yes, this one is blue."
+     "en": "Yep, this one's blue."
     },
     {
      "speaker": "Leo",
      "target": "¿Cuánto cuesta?",
-     "en": "How much does it cost?"
+     "en": "How much is it?"
     },
     {
      "speaker": "Dependienta",
      "target": "Cuesta quince euros.",
-     "en": "It costs fifteen euros."
+     "en": "It's fifteen euros."
     },
     {
      "speaker": "Leo",
      "target": "Perfecto, me la llevo.",
-     "en": "Perfect, I will take it."
+     "en": "Perfect, I'll take it."
     }
    ],
    "drills": [
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Busco una camiseta.",
@@ -1332,7 +1332,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Swap in the new item and make the colour agree.",
+     "instruction": "Swap in the new item and match the color.",
      "items": [
       {
        "base": "Quiero la camiseta negra.",
@@ -1415,19 +1415,19 @@
        ]
       },
       {
-       "en": "This one is very expensive. (a T-shirt)",
+       "en": "This one's really expensive. (a T-shirt)",
        "answers": [
         "Esta es muy cara."
        ]
       },
       {
-       "en": "I will take it. (a jumper)",
+       "en": "I'll take it. (a sweater)",
        "answers": [
         "Me lo llevo."
        ]
       },
       {
-       "en": "I am just looking, thanks.",
+       "en": "I'm just looking, thanks.",
        "answers": [
         "Solo estoy mirando, gracias.",
         "Sólo estoy mirando, gracias.",
@@ -1458,17 +1458,17 @@
     {
      "speaker": "Leo",
      "target": "Voy al Retiro con unos amigos.",
-     "en": "I am going to the Retiro with some friends."
+     "en": "I'm going to Retiro Park with some friends."
     },
     {
      "speaker": "Ana",
      "target": "¡Qué bien! ¿Te gusta Madrid?",
-     "en": "How nice! Do you like Madrid?"
+     "en": "Nice! Do you like Madrid?"
     },
     {
      "speaker": "Leo",
      "target": "Sí, me gusta mucho.",
-     "en": "Yes, I like it a lot."
+     "en": "Yeah, I really like it."
     },
     {
      "speaker": "Ana",
@@ -1537,7 +1537,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Hablo español.",
@@ -1619,7 +1619,7 @@
      "instruction": "Say it in Spanish.",
      "items": [
       {
-       "en": "I do not like football.",
+       "en": "I don't like soccer.",
        "answers": [
         "No me gusta el fútbol."
        ]
@@ -1638,13 +1638,13 @@
        ]
       },
       {
-       "en": "Do you all like Madrid?",
+       "en": "Do you guys like Madrid?",
        "answers": [
         "¿Os gusta Madrid?"
        ]
       },
       {
-       "en": "I am going to the museum with some friends.",
+       "en": "I'm going to the museum with some friends.",
        "answers": [
         "Voy al museo con unos amigos.",
         "Voy al museo con amigos."
@@ -1668,7 +1668,7 @@
     {
      "speaker": "Leo",
      "target": "Soy ingeniero. Trabajo en una empresa de tecnología.",
-     "en": "I am an engineer. I work at a tech company."
+     "en": "I'm an engineer. I work at a tech company."
     },
     {
      "speaker": "Ana",
@@ -1705,7 +1705,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Trabajo desde casa.",
@@ -1747,7 +1747,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Trabajo desde casa los lunes.",
@@ -1782,7 +1782,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Empiezo a las nueve.",
@@ -1845,7 +1845,7 @@
        ]
       },
       {
-       "en": "I do not like meetings.",
+       "en": "I don't like meetings.",
        "answers": [
         "No me gustan las reuniones."
        ]

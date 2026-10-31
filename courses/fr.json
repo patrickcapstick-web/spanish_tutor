@@ -91,7 +91,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Bonjour.",
@@ -174,7 +174,7 @@
        ]
       },
       {
-       "en": "Very well, and you?",
+       "en": "Really good, and you?",
        "answers": [
         "Très bien, et toi ?",
         "Très bien, et vous ?"
@@ -242,7 +242,7 @@
     {
      "speaker": "Camille",
      "target": "Vous êtes touristes ?",
-     "en": "Are you all tourists?"
+     "en": "Are you guys tourists?"
     },
     {
      "speaker": "Léo",
@@ -254,7 +254,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je suis de Paris.",
@@ -297,7 +297,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Je suis de Paris.",
@@ -377,14 +377,14 @@
        ]
       },
       {
-       "en": "We are not students.",
+       "en": "We're not students.",
        "answers": [
         "Nous ne sommes pas étudiants.",
         "On n'est pas étudiants."
        ]
       },
       {
-       "en": "Where are you all from?",
+       "en": "Where are you guys from?",
        "answers": [
         "Vous venez d'où ?",
         "D'où venez-vous ?",
@@ -430,7 +430,7 @@
     {
      "speaker": "Serveur",
      "target": "Très bien.",
-     "en": "Very good."
+     "en": "Great."
     },
     {
      "speaker": "Léo",
@@ -452,7 +452,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Je voudrais un café.",
@@ -494,7 +494,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je veux un café.",
@@ -661,7 +661,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Où est la gare ?",
@@ -703,7 +703,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je suis à Paris.",
@@ -739,7 +739,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "C'est à droite.",
@@ -796,7 +796,7 @@
        ]
       },
       {
-       "en": "We are in Paris.",
+       "en": "We're in Paris.",
        "answers": [
         "Nous sommes à Paris.",
         "On est à Paris."
@@ -816,7 +816,7 @@
    "id": "u5",
    "title": "Au restaurant",
    "en": "At a restaurant",
-   "note": "`avoir` (to have): `j'ai, tu as, il a, nous avons, vous avez, ils ont`. A French menu runs `entrée` (starter), `plat` (main) and `dessert`. Tap water is free: ask for `une carafe d'eau`. Ask for the bill with `L'addition, s'il vous plaît`.",
+   "note": "`avoir` (to have): `j'ai, tu as, il a, nous avons, vous avez, ils ont`. A French menu runs `entrée` (starter), `plat` (main) and `dessert`. Tap water is free: ask for `une carafe d'eau`. Ask for the check with `L'addition, s'il vous plaît`.",
    "dialogue": [
     {
      "speaker": "Serveur",
@@ -863,7 +863,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "En entrée la soupe à l'oignon.",
@@ -905,7 +905,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "J'ai une réservation.",
@@ -988,7 +988,7 @@
      "instruction": "Say it in French.",
      "items": [
       {
-       "en": "The bill, please.",
+       "en": "The check, please.",
        "answers": [
         "L'addition, s'il vous plaît."
        ]
@@ -1037,12 +1037,12 @@
     {
      "speaker": "Agent",
      "target": "Aller simple ou aller-retour ?",
-     "en": "One way or return?"
+     "en": "One-way or round trip?"
     },
     {
      "speaker": "Léo",
      "target": "Aller-retour, s'il vous plaît.",
-     "en": "Return, please."
+     "en": "Round trip, please."
     },
     {
      "speaker": "Agent",
@@ -1057,7 +1057,7 @@
     {
      "speaker": "Agent",
      "target": "Il part à dix heures et demie.",
-     "en": "It leaves at half past ten."
+     "en": "It leaves at ten thirty."
     },
     {
      "speaker": "Léo",
@@ -1074,7 +1074,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je vais à Lyon.",
@@ -1117,7 +1117,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Il part à dix heures.",
@@ -1238,7 +1238,7 @@
    "id": "u7",
    "title": "Faire du shopping",
    "en": "Shopping",
-   "note": "`celui-ci` and `celle-ci` mean \"this one\". Most colours agree with the noun: `un pull noir`, `une robe noire`; `marron` and `orange` never change. Ask `C'est combien ?` or `Combien ça coûte ?`. `Je le prends` or `Je la prends` means \"I'll take it\".",
+   "note": "`celui-ci` and `celle-ci` mean \"this one\". Most colors agree with the noun: `un pull noir`, `une robe noire`; `marron` and `orange` never change. Ask `C'est combien ?` or `Combien ça coûte ?`. `Je le prends` or `Je la prends` means \"I'll take it\".",
    "dialogue": [
     {
      "speaker": "Vendeuse",
@@ -1285,7 +1285,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Je cherche un t-shirt.",
@@ -1320,7 +1320,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Swap in the new item and make the colour agree.",
+     "instruction": "Swap in the new item and match the color.",
      "items": [
       {
        "base": "Je voudrais la robe noire.",
@@ -1481,7 +1481,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "J'aime Paris.",
@@ -1523,7 +1523,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je parle français.",
@@ -1606,7 +1606,7 @@
      "instruction": "Say it in French.",
      "items": [
       {
-       "en": "I don't like football.",
+       "en": "I don't like soccer.",
        "answers": [
         "Je n'aime pas le foot.",
         "Je n'aime pas le football."
@@ -1626,7 +1626,7 @@
        ]
       },
       {
-       "en": "Do you all like Paris?",
+       "en": "Do you guys like Paris?",
        "answers": [
         "Vous aimez Paris ?"
        ]
@@ -1692,7 +1692,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je travaille à Paris.",
@@ -1735,7 +1735,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Le lundi, je travaille de chez moi.",
@@ -1770,7 +1770,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Je commence à neuf heures.",

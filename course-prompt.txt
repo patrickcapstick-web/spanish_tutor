@@ -13,6 +13,8 @@ How the app teaches: it follows the US Foreign Service Institute (FSI) method. E
 
 Write 8 units. Each unit has a dialogue of 6 to 8 lines and 2 to 4 drill groups of 3 to 6 items each. Use everyday, spoken language that a native speaker would really say, in the variety most useful for the stated purpose.
 
+Write all English (translations, instructions and notes) in natural, modern, casual American English: use contractions (I'm, it's, don't), everyday phrasing ("No problem", not "You are welcome"; "I'd like...", not "I want..." when ordering) and American terms and spelling (check, round trip, soccer, restroom, color). Use "you guys" for informal plural "you".
+
 Reply with ONE JSON object and nothing else, in a code block, and tell me the file name to save it as: the "id" followed by .json (for example ja.json).
 
 The JSON format:

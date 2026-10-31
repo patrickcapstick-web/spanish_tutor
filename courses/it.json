@@ -83,7 +83,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Buongiorno.",
@@ -125,7 +125,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Come stai?",
@@ -165,7 +165,7 @@
        ]
       },
       {
-       "en": "Very well, and you?",
+       "en": "Really good, and you?",
        "answers": [
         "Molto bene, e tu?"
        ]
@@ -231,7 +231,7 @@
     {
      "speaker": "Giulia",
      "target": "Siete turisti?",
-     "en": "Are you all tourists?"
+     "en": "Are you guys tourists?"
     },
     {
      "speaker": "Leo",
@@ -243,7 +243,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Sono di Roma.",
@@ -285,7 +285,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Sono di Roma.",
@@ -367,14 +367,14 @@
        ]
       },
       {
-       "en": "We are not students.",
+       "en": "We're not students.",
        "answers": [
         "Non siamo studenti.",
         "Noi non siamo studenti."
        ]
       },
       {
-       "en": "Where are you all from?",
+       "en": "Where are you guys from?",
        "answers": [
         "Di dove siete?",
         "Voi di dove siete?"
@@ -441,7 +441,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Vorrei un caffè.",
@@ -483,7 +483,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Voglio un caffè.",
@@ -651,7 +651,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Dov'è la stazione?",
@@ -693,7 +693,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Sono a Roma.",
@@ -728,7 +728,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "È a destra.",
@@ -784,7 +784,7 @@
        ]
       },
       {
-       "en": "We are in Rome.",
+       "en": "We're in Rome.",
        "answers": [
         "Siamo a Roma.",
         "Noi siamo a Roma."
@@ -804,7 +804,7 @@
    "id": "u5",
    "title": "Al ristorante",
    "en": "At a restaurant",
-   "note": "`avere` (to have): `ho, hai, ha, abbiamo, avete, hanno`. An Italian meal runs `antipasto`, `primo` (pasta or risotto), `secondo` (meat or fish) and `dolce`; nobody expects you to order every course. Ask for the bill with `Il conto, per favore`.",
+   "note": "`avere` (to have): `ho, hai, ha, abbiamo, avete, hanno`. An Italian meal runs `antipasto`, `primo` (pasta or risotto), `secondo` (meat or fish) and `dolce`; nobody expects you to order every course. Ask for the check with `Il conto, per favore`.",
    "dialogue": [
     {
      "speaker": "Cameriere",
@@ -829,7 +829,7 @@
     {
      "speaker": "Cameriere",
      "target": "Le tagliatelle al ragù sono molto buone.",
-     "en": "The tagliatelle with ragù are very good."
+     "en": "The tagliatelle with ragù is really good."
     },
     {
      "speaker": "Leo",
@@ -851,7 +851,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Per primo le tagliatelle.",
@@ -893,7 +893,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Ho una prenotazione.",
@@ -975,7 +975,7 @@
      "instruction": "Say it in Italian.",
      "items": [
       {
-       "en": "The bill, please.",
+       "en": "The check, please.",
        "answers": [
         "Il conto, per favore."
        ]
@@ -1023,12 +1023,12 @@
     {
      "speaker": "Impiegata",
      "target": "Solo andata o andata e ritorno?",
-     "en": "One way or return?"
+     "en": "One-way or round trip?"
     },
     {
      "speaker": "Leo",
      "target": "Andata e ritorno, per favore.",
-     "en": "Return, please."
+     "en": "Round trip, please."
     },
     {
      "speaker": "Impiegata",
@@ -1043,7 +1043,7 @@
     {
      "speaker": "Impiegata",
      "target": "Parte alle dieci e mezza.",
-     "en": "It leaves at half past ten."
+     "en": "It leaves at ten thirty."
     },
     {
      "speaker": "Leo",
@@ -1060,7 +1060,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Vado a Firenze.",
@@ -1102,7 +1102,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Parte alle dieci.",
@@ -1220,7 +1220,7 @@
    "id": "u7",
    "title": "Fare spese",
    "en": "Shopping",
-   "note": "`questo` and `questa` mean \"this\" or \"this one\". Most colours agree with the noun: `un maglione nero`, `una maglietta nera`; `blu` and `rosa` never change. Ask `Quanto costa?` for one thing and `Quanto costano?` for several. `Lo prendo` or `La prendo` means \"I'll take it\".",
+   "note": "`questo` and `questa` mean \"this\" or \"this one\". Most colors agree with the noun: `un maglione nero`, `una maglietta nera`; `blu` and `rosa` never change. Ask `Quanto costa?` for one thing and `Quanto costano?` for several. `Lo prendo` or `La prendo` means \"I'll take it\".",
    "dialogue": [
     {
      "speaker": "Commessa",
@@ -1267,7 +1267,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Cerco una maglietta.",
@@ -1302,7 +1302,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Swap in the new item and make the colour agree.",
+     "instruction": "Swap in the new item and match the color.",
      "items": [
       {
        "base": "Vorrei la maglietta nera.",
@@ -1506,7 +1506,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Parlo italiano.",
@@ -1588,7 +1588,7 @@
      "instruction": "Say it in Italian.",
      "items": [
       {
-       "en": "I don't like football.",
+       "en": "I don't like soccer.",
        "answers": [
         "Non mi piace il calcio."
        ]
@@ -1608,7 +1608,7 @@
        ]
       },
       {
-       "en": "Do you all like Rome?",
+       "en": "Do you guys like Rome?",
        "answers": [
         "Vi piace Roma?"
        ]
@@ -1675,7 +1675,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Lavoro da casa.",
@@ -1717,7 +1717,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say the sentence again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "Il lunedì lavoro da casa.",
@@ -1752,7 +1752,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Change the sentence to fit the new person.",
+     "instruction": "Change it to match the new person.",
      "items": [
       {
        "base": "Comincio alle nove.",

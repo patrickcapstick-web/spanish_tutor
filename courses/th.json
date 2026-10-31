@@ -115,7 +115,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "สวัสดี{p}",
@@ -405,7 +405,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "อันนี้เท่าไหร่{q}",
@@ -544,14 +544,14 @@
      "speaker": "You",
      "target": "เช็คบิลด้วย{p}",
      "rom": "chék bin dûai {p}",
-     "en": "The bill, please."
+     "en": "The check, please."
     }
    ],
    "drills": [
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "ขอผัดไทย{p}",
@@ -680,7 +680,7 @@
        "answerRom": "à-ròi mâak {p}"
       },
       {
-       "en": "The bill, please.",
+       "en": "The check, please.",
        "answers": [
         "เช็คบิลด้วย{p}",
         "เก็บเงินด้วย{p}"
@@ -760,7 +760,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "ไปสนามบินไหม{q}",
@@ -815,7 +815,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "เลี้ยวซ้าย{p}",
@@ -952,7 +952,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "ห้องน้ำอยู่ที่ไหน{q}",
@@ -995,7 +995,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "แถวนี้มีร้านขายยาไหม{q}",
@@ -1131,7 +1131,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "มีไวไฟไหม{q}",
@@ -1301,7 +1301,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "มาจากอเมริกา{p}",
@@ -1476,7 +1476,7 @@
     {
      "type": "Substitution",
      "kind": "sub",
-     "instruction": "Say it again with the new word swapped in.",
+     "instruction": "Swap in the new word.",
      "items": [
       {
        "base": "ปวดหัว{p}",

@@ -288,7 +288,7 @@ const micSupported = () => !!(navigator.mediaDevices && navigator.mediaDevices.g
 const speechOn = () => S.mode === 'speak' && (!needPass || !!PASS) && micSupported() && !micBlocked;
 function speechWhy() {
   if (S.mode !== 'speak') return '';
-  if (!micSupported()) return 'This browser cannot record audio, so grade yourself.';
+  if (!micSupported()) return 'This browser can’t record audio, so grade yourself.';
   if (micBlocked) return 'Microphone access is blocked, so grade yourself. Allow the microphone for this site in your browser settings to turn checking back on.';
   if (needPass && !PASS) return 'This app needs a passcode for speech checking. Enter it on the Today screen under Settings.';
   return '';
@@ -552,7 +552,7 @@ async function savePasscode(v) {
   try {
     const r = await fetch('/api/stt', { headers: { 'x-passcode': v } });
     if (r.status === 204) { PASS = v; store.set(PASS_KEY, v); micBlocked = false; needPass = false; checkChat(); }
-    else if (r.status === 401) passErr = 'That passcode is not right. Ask the person who shared the app with you.';
+    else if (r.status === 401) passErr = 'That passcode isn’t right. Ask the person who shared the app with you.';
     else passErr = `The server answered with an error (${r.status}). Try again later.`;
   } catch {
     passErr = 'Could not reach the server. Check your connection and try again.';
@@ -834,7 +834,7 @@ function options() {
 const hasRom = () => CARDS.some((c) => c.rom);
 function vSpeech() {
   if (S.mode !== 'speak') return '';
-  if (!micSupported()) return '<p class="muted small">This browser cannot record audio, so you will grade yourself.</p>';
+  if (!micSupported()) return '<p class="muted small">This browser can’t record audio, so you’ll grade yourself.</p>';
   if (!needPass) return `<p class="muted small">Speech checking is on.${micBlocked ? ' The microphone is blocked right now; allow it in your browser settings.' : ''}</p>`;
   return '<form id="pf" class="pass" autocomplete="off"><label class="lbl" for="pass">Passcode for speech checking</label>'
     + '<div class="row"><input type="password" id="pass" autocomplete="current-password"><button class="btn ghost" type="submit">Turn on</button></div>'
@@ -851,7 +851,7 @@ function vHome() {
       + `<div class="stats"><div><b>${p.due.length}</b><span>reviews due</span></div><div><b>${p.fresh.length}</b><span>new items</span></div><div><b>${mins}</b><span>minutes, roughly</span></div></div>`
       + '<button class="btn wide" data-act="start" data-primary>Start session</button>';
   } else {
-    h += `<h1>Nothing is due right now</h1><p class="muted">${left ? "You have done today's new items. Reviews come back tomorrow." : 'You have learned every item in the course. Reviews keep coming back on schedule.'}</p>`
+    h += `<h1>Nothing is due right now</h1><p class="muted">${left ? "You’ve finished today's new items. Reviews come back tomorrow." : 'You’ve learned everything in the course. Reviews keep coming back on schedule.'}</p>`
       + (left ? '<button class="btn ghost wide" data-act="more">Add 5 more new items</button>' : '');
   }
   h += `<p class="muted small">Streak: ${S.streak}${S.streak === 1 ? ' day' : ' days'} · ${Object.keys(S.cards).length} of ${CARDS.length} items started</p></section>`;
@@ -924,7 +924,7 @@ function vSession() {
         h += `<form id="f" autocomplete="off"><input type="text" id="ans" aria-label="Your answer" autocapitalize="off" autocorrect="off" spellcheck="false" lang="${esc(C.lang)}">`
           + (keys.length ? `<div class="keys">${keys.map((k) => `<button type="button" data-act="key" data-t="${esc(k)}">${esc(k)}</button>`).join('')}</div>` : '')
           + (C.noSpaces || !keys.length ? `<p class="muted small">Type in ${esc(C.name)} script. If your keyboard can't, add a ${esc(C.name)} keyboard in your device settings or switch to Speaking.</p>` : '')
-          + '<div class="row"><button class="btn" type="submit">Check</button><button class="btn link" type="button" data-act="reveal">I do not know</button></div></form>';
+          + '<div class="row"><button class="btn" type="submit">Check</button><button class="btn link" type="button" data-act="reveal">I don’t know</button></div></form>';
       } else if (speechOn()) {
         h += micHtml();
         if (!sess.phase) h += '<div class="row" style="justify-content:center"><button class="btn link" data-act="reveal">Show answer instead</button></div>';
@@ -999,7 +999,7 @@ function vPick() {
 }
 function vGuide() {
   return `<section class="sheet guide"><p class="lbl">Guide</p><h1>How to use Autopilot</h1>
-<p>Autopilot teaches the way US diplomats are trained: you memorise short real-life dialogues, then repeat drills until the answer comes out on autopilot, without thinking. About 10 to 15 minutes a day works best.</p>
+<p>Autopilot teaches the way US diplomats are trained: you memorize short real-life dialogues, then repeat drills until the answer comes out on autopilot, without thinking. About 10 to 15 minutes a day works best.</p>
 <h2>Your daily session</h2>
 <ol>
 <li><b>Start session</b> on the Today screen. It mixes reviews that are due with a few new items.</li>
@@ -1079,7 +1079,7 @@ function vTalk() {
     h += '<section class="sheet"><p class="lbl">How it went</p>';
     if (!mine) h += '<p class="muted">No replies this time.</p>';
     else if (talk.fbBusy) h += '<p class="muted">Putting your feedback together…</p>';
-    else if (!talk.fb || talk.fb.error) h += '<p class="muted">Feedback is not available right now, but the practice still counts.</p>';
+    else if (!talk.fb || talk.fb.error) h += '<p class="muted">Feedback isn’t available right now, but the practice still counts.</p>';
     else {
       if (talk.fb.good) h += `<p><b>Nice:</b> ${esc(talk.fb.good)}</p>`;
       if (talk.fb.fixes && talk.fb.fixes.length) {
@@ -1138,7 +1138,7 @@ async function openCourse(id) {
     sess = null;
     tab = 'today';
     pickVoice();
-    $('#audio-note').textContent = Object.keys(AUDIO.files).length ? '' : `Recorded ${C.name} audio is not ready yet, so the device voice is used for now.`;
+    $('#audio-note').textContent = Object.keys(AUDIO.files).length ? '' : `Recorded ${C.name} audio isn’t ready yet, so your device’s voice is used for now.`;
     document.title = `Autopilot · ${C.name}`;
   } catch {
     $('#view').innerHTML = '<section class="sheet"><p class="err">That course could not be loaded. Check your connection and try again.</p></section>';
