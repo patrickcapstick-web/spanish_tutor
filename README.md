@@ -15,6 +15,7 @@ A language app built on the FSI drill method: memorise a short real-life dialogu
 - Japanese answers are matched on pronunciation too, so kanji or kana spellings both count (`api/_reading.js`, using kuromoji)
 - Adjustable pace: 5 to 20 new items a day
 - Reviews scheduled with FSRS and graded by speech: a miss, a slow answer and an instant one each move the next review differently
+- Sounds tab (Spanish for now): minimal-pair ear training such as pero / perro, listening only, so it never uses speech checking
 - Works as a home-screen app on phones
 
 ## How it fits together
@@ -23,7 +24,7 @@ A language app built on the FSI drill method: memorise a short real-life dialogu
 | --- | --- |
 | `index.html`, `app.js` | The app. Progress is stored in each browser. |
 | `vendor/ts-fsrs.umd.js` | The FSRS review scheduler ([ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs) 5.4.2, MIT). If it fails to load, the app falls back to a fixed 1, 3, 7, 14, 30, 60 day ladder. |
-| `courses/<id>.json` | One file per language: units, dialogues, drills, voice and settings. |
+| `courses/<id>.json` | One file per language: units, dialogues, drills, voice and settings. An optional `sounds` list adds minimal pairs (`{ "a", "aEn", "b", "bEn" }`) grouped by contrast for the Sounds tab. |
 | `courses/index.json` | The language list. Built automatically; don't edit it. |
 | `audio/<id>/` | One MP3 per sentence, plus `manifest.json` mapping sentence to file. |
 | `scripts/generate-audio.mjs` | Checks every course, builds the language list and records missing audio with each course's voice and model. |

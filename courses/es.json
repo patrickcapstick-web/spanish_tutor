@@ -1854,5 +1854,303 @@
     }
    ]
   }
+ ],
+ "sounds": [
+  {
+   "id": "r-rr",
+   "title": "r / rr",
+   "en": "One tap or a trill",
+   "note": "A single `r` between vowels is one quick tap of the tongue. `rr`, and any `r` at the start of a word, is a trill. Mixing them up changes the word: `pero` means but, `perro` means dog.",
+   "pairs": [
+    {
+     "a": "pero",
+     "aEn": "but",
+     "b": "perro",
+     "bEn": "dog"
+    },
+    {
+     "a": "caro",
+     "aEn": "expensive",
+     "b": "carro",
+     "bEn": "cart"
+    },
+    {
+     "a": "para",
+     "aEn": "for",
+     "b": "parra",
+     "bEn": "grapevine"
+    },
+    {
+     "a": "pera",
+     "aEn": "pear",
+     "b": "perra",
+     "bEn": "female dog"
+    },
+    {
+     "a": "cero",
+     "aEn": "zero",
+     "b": "cerro",
+     "bEn": "hill"
+    },
+    {
+     "a": "coro",
+     "aEn": "choir",
+     "b": "corro",
+     "bEn": "circle of people"
+    },
+    {
+     "a": "ahora",
+     "aEn": "now",
+     "b": "ahorra",
+     "bEn": "saves"
+    }
+   ]
+  },
+  {
+   "id": "d-r",
+   "title": "d / r",
+   "en": "Soft d or tap",
+   "note": "Between vowels, `d` is soft, like the th in this. The tap `r` is the sound in the middle of American butter. English ears often hear these as the same sound.",
+   "pairs": [
+    {
+     "a": "cada",
+     "aEn": "each",
+     "b": "cara",
+     "bEn": "face"
+    },
+    {
+     "a": "todo",
+     "aEn": "all",
+     "b": "toro",
+     "bEn": "bull"
+    },
+    {
+     "a": "codo",
+     "aEn": "elbow",
+     "b": "coro",
+     "bEn": "choir"
+    },
+    {
+     "a": "lodo",
+     "aEn": "mud",
+     "b": "loro",
+     "bEn": "parrot"
+    },
+    {
+     "a": "hada",
+     "aEn": "fairy",
+     "b": "ara",
+     "bEn": "plows"
+    }
+   ]
+  },
+  {
+   "id": "stress",
+   "title": "Stress",
+   "en": "Where the beat falls",
+   "note": "The written accent marks the stressed syllable, and moving the stress changes the word: `hablo` means I speak, `habló` means he spoke.",
+   "pairs": [
+    {
+     "a": "papa",
+     "aEn": "potato",
+     "b": "papá",
+     "bEn": "dad"
+    },
+    {
+     "a": "hablo",
+     "aEn": "I speak",
+     "b": "habló",
+     "bEn": "he spoke"
+    },
+    {
+     "a": "esta",
+     "aEn": "this",
+     "b": "está",
+     "bEn": "is"
+    },
+    {
+     "a": "canto",
+     "aEn": "I sing",
+     "b": "cantó",
+     "bEn": "she sang"
+    },
+    {
+     "a": "termino",
+     "aEn": "I finish",
+     "b": "término",
+     "bEn": "term"
+    },
+    {
+     "a": "publico",
+     "aEn": "I publish",
+     "b": "público",
+     "bEn": "public"
+    }
+   ]
+  },
+  {
+   "id": "s-z",
+   "title": "s / z",
+   "en": "The Spain th sound",
+   "note": "In Spain, `z`, and `c` before e or i, sound like the th in think. `s` stays an s. Latin America merges the two, so this one is a Spain-only skill.",
+   "pairs": [
+    {
+     "a": "casa",
+     "aEn": "house",
+     "b": "caza",
+     "bEn": "hunt"
+    },
+    {
+     "a": "coser",
+     "aEn": "to sew",
+     "b": "cocer",
+     "bEn": "to cook"
+    },
+    {
+     "a": "siento",
+     "aEn": "I feel",
+     "b": "ciento",
+     "bEn": "hundred"
+    },
+    {
+     "a": "sumo",
+     "aEn": "highest",
+     "b": "zumo",
+     "bEn": "juice"
+    },
+    {
+     "a": "masa",
+     "aEn": "dough",
+     "b": "maza",
+     "bEn": "club"
+    },
+    {
+     "a": "ves",
+     "aEn": "you see",
+     "b": "vez",
+     "bEn": "time"
+    },
+    {
+     "a": "rosa",
+     "aEn": "rose",
+     "b": "roza",
+     "bEn": "brushes"
+    }
+   ]
+  },
+  {
+   "id": "j-g",
+   "title": "j / g",
+   "en": "Throat j or soft g",
+   "note": "`j`, and `g` before e or i, is a rasp at the back of the throat, stronger in Spain than in Latin America. `g` before a, o or u is a soft g.",
+   "pairs": [
+    {
+     "a": "hijo",
+     "aEn": "son",
+     "b": "higo",
+     "bEn": "fig"
+    },
+    {
+     "a": "ajo",
+     "aEn": "garlic",
+     "b": "hago",
+     "bEn": "I do"
+    },
+    {
+     "a": "jota",
+     "aEn": "the letter j",
+     "b": "gota",
+     "bEn": "drop"
+    },
+    {
+     "a": "jarra",
+     "aEn": "jug",
+     "b": "garra",
+     "bEn": "claw"
+    },
+    {
+     "a": "lijar",
+     "aEn": "to sand",
+     "b": "ligar",
+     "bEn": "to flirt"
+    }
+   ]
+  },
+  {
+   "id": "l-ll",
+   "title": "l / ll",
+   "en": "l or y sound",
+   "note": "Most of Spain says `ll` like the y in yes. `l` stays an l.",
+   "pairs": [
+    {
+     "a": "polo",
+     "aEn": "pole",
+     "b": "pollo",
+     "bEn": "chicken"
+    },
+    {
+     "a": "ola",
+     "aEn": "wave",
+     "b": "olla",
+     "bEn": "pot"
+    },
+    {
+     "a": "lama",
+     "aEn": "silt",
+     "b": "llama",
+     "bEn": "flame"
+    },
+    {
+     "a": "mala",
+     "aEn": "bad",
+     "b": "malla",
+     "bEn": "mesh"
+    },
+    {
+     "a": "calado",
+     "aEn": "soaked",
+     "b": "callado",
+     "bEn": "quiet"
+    }
+   ]
+  },
+  {
+   "id": "n-ny",
+   "title": "n / ñ",
+   "en": "n or ny",
+   "note": "`ñ` is like the ny in canyon, made with the middle of the tongue against the roof of the mouth.",
+   "pairs": [
+    {
+     "a": "cana",
+     "aEn": "gray hair",
+     "b": "caña",
+     "bEn": "cane"
+    },
+    {
+     "a": "mono",
+     "aEn": "monkey",
+     "b": "moño",
+     "bEn": "hair bun"
+    },
+    {
+     "a": "pena",
+     "aEn": "sorrow",
+     "b": "peña",
+     "bEn": "rock"
+    },
+    {
+     "a": "una",
+     "aEn": "one",
+     "b": "uña",
+     "bEn": "nail"
+    },
+    {
+     "a": "sueno",
+     "aEn": "I sound",
+     "b": "sueño",
+     "bEn": "dream"
+    }
+   ]
+  }
  ]
 }

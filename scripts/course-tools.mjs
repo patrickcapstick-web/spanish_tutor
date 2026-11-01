@@ -1,7 +1,7 @@
 // Shared helpers for course files: listing the sentences that need audio,
 // expanding variant tokens such as {p}, and checking a course for mistakes.
 
-// Every sentence the app can play: dialogue lines, drill prompts and model answers.
+// Every sentence the app can play: dialogue lines, drill prompts, model answers and sound-contrast words.
 export function sentencesOf(course) {
   const out = [];
   for (const unit of course.units) {
@@ -13,6 +13,8 @@ export function sentencesOf(course) {
       }
     }
   }
+  // Sound contrasts: each word of each minimal pair, recorded on its own.
+  for (const set of course.sounds || []) for (const pr of set.pairs || []) out.push(pr.a, pr.b);
   return out;
 }
 
@@ -68,5 +70,18 @@ export function validateCourse(c, file = 'course') {
       });
     });
   });
+  // Optional sound contrasts (minimal pairs) for the Sounds tab.
+  if (c.sounds !== undefined) {
+    need(Array.isArray(c.sounds), '"sounds" must be a list.');
+    const sids = new Set();
+    (Array.isArray(c.sounds) ? c.sounds : []).forEach((set, si) => {
+      const sw = `Sound contrast ${si + 1}`;
+      need(set.id && !sids.has(set.id), `${sw} needs a unique "id".`);
+      sids.add(set.id);
+      need(set.title, `${sw} needs a "title".`);
+      need(Array.isArray(set.pairs) && set.pairs.length >= 2, `${sw} needs at least two "pairs".`);
+      (set.pairs || []).forEach((pr, pi) => need(pr && pr.a && pr.b && pr.a !== pr.b, `${sw}, pair ${pi + 1} needs two different words, "a" and "b".`));
+    });
+  }
   return p;
 }

@@ -204,6 +204,10 @@ function clean(r) {
     }
   }
   ['streak', 'last', 'newDay', 'newCount', 't'].forEach((k) => { if (typeof r[k] === 'number') s[k] = r[k]; });
+  if (r.snd && typeof r.snd === 'object') {
+    s.snd = {};
+    for (const k in r.snd) if (typeof r.snd[k] === 'string' && /^[01]*$/.test(r.snd[k])) s.snd[k] = r.snd[k].slice(-20);
+  }
   if (r.mode === 'type') s.mode = 'type';
   s.slow = !!r.slow;
   // Hands-free became the default in October 2026; hv marks state saved after that, so earlier
@@ -1051,6 +1055,7 @@ function vGuide() {
 <h2>Your daily session</h2>
 <ol>
 <li><b>Start session</b> on the Today screen. It mixes reviews that are due with a few new items.</li>
+<li><b>Sounds</b> (where a course has them) trains your ear on pairs of words that differ by one sound, such as pero and perro. Do it early: it is easier to say a sound once you can hear it.</li>
 <li><b>New line</b> cards: listen, then say the line. In Speaking mode the app checks it; if it doesn't match, listen again and have another go. Once it matches, the line plays twice more with a pause after each for you to repeat it, so you say every new line three times.</li>
 <li><b>Drill</b> cards: change a sentence (swap in a word, make it negative) or translate from English. Answer out loud before you check.</li>
 <li>Items you miss come back a few cards later. Items you know come back later, timed to just before you would forget them: sooner for items you find hard, much later for ones you know well.</li>
@@ -1142,7 +1147,7 @@ function vTalk() {
   return h;
 }
 function vHeader() {
-  const nav = [['today', 'Today'], ['course', 'Course'], ...(chatOn && C ? [['talk', 'Talk']] : []), ['guide', 'Guide']]
+  const nav = [['today', 'Today'], ...(SETS().length ? [['sounds', 'Sounds']] : []), ['course', 'Course'], ...(chatOn && C ? [['talk', 'Talk']] : []), ['guide', 'Guide']]
     .map(([k, l]) => `<button data-tab="${k}" aria-current="${tab === k ? 'page' : 'false'}">${l}</button>`).join('');
   $('#nav').innerHTML = nav;
   const sel = $('#langsel');
@@ -1155,6 +1160,7 @@ function render() {
   if (tab === 'guide') html = vGuide();
   else if (tab === 'pick' || !C) html = vPick();
   else if (tab === 'course') html = vCourse();
+  else if (tab === 'sounds') html = SETS().length ? vSounds() : vHome();
   else if (tab === 'talk') html = chatOn ? vTalk() : vHome();
   else html = !sess ? vHome() : sess.end ? vEnd() : vSession();
   $('#view').innerHTML = html;
@@ -1176,7 +1182,7 @@ async function openCourse(id) {
       fetch(`/audio/${id}/manifest.json`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { files: {} })).catch(() => ({ files: {} })),
     ]);
     stopRec(true); stopTalkRec(true); stopAll();
-    talk = null; talkUnit = null; talkAudio.clear();
+    talk = null; talkUnit = null; talkAudio.clear(); snd = null;
     buildCards(course);
     AUDIO = manifest && manifest.files ? manifest : { files: {} };
     S = loadState(id);
@@ -1195,10 +1201,125 @@ async function openCourse(id) {
   render();
 }
 
+/* ---------- sounds: minimal-pair ear training ----------
+   Pronunciation first, as in Fluent Forever: hear one word of a pair such as pero / perro and pick
+   which it was. Listening only, so it costs no speech checking. Rounds sit outside the daily review
+   queue. The last results for each contrast are kept in S.snd as a string of 1s and 0s. */
+const ROUND = 10;
+const SND_KEEP = 20;
+let snd = null; // the round in progress
+const SETS = () => (C && Array.isArray(C.sounds) ? C.sounds : []);
+function sndScore(id) {
+  const h = (S.snd && S.snd[id]) || '';
+  const last = h.slice(-ROUND);
+  return { tried: h.length, right: [...last].filter((x) => x === '1').length, of: last.length };
+}
+const sndMastered = (id) => { const s = sndScore(id); return s.of >= ROUND && s.right >= ROUND - 1; };
+function sndStart(si) {
+  const set = SETS()[si];
+  if (!set) return;
+  const trials = [];
+  let prev = '';
+  while (trials.length < ROUND) {
+    const p = Math.floor(Math.random() * set.pairs.length);
+    const side = Math.random() < 0.5 ? 'a' : 'b';
+    if (p + side === prev && set.pairs.length > 1) continue; // never the same word twice in a row
+    prev = p + side;
+    trials.push({ p, side, swap: Math.random() < 0.5 });
+  }
+  snd = { si, trials, i: 0, pick: null, right: 0, misses: [] };
+  render();
+  sndPlay();
+}
+const sndTrial = () => snd.trials[snd.i];
+const sndPair = (t = sndTrial()) => SETS()[snd.si].pairs[t.p];
+function sndPlay() { const t = sndTrial(); say(sndPair(t)[t.side]); }
+function sndAnswer(side) {
+  if (!snd || snd.pick || snd.done) return;
+  const t = sndTrial();
+  const pr = sndPair(t);
+  const ok = side === t.side;
+  snd.pick = side;
+  if (ok) snd.right++;
+  else snd.misses.push(`${pr[t.side]} (heard) vs ${pr[side]}`);
+  if (!S.snd) S.snd = {};
+  const id = SETS()[snd.si].id;
+  S.snd[id] = ((S.snd[id] || '') + (ok ? '1' : '0')).slice(-SND_KEEP);
+  touchDay(); save();
+  render();
+  // Right: hear it once more. Wrong: hear the word that played, then the one you picked.
+  if (ok) say(pr[t.side]);
+  else sayAll([pr[t.side], pr[side]]);
+}
+function sndNext() {
+  if (!snd) return;
+  if (!snd.pick) return;
+  snd.i++;
+  snd.pick = null;
+  if (snd.i >= snd.trials.length) { snd.done = true; stopAll(); render(); return; }
+  render();
+  sndPlay();
+}
+function vSounds() {
+  const sets = SETS();
+  if (snd && !snd.done) {
+    const set = sets[snd.si];
+    const t = sndTrial();
+    const pr = sndPair(t);
+    const order = t.swap ? ['b', 'a'] : ['a', 'b'];
+    let h = `<div class="bar"><i style="width:${Math.round((snd.i / snd.trials.length) * 100)}%"></i></div>`
+      + `<div class="meta"><span>Sounds · ${esc(set.title)}</span><span>${snd.i + 1} / ${snd.trials.length}</span></div><section class="sheet">`
+      + `<p class="how">Which word did you hear?</p>`
+      + `<div class="row" style="justify-content:center"><button class="btn ghost" data-act="snd-play">${PLAY} Play again</button></div>`
+      + '<div class="pairs">';
+    order.forEach((side, k) => {
+      const cls = !snd.pick ? '' : side === t.side ? ' p-ok' : side === snd.pick ? ' p-no' : ' p-dim';
+      h += `<button class="pairbtn${cls}" data-act="snd-pick" data-side="${side}"${snd.pick ? ' disabled' : ''}>`
+        + `<span class="pw" lang="${esc(C.lang)}">${esc(pr[side])}</span>`
+        + `${snd.pick ? `<span class="pe">${esc(pr[side + 'En'] || '')}</span>` : ''}<small>${k + 1}</small></button>`;
+    });
+    h += '</div>';
+    if (snd.pick) {
+      const ok = snd.pick === t.side;
+      h += `<div class="answer"><p class="verdict ${ok ? 'v-ok' : 'v-no'}">${ok ? 'Right' : `That was ${esc(pr[t.side])}`}</p>`
+        + `<p class="muted small">Tap a word to hear it again.</p>`
+        + `<div class="row"><button class="btn ghost" data-act="say" data-t="${esc(pr.a)}">${PLAY} ${esc(pr.a)}</button><button class="btn ghost" data-act="say" data-t="${esc(pr.b)}">${PLAY} ${esc(pr.b)}</button></div></div>`
+        + '<div class="row"><button class="btn wide" data-act="snd-next" data-primary>Next</button></div>';
+    }
+    h += '<div class="row" style="justify-content:center"><button class="btn link" data-act="snd-quit">End round</button></div></section>';
+    return h;
+  }
+  if (snd && snd.done) {
+    const set = sets[snd.si];
+    let h = `<section class="sheet"><p class="lbl">${esc(set.title)}</p><h1>${snd.right} of ${snd.trials.length} right</h1>`;
+    h += snd.misses.length
+      ? `<p class="muted">Mixed up:</p><ul class="misses">${snd.misses.map((m) => `<li lang="${esc(C.lang)}">${esc(m)}</li>`).join('')}</ul>`
+      : '<p class="muted">A clean round.</p>';
+    if (sndMastered(set.id)) h += '<p class="muted small">Your ear has this contrast. Come back to it now and then, or move on.</p>';
+    return h + `<div class="row"><button class="btn" data-act="snd-start" data-s="${snd.si}" data-primary>Another round</button><button class="btn ghost" data-act="snd-quit">All sounds</button></div></section>`;
+  }
+  let h = '<section class="sheet"><p class="lbl">Sounds</p><h1>Train your ear first</h1>'
+    + `<p class="muted">Each round plays ${ROUND} words. Pick which one you heard. A contrast counts as learned at ${ROUND - 1} of the last ${ROUND} right. Listening only, so it takes about two minutes and never uses speech checking.</p>`;
+  // Next up: the first contrast not yet learned, in course order (or the first one if all are learned).
+  const nx = Math.max(0, sets.findIndex((set) => !sndMastered(set.id)));
+  const allDone = sets.every((set) => sndMastered(set.id));
+  h += `<div class="row"><button class="btn wide" data-act="snd-start" data-s="${nx}" data-primary>${allDone ? 'Review' : 'Practice'} ${esc(sets[nx].title)}</button></div></section>`;
+  sets.forEach((set, si) => {
+    const s = sndScore(set.id);
+    const status = s.tried === 0 ? 'Not started' : sndMastered(set.id) ? 'Learned' : `${s.right} of last ${s.of} right`;
+    h += `<details><summary><span>${esc(set.title)} <span class="muted" style="font-weight:400">${esc(set.en || '')}</span></span><small>${status}</small></summary><div class="dbody">`
+      + (set.note ? `<p class="note">${noteHtml(set.note)}</p>` : '')
+      + '<div class="pairlist">'
+      + set.pairs.map((pr) => `<div class="pairrow">${['a', 'b'].map((x) => `<button class="pairplay" data-act="say" data-t="${esc(pr[x])}">${PLAY}<span><b lang="${esc(C.lang)}">${esc(pr[x])}</b><small>${esc(pr[x + 'En'] || '')}</small></span></button>`).join('')}</div>`).join('')
+      + `</div><div class="row"><button class="btn" data-act="snd-start" data-s="${si}">Practice ${esc(set.title)}</button></div></div></details>`;
+  });
+  return h;
+}
+
 /* ---------- events ---------- */
 document.addEventListener('click', async (e) => {
   const tb = e.target.closest('[data-tab]');
-  if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(true); stopAll(); } if (talk && tab !== 'talk') { stopTalkRec(true); stopAll(); } render(); window.scrollTo(0, 0); return; }
+  if (tb) { tab = tb.dataset.tab; confirmReset = false; copied = false; if (sess && tab !== 'today') { stopRec(true); stopAll(); } if (talk && tab !== 'talk') { stopTalkRec(true); stopAll(); } if (snd && tab !== 'sounds') { stopAll(); snd = null; } render(); window.scrollTo(0, 0); return; }
   const b = e.target.closest('[data-act]');
   if (!b) return;
   const a = b.dataset.act;
@@ -1211,6 +1332,11 @@ document.addEventListener('click', async (e) => {
     say(b.dataset.t, waiting ? afterPrompt(sess.tok) : null);
   }
   else if (a === 'pause') togglePause();
+  else if (a === 'snd-start') { unlockAudio(); sndStart(+b.dataset.s); }
+  else if (a === 'snd-play') sndPlay();
+  else if (a === 'snd-pick') sndAnswer(b.dataset.side);
+  else if (a === 'snd-next') sndNext();
+  else if (a === 'snd-quit') { stopAll(); snd = null; render(); window.scrollTo(0, 0); }
   else if (a === 'talk-start') startTalk(+b.dataset.u);
   else if (a === 'talk-mic') { unlockAudio(); if (talk.phase === 'rec') stopTalkRec(); else if (!talk.phase) startTalkRec(); }
   else if (a === 'talk-en') { const m = talk.msgs[+b.dataset.i]; m.showEn = !m.showEn; render(); }
@@ -1285,6 +1411,13 @@ document.addEventListener('submit', (e) => {
   auto();
 });
 document.addEventListener('keydown', (e) => {
+  if (tab === 'sounds' && snd && !snd.done) {
+    const btns = [...document.querySelectorAll('[data-act="snd-pick"]')];
+    if (!snd.pick && (e.key === '1' || e.key === '2')) { e.preventDefault(); const bt = btns[+e.key - 1]; if (bt) sndAnswer(bt.dataset.side); }
+    else if (snd.pick && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); sndNext(); }
+    else if (e.key === 'r') { e.preventDefault(); sndPlay(); }
+    return;
+  }
   if (!sess || sess.end || tab !== 'today' || !sess.shown || sess.res || cur().phase === 'learn') return;
   const g = { 1: 'miss', 2: 'slow', 3: 'good' }[e.key];
   if (g) { e.preventDefault(); grade(g); }
