@@ -194,7 +194,13 @@ function clean(r) {
     for (const k in r.cards) {
       const c = r.cards[k];
       if (/\.l$/.test(k)) continue; // listening cards were removed; drop their saved progress
-      if (c && typeof c.b === 'number' && typeof c.d === 'number') s.cards[k] = { b: c.b, d: c.d, n: c.n || 0 };
+      if (c && typeof c.b === 'number' && typeof c.d === 'number') {
+        s.cards[k] = { b: c.b, d: c.d, n: c.n || 0 };
+        const f = c.f;
+        if (f && typeof f.s === 'number' && typeof f.k === 'number' && typeof f.lr === 'number') {
+          s.cards[k].f = { s: f.s, k: f.k, st: f.st || 2, rp: f.rp || 0, ls: f.ls || 0, lr: f.lr };
+        }
+      }
     }
   }
   ['streak', 'last', 'newDay', 'newCount', 't'].forEach((k) => { if (typeof r[k] === 'number') s[k] = r[k]; });
@@ -604,11 +610,52 @@ function learned() {
   sess.q.splice(Math.min(sess.q.length, sess.i + 4), 0, { id, phase: 'test' }); // test 3 cards later
   touchDay(); save(); advance();
 }
+/* ---------- scheduling: FSRS ----------
+   Each card keeps the old ladder fields (b box, d due day, n attempts) so the app still works if the
+   FSRS library fails to load, and so a rollback to the old code loses nothing. FSRS adds f:
+   s stability (days), k difficulty (1-10), st state, rp reviews, ls lapses, lr last review (ms).
+   Days are whole local days, as everywhere else in the app. A miss stays due today and comes back in
+   the same session, as before; FSRS then sets the next interval from the card's memory history,
+   so a miss on a well-known card no longer sends it back to day one. Retention is set to 95% rather
+   than the usual 90% because these are timed speaking drills: the goal is instant recall, not just
+   eventual recall, so early intervals stay close to the old 1, 3, 7, 14 day ladder. */
+const FS = (() => {
+  try {
+    const L = window.FSRS;
+    return L ? { L, f: L.fsrs(L.generatorParameters({ request_retention: 0.95, maximum_interval: 180, enable_fuzz: true, enable_short_term: false })) } : null;
+  } catch { return null; }
+})();
+const DAY = 86400000;
+function dayOf(date) { return Math.floor((date.getTime() - date.getTimezoneOffset() * 60000) / DAY); }
+function fsrsCard(c, now) {
+  const { L, f } = FS;
+  if (c && c.f) {
+    return { ...L.createEmptyCard(now), due: now, stability: c.f.s, difficulty: c.f.k, state: c.f.st, reps: c.f.rp, lapses: c.f.ls, last_review: new Date(c.f.lr) };
+  }
+  // Progress from the old ladder: a card on box b was last passed about INT[b] days before it fell
+  // due, so treat that interval as its stability. Box 0 (new or just missed) starts fresh.
+  if (c && c.b > 0) {
+    const lr = Math.min(now.getTime(), now.getTime() - (today() - c.d + INT[c.b]) * DAY);
+    return { ...L.createEmptyCard(now), due: now, stability: INT[c.b], difficulty: 5, state: L.State.Review, reps: c.n || c.b, lapses: 0, last_review: new Date(lr) };
+  }
+  return L.createEmptyCard(now);
+}
+function fsrsNext(c, g, t) {
+  if (!FS) return null;
+  try {
+    const now = new Date();
+    const rating = { miss: FS.L.Rating.Again, slow: FS.L.Rating.Hard, good: FS.L.Rating.Good }[g];
+    const out = FS.f.next(fsrsCard(c, now), now, rating).card;
+    c.f = { s: +out.stability.toFixed(3), k: +out.difficulty.toFixed(3), st: out.state, rp: out.reps, ls: out.lapses, lr: now.getTime() };
+    return Math.max(t + 1, dayOf(out.due));
+  } catch (e) { console.error('FSRS scheduling failed', e); return null; }
+}
 function grade(g) {
   const id = cur().id;
   const t = today();
   let c = S.cards[id];
   if (!c) { c = { b: 0, d: t, n: 0 }; countNew(); }
+  const next = fsrsNext(c, g, t);
   c.n++;
   if (g === 'miss') {
     c.b = 0; c.d = t; sess.missed.add(id);
@@ -616,6 +663,7 @@ function grade(g) {
   } else {
     if (g === 'slow') { c.b = Math.max(1, c.b); c.d = t + 1; }
     else { c.b = Math.min(c.b + 1, 6); c.d = t + INT[c.b]; }
+    if (next != null) c.d = next;
     sess.done.add(id);
   }
   S.cards[id] = c;
@@ -1005,7 +1053,7 @@ function vGuide() {
 <li><b>Start session</b> on the Today screen. It mixes reviews that are due with a few new items.</li>
 <li><b>New line</b> cards: listen, then say the line. In Speaking mode the app checks it; if it doesn't match, listen again and have another go. Once it matches, the line plays twice more with a pause after each for you to repeat it, so you say every new line three times.</li>
 <li><b>Drill</b> cards: change a sentence (swap in a word, make it negative) or translate from English. Answer out loud before you check.</li>
-<li>Items you miss come back a few cards later. Items you know come back in 1, 3, 7, 14, 30 and 60 days.</li>
+<li>Items you miss come back a few cards later. Items you know come back later, timed to just before you would forget them: sooner for items you find hard, much later for ones you know well.</li>
 <li>Speed counts. In hands-free, a spoken answer is <b>automatic</b> if you start talking within about 1.5 seconds of the countdown ending (starting early is fine). When you tap the mic yourself, the allowance is about 3.5 seconds from the prompt, or 4.5 seconds when you have to read English first. Correct but slower answers come back tomorrow so they get faster.</li>
 </ol>
 ${chatOn ? `<h2>Talk</h2>
